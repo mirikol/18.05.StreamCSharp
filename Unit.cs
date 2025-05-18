@@ -1,32 +1,23 @@
-﻿
-public class Unit : IDamageable
+﻿public class Unit : IDamageable
 {
     public event Action HasDied;
 
-    private int _health;
-    public int Health => _health;
+    private UnitModel _model;
+    public UnitModel Model => _model;
 
-    private string _name;
-    public string Name => _name;
-
-    public int _initiative;
-    public int Initiative => _initiative;
-
-    public Unit(string name, int health, int initiative)
+    public Unit(UnitModel model)
     {
-        _name = name;
-        _health = health;
-        _initiative = initiative;
+        _model = model;
     }
 
     public void TakeDamage(int damage)
     {
-        _health -= damage;
-        Printer.Print($"{_name} health = {_health}", ConsoleColor.Yellow);
+        _model.Health -= damage;
+        Printer.Print($"{_model.Name} health = {_model.Health}", ConsoleColor.Yellow);
 
-        if (_health <= 0)
+        if (_model.Health <= 0)
         {
-            Printer.Print($"{_name} died", ConsoleColor.DarkRed);
+            Printer.Print($"{_model.Name} died", ConsoleColor.DarkRed);
             HasDied?.Invoke();
         }
 

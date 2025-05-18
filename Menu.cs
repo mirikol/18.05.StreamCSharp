@@ -22,8 +22,15 @@
 
     public int GetInput()
     {
-        int choose = int.Parse(Console.ReadLine());
-        return choose;
+        string input = Console.ReadLine();
+        if (int.TryParse(input, out int choose) && choose >= 1 && choose <= _selections.Length)
+        {
+            Console.WriteLine();
+            return choose;
+        }
+
+        Printer.Print("Некорректный выбор.", ConsoleColor.White);
+        return GetInput();
     }
 
     public void Select(int index)

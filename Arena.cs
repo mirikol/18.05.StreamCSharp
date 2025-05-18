@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 public class Arena
 {
@@ -8,11 +9,18 @@ public class Arena
     private List<Unit> _turnCycle = new List<Unit>();
     private List<Unit> _diedUnits = new List<Unit>();
 
+    private UnitModel[] _models = new UnitModel[3] {new UnitModel("Тимур", 10000, 3, 1),
+        new UnitModel("Григорий", 50, 2, 8),
+        new UnitModel("Михаил :)", 5000, 1, 5),
+        };
+
+    private int _turnIndex = 0;
+
     public void Start()
     {
-        _playerUnits.Add(new Unit("Тимур", 10000, 10));
-        _enemyUnits.Add(new Unit("Григорий", 50, 100));
-        _enemyUnits.Add(new Unit("Михаил :)", 5000, 0));
+        _playerUnits.Add(new Unit(_models[0]));
+        _enemyUnits.Add(new Unit(_models[1]));
+        _enemyUnits.Add(new Unit(_models[2]));
 
         _turnCycle = CreateTurnCycle(_playerUnits, _enemyUnits);
 
@@ -41,7 +49,7 @@ public class Arena
         WinLoseMessage(_playerUnits);
     }
 
-    private void PrintTurn(List<Unit> turnCycle, Unit turnedUnit, bool playerTurn)
+    private void PrintTurn(List<Unit> turnCycle, int turnIndex, bool playerTurn)
     {
         ConsoleColor color;
 
@@ -56,10 +64,10 @@ public class Arena
             Printer.Print("[ENEMY TURN]", color);
         }
 
-        foreach (var unit in turnCycle)
+        for (int i = 0; i < turnCycle.Count; i++)
         {
-            string unitName = unit.Name;
-            if (unit == turnedUnit)
+            string unitName = turnCycle[i].Model.Name;
+            if (i == turnIndex)
             {
                 unitName += " <<<";
             }
@@ -72,17 +80,69 @@ public class Arena
 
     private List<Unit> CreateTurnCycle(List<Unit> playerUnits, List<Unit> enemyUnits)
     {
-        List<Unit> units = new List<Unit>();
+        List<Unit> result = new List<Unit>();
+
+        List<Unit> sortedByInitiativeUnits = new List<Unit>();
+        List<(Unit, float)> unitsSpeed = new List<(Unit, float)>();
+
         foreach (Unit unit in playerUnits)
         {
-            units.Add(unit);
+            sortedByInitiativeUnits.Add(unit);
         }
         foreach (Unit unit in enemyUnits)
         {
-            units.Add(unit);
+            sortedByInitiativeUnits.Add(unit);
         }
 
-        return units.OrderByDescending(unit => unit.Initiative).ToList();
+        sortedByInitiativeUnits = sortedByInitiativeUnits.OrderByDescending(unit => unit.Model.Initiative).ToList();
+
+        foreach (Unit unit in sortedByInitiativeUnits)
+        {
+            float speed = unit.Model.Speed;
+
+            while (speed > 0)
+            {
+                unitsSpeed.Add((unit, speed));
+                speed -= (float)Math.Sqrt(unit.Model.Speed);
+            }
+        }
+
+        unitsSpeed = unitsSpeed.OrderByDescending(x => x.Item2).ToList();
+
+        foreach (Unit unit in sortedByInitiativeUnits)
+        {
+            if (!result.Contains(unit))
+            {
+                result.Add(unit);
+                unitsSpeed.Remove((unit, unit.Model.Speed));
+            }
+            while (unitsSpeed.Count > 0 && unitsSpeed[0].Item1 == unit)
+            {
+                result.Add(unit);
+                unitsSpeed.RemoveAt(0);
+            }
+        }
+
+        foreach (var unitPair in unitsSpeed)
+        {
+            int firstUnitIndex = 0;
+
+            foreach (var unit in result)
+            {
+                if (unit == unitPair.Item1)
+                {
+                    break;
+                }
+                firstUnitIndex++;
+            }
+
+            for (int i = firstUnitIndex; i < result.Count; i++)
+            {
+                if (unitPair.Item2 > result[i])
+            }
+        }
+
+        return result;
     }
 
     private void WinLoseMessage(List<Unit> playerUnits)
@@ -102,14 +162,14 @@ public class Arena
         if (diedAttackers.Contains(attacker))
             return;
 
-        PrintTurn(_turnCycle, attacker, playerTurn);
+        PrintTurn(_turnCycle, _turnIndex, playerTurn);
 
         List<string> selections = new List<string>();
         List<ICommand> commands = new List<ICommand>();
 
         foreach (var defender in defenders)
         {
-            selections.Add(defender.Name);
+            selections.Add(defender.Model.Name);
             commands.Add(new NullCommand());
         }
 
@@ -153,6 +213,12 @@ public class Arena
             Random random = new Random();
             selectAttack.Select(random.Next(1, selections.Count + 1));
         }
+
+        _turnIndex++;
+        if (_turnIndex >= _turnCycle.Count)
+        {
+            _turnIndex = 0;
+        }
     }
 
     private void UpdateDiedUnits(List<Unit> aliveUnits, List<Unit> diedUnits, List<Unit> turnCycle)
@@ -172,7 +238,7 @@ public class Arena
 
     private bool TryGetAlive(List<Unit> units, out Unit aliveUnit)
     {
-        aliveUnit = units.Find(unit => unit.Health > 0);
+        aliveUnit = units.Find(unit => unit.Model.Health > 0);
         return aliveUnit != null;
     }
 

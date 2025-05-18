@@ -16,7 +16,7 @@
     public void Execute()
     {
         Random random = new Random();
-        Printer.Print($"{_attacker.Name} атаковал {_defender.Name}", ConsoleColor.DarkRed);
+        Printer.Print($"{_attacker.Model.Name} атаковал {_defender.Model.Name}", ConsoleColor.DarkRed);
 
         if (_probability > random.NextDouble())
             _defender.TakeDamage(_damage);

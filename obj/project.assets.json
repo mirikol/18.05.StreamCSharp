@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Stream\\StreamConsoleGame\\StreamConsoleGame.csproj",
+      "projectUniqueName": "E:\\Stream\\StreamCSharp\\StreamConsoleGame.csproj",
       "projectName": "StreamConsoleGame",
-      "projectPath": "E:\\Stream\\StreamConsoleGame\\StreamConsoleGame.csproj",
+      "projectPath": "E:\\Stream\\StreamCSharp\\StreamConsoleGame.csproj",
       "packagesPath": "C:\\Users\\ffcon\\.nuget\\packages\\",
-      "outputPath": "E:\\Stream\\StreamConsoleGame\\obj\\",
+      "outputPath": "E:\\Stream\\StreamCSharp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
