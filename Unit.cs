@@ -2,6 +2,8 @@
 {
     public event Action HasDied;
 
+    public bool IsAlive => _model.Health > 0;
+
     private UnitModel _model;
     public UnitModel Model => _model;
 
