@@ -47,15 +47,15 @@
         selectEnemy.Select(enemyNumber);
 
         selections = new List<string> {
-                    $"Weak: {attacker.Model.Attack} damage (90%)",
-                    $"Medium: {(int)(attacker.Model.Attack * 1.25f)} damage (75%)",
-                    $"Strong: {(int)(attacker.Model.Attack * 2f)} damage (50%)"
+                    $"Weak: {50} damage (90%)",
+                    $"Medium: {(int)(50 * 1.25f)} damage (75%)",
+                    $"Strong: {(int)(50 * 2f)} damage (50%)"
                 };
 
         commands = new List<ICommand>() {
-                    new AttackCommand(attacker, defenders[enemyNumber - 1], attacker.Model.Attack, 90),
-                    new AttackCommand(attacker, defenders[enemyNumber - 1], (int)(attacker.Model.Attack * 1.25f), 75),
-                    new AttackCommand(attacker, defenders[enemyNumber - 1], (int)(attacker.Model.Attack * 2f), 50)
+                    new AttackCommand(attacker, defenders[enemyNumber - 1], 50, 90),
+                    new AttackCommand(attacker, defenders[enemyNumber - 1], (int)(50 * 1.25f), 75),
+                    new AttackCommand(attacker, defenders[enemyNumber - 1], (int)(50 * 2f), 50)
                 };
 
         var selectAttack = Menu.Create("Select attack", selections.ToArray(), commands.ToArray());

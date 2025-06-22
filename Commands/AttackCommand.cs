@@ -1,5 +1,7 @@
 ﻿public class AttackCommand : ICommand
 {
+    private const float _attackModifier = 0.6f;
+
     private Unit _attacker;
     private Unit _defender;
     private int _damage;
@@ -9,7 +11,7 @@
     {
         _attacker = attacker;
         _defender = defender;
-        _damage = damage;
+        _damage = (int)(damage * (1 + (_attacker.Model.Attack * _attackModifier) / (float)((_attacker.Model.Attack * _attackModifier) + _defender.Model.Defense)));
         _probability = probability / 100f;
     }
 

@@ -2,8 +2,16 @@
 {
     private static void Main()
     {
-        Logger.enabled = false;
-        Arena arena = new Arena();
-        arena.Start();
+        try
+        {
+            Logger.enabled = true;
+            Arena arena = new Arena();
+            arena.Start();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex.ToString());
+            return;
+        }
     }
 }

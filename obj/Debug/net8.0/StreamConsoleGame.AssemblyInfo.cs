@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StreamConsoleGame")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8d8b7f8097160f2598ed8715191a9ef7dc7e7ac6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03cbd2c43acda79a308f90c8daf843873692bd9b")]
 [assembly: System.Reflection.AssemblyProductAttribute("StreamConsoleGame")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StreamConsoleGame")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

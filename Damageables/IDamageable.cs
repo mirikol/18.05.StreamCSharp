@@ -1,5 +1,5 @@
 ﻿public interface IDamageable
 {
-    public event Action HasDied;
+    public event Action HealthBelowZero;
     public void TakeDamage(int damage);
 }

@@ -9,9 +9,9 @@
 
     private TurnController _turnController;
 
-    private UnitModel[] _models = new UnitModel[3] {new UnitModel("Тимур", 10000, 1, 40, 500, 0),
-        new UnitModel("Григорий", 50, 3, 10, 150, 0),
-        new UnitModel("Михаил :)", 5000, 2, 20, 1000, 0),
+    private UnitModel[] _models = new UnitModel[3] {new UnitModel("Тимур", 1000, 1, 40, 10, 1),
+        new UnitModel("Григорий", 50, 3, 10, 50, 10),
+        new UnitModel("Михаил :)", 500, 2, 20, 1, 100),
         };
 
     public void Start()
@@ -75,7 +75,7 @@
     private void SubscribeToDeleteOnDeath(List<Unit> units, List<Unit> unitsToDelete)
     {
         foreach (var unit in units)
-            unit.HasDied += () => unitsToDelete.Add(unit);
+            unit.HealthBelowZero += () => unitsToDelete.Add(unit);
     }
 
     private bool TryGetAlive(List<Unit> units, out Unit aliveUnit)

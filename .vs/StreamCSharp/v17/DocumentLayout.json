@@ -40,7 +40,7 @@
               "RelativeDocumentMoniker": "Unit.cs",
               "ToolTip": "E:\\Stream\\StreamCSharp\\Unit.cs",
               "RelativeToolTip": "Unit.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAowBkAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-18T15:13:57.196Z",
               "EditorCaption": ""
@@ -79,7 +79,8 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T12:19:37.405Z"
+              "WhenOpened": "2025-05-18T12:19:37.405Z",
+              "EditorCaption": ""
             }
           ]
         }
