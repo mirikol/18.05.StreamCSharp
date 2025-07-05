@@ -2,6 +2,7 @@
 public abstract class BodyPart : IDamageable
 {
     public event Action HealthBelowZero;
+    public event Action HasDamaged;
 
     public IReadOnlyCollection<IEquipment> Equipment => _equipment;
     private List<IEquipment> _equipment;
@@ -23,8 +24,10 @@ public abstract class BodyPart : IDamageable
         {
             Printer.Print($"{GetType().Name} disabled", ConsoleColor.DarkRed);
             HealthBelowZero?.Invoke();
+            Health = 0;
         }
 
+        HasDamaged?.Invoke();
         Console.WriteLine();
     }
 

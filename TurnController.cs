@@ -45,6 +45,32 @@
         }
 
         selectEnemy.Select(enemyNumber);
+        var enemy = defenders.Find(unit => unit.Model.Name == selections[enemyNumber - 1]);
+
+        selections = Enum.GetNames(typeof(BodyPartName)).ToList();
+
+        commands = new List<ICommand>();
+        foreach (var selection in selections)
+        {
+            commands.Add(new NullCommand());
+        }
+
+        var selectBodyPart = Menu.Create("Select body part", selections.ToArray(), commands.ToArray());
+        int selectedBodyPartIndex;
+
+        if (playerTurn)
+        {
+            selectBodyPart.Show();
+            selectedBodyPartIndex = selectBodyPart.GetInput();
+        }
+        else
+        {
+            Random random = new Random();
+            selectedBodyPartIndex = random.Next(1, selections.Count() + 1);
+        }
+
+        selectBodyPart.Select(selectedBodyPartIndex);
+        BodyPartName bodyPart = (BodyPartName)Enum.Parse(typeof(BodyPartName), selections[selectedBodyPartIndex - 1]);
 
         selections = new List<string> {
                     $"Weak: {50} damage (90%)",
@@ -53,9 +79,9 @@
                 };
 
         commands = new List<ICommand>() {
-                    new AttackCommand(attacker, defenders[enemyNumber - 1], 50, 90),
-                    new AttackCommand(attacker, defenders[enemyNumber - 1], (int)(50 * 1.25f), 75),
-                    new AttackCommand(attacker, defenders[enemyNumber - 1], (int)(50 * 2f), 50)
+                    new AttackCommand(attacker, enemy, bodyPart,  50, 90),
+                    new AttackCommand(attacker, enemy, bodyPart, (int)(50 * 1.25f), 75),
+                    new AttackCommand(attacker, enemy, bodyPart, (int)(50 * 2f), 50)
                 };
 
         var selectAttack = Menu.Create("Select attack", selections.ToArray(), commands.ToArray());

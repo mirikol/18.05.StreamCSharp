@@ -3,52 +3,16 @@
   "WorkspaceRootPath": "E:\\Stream\\StreamCSharp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\damageables\\unit\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:damageables\\unit\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\damageables\\unit\\unitmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:damageables\\unit\\unitmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\engine\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:engine\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\arena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:arena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\damageables\\unit\\bodypart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:damageables\\unit\\bodypart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\commands\\attackcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:commands\\attackcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\damageables\\idamageable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:damageables\\idamageable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\commands\\nullcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:commands\\nullcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\turncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:turncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\tools\\printer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:tools\\printer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\tools\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:tools\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\engine\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:engine\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,167 +22,53 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 2,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "BodyPart.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Damageables\\Unit\\BodyPart.cs",
-              "RelativeDocumentMoniker": "Damageables\\Unit\\BodyPart.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Damageables\\Unit\\BodyPart.cs",
-              "RelativeToolTip": "Damageables\\Unit\\BodyPart.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T16:06:43.439Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "NullCommand.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Commands\\NullCommand.cs",
-              "RelativeDocumentMoniker": "Commands\\NullCommand.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Commands\\NullCommand.cs",
-              "RelativeToolTip": "Commands\\NullCommand.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T15:08:46.874Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "TurnController.cs",
               "DocumentMoniker": "E:\\Stream\\StreamCSharp\\TurnController.cs",
               "RelativeDocumentMoniker": "TurnController.cs",
               "ToolTip": "E:\\Stream\\StreamCSharp\\TurnController.cs",
               "RelativeToolTip": "TurnController.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAwwDIAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-08T15:54:48.819Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Menu.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Engine\\Menu.cs",
-              "RelativeDocumentMoniker": "Engine\\Menu.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Engine\\Menu.cs",
-              "RelativeToolTip": "Engine\\Menu.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAowCYAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-08T15:05:22.371Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Printer.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Tools\\Printer.cs",
-              "RelativeDocumentMoniker": "Tools\\Printer.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Tools\\Printer.cs",
-              "RelativeToolTip": "Tools\\Printer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-08T14:36:24.263Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-08T13:52:46.113Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AttackCommand.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Commands\\AttackCommand.cs",
-              "RelativeDocumentMoniker": "Commands\\AttackCommand.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Commands\\AttackCommand.cs",
-              "RelativeToolTip": "Commands\\AttackCommand.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBcAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:28:32.134Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IDamageable.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Damageables\\IDamageable.cs",
-              "RelativeDocumentMoniker": "Damageables\\IDamageable.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Damageables\\IDamageable.cs",
-              "RelativeToolTip": "Damageables\\IDamageable.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:27:00.224Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Arena.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Arena.cs",
-              "RelativeDocumentMoniker": "Arena.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Arena.cs",
-              "RelativeToolTip": "Arena.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAQwBQAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:20:01.057Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UnitModel.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Damageables\\Unit\\UnitModel.cs",
-              "RelativeDocumentMoniker": "Damageables\\Unit\\UnitModel.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Damageables\\Unit\\UnitModel.cs",
-              "RelativeToolTip": "Damageables\\Unit\\UnitModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAvAAAAAAAAAA==",
+              "Title": "Arena.cs",
+              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Arena.cs",
+              "RelativeDocumentMoniker": "Arena.cs",
+              "ToolTip": "E:\\Stream\\StreamCSharp\\Arena.cs",
+              "RelativeToolTip": "Arena.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAjwCwAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:18:46.076Z",
+              "WhenOpened": "2025-07-05T16:09:52.984Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Unit.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Damageables\\Unit\\Unit.cs",
-              "RelativeDocumentMoniker": "Damageables\\Unit\\Unit.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Damageables\\Unit\\Unit.cs",
-              "RelativeToolTip": "Damageables\\Unit\\Unit.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAQwAoAAAAAAAAAAAAAAA==",
+              "Title": "Menu.cs",
+              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Engine\\Menu.cs",
+              "RelativeDocumentMoniker": "Engine\\Menu.cs",
+              "ToolTip": "E:\\Stream\\StreamCSharp\\Engine\\Menu.cs",
+              "RelativeToolTip": "Engine\\Menu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:17:53.831Z",
+              "WhenOpened": "2025-07-05T15:51:27.195Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Logger.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Tools\\Logger.cs",
-              "RelativeDocumentMoniker": "Tools\\Logger.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Tools\\Logger.cs",
-              "RelativeToolTip": "Tools\\Logger.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-08T15:52:39.887Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             }
           ]
         }
