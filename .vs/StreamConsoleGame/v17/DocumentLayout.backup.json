@@ -1,26 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\Stream\\StreamCSharp\\",
+  "WorkspaceRootPath": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\arena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\arena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:arena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\unitmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\unitmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:unitmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\commands\\attackcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\commands\\attackcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:commands\\attackcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\idamageable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:idamageable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\idamageable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:idamageable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,76 +34,96 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "Logger.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Logger.cs",
+              "RelativeDocumentMoniker": "Logger.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Logger.cs",
+              "RelativeToolTip": "Logger.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-22T18:01:13.037Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "AttackCommand.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Commands\\AttackCommand.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Commands\\AttackCommand.cs",
               "RelativeDocumentMoniker": "Commands\\AttackCommand.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Commands\\AttackCommand.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Commands\\AttackCommand.cs",
               "RelativeToolTip": "Commands\\AttackCommand.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:28:32.134Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-18T15:28:32.134Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "IDamageable.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\IDamageable.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\IDamageable.cs",
               "RelativeDocumentMoniker": "IDamageable.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\IDamageable.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\IDamageable.cs",
               "RelativeToolTip": "IDamageable.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:27:00.224Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-18T15:27:00.224Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Arena.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Arena.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Arena.cs",
               "RelativeDocumentMoniker": "Arena.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Arena.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Arena.cs",
               "RelativeToolTip": "Arena.cs",
-              "ViewState": "AgIAAHYAAAAAAAAAAAAowIwAAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwIwAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-18T15:20:01.057Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "UnitModel.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\UnitModel.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\UnitModel.cs",
               "RelativeDocumentMoniker": "UnitModel.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\UnitModel.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\UnitModel.cs",
               "RelativeToolTip": "UnitModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:18:46.076Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-18T15:18:46.076Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Unit.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Unit.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Unit.cs",
               "RelativeDocumentMoniker": "Unit.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Unit.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Unit.cs",
               "RelativeToolTip": "Unit.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:17:53.831Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-18T15:17:53.831Z"
             }
           ]
         }
