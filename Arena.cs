@@ -75,7 +75,12 @@
     private void SubscribeToDeleteOnDeath(List<Unit> units, List<Unit> unitsToDelete)
     {
         foreach (var unit in units)
-            unit.HealthBelowZero += () => unitsToDelete.Add(unit);
+            unit.HealthBelowZero += () =>
+            {
+                unitsToDelete.Add(unit);
+                UpdateDiedUnits(_playerUnits, _diedUnits);
+                UpdateDiedUnits(_enemyUnits, _diedUnits);
+            };
     }
 
     private bool TryGetAlive(List<Unit> units, out Unit aliveUnit)

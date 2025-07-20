@@ -1,29 +1,22 @@
 ﻿public class Menu
 {
+    public int BindingsCount => _bindings.Length;
+
     private string _name;
-    private string[] _selections;
-    public ICommand[] _commands;
+    private CommandBinding[] _bindings;
 
-    public static Menu Create(string name, string[] selections, ICommand[] commands)
-    {
-        return new Menu(name, selections, commands);
-    }
-
-    public Menu(string name, string[] selections, ICommand[] commands)
+    public Menu(string name, CommandBinding[] bindings)
     {
         _name = name;
 
-        _selections = new string[selections.Length];
-        Array.Copy(selections, _selections, selections.Length);
-
-        _commands = new ICommand[commands.Length];
-        Array.Copy(commands, _commands, commands.Length);
+        _bindings = new CommandBinding[bindings.Length];
+        Array.Copy(bindings, _bindings, bindings.Length);
     }
 
     public int GetInput()
     {
         string input = Console.ReadLine();
-        if (int.TryParse(input, out int choose) && choose >= 1 && choose <= _selections.Length)
+        if (int.TryParse(input, out int choose) && choose >= 1 && choose <= _bindings.Length)
         {
             Console.WriteLine();
             return choose;
@@ -35,15 +28,15 @@
 
     public void Select(int index)
     {
-        _commands[index - 1].Execute();
+        _bindings[index - 1].Command.Execute();
     }
 
     public void Show()
     {
         Printer.Print($"====={_name}=====", ConsoleColor.White);
-        for (int i = 0; i < _selections.Length; i++)
+        for (int i = 0; i < _bindings.Length; i++)
         {
-            Printer.Print($"{i+1}) {_selections[i]}", ConsoleColor.White);
+            Printer.Print($"{i+1}) {_bindings[i].Label}", ConsoleColor.White);
         }
     }
 }

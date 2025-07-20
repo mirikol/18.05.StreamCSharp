@@ -1,9 +1,12 @@
-﻿public class TurnController
-{
-    private List<Unit> _turnCycle = new List<Unit>();
-    public IReadOnlyList<Unit> TurnCycle => _turnCycle;
+﻿using System;
 
-    private int _turnIndex = 0;
+public class TurnController
+{
+    public Unit[] TurnCycle => _turnCycle.ToArray();
+    private List<Unit> _turnCycle = new List<Unit>();
+
+    private Unit _previousUnit = null;
+    private int _oneUnitTurnIndex = 0;
 
     public TurnController(Arena arena, List<Unit> playerUnits, List<Unit> enemyUnits)
     {
@@ -13,100 +16,88 @@
 
     public void Turn(Unit attacker, List<Unit> defenders, bool playerTurn)
     {
-        if (!attacker.IsAlive)
-            return;
+        Print(attacker, playerTurn);
 
-        Print(_turnIndex, playerTurn);
-
-        List<string> selections = new List<string>();
-        List<ICommand> commands = new List<ICommand>();
-
-        foreach (var defender in defenders)
-        {
-            if (!defender.IsAlive)
-            {
-                continue;
-            }
-            selections.Add(defender.Model.Name);
-            commands.Add(new NullCommand());
-        }
-
-        var selectEnemy = Menu.Create("Select enemy", selections.ToArray(), commands.ToArray());
-        int enemyNumber;
-        if (playerTurn)
-        {
-            selectEnemy.Show();
-            enemyNumber = selectEnemy.GetInput();
-        }
-        else
-        {
-            Random random = new Random();
-            enemyNumber = random.Next(1, defenders.Count() + 1);
-        }
-
-        selectEnemy.Select(enemyNumber);
-        var enemy = defenders.Find(unit => unit.Model.Name == selections[enemyNumber - 1]);
-
-        selections = Enum.GetNames(typeof(BodyPartName)).ToList();
-
-        commands = new List<ICommand>();
-        foreach (var selection in selections)
-        {
-            commands.Add(new NullCommand());
-        }
-
-        var selectBodyPart = Menu.Create("Select body part", selections.ToArray(), commands.ToArray());
-        int selectedBodyPartIndex;
-
-        if (playerTurn)
-        {
-            selectBodyPart.Show();
-            selectedBodyPartIndex = selectBodyPart.GetInput();
-        }
-        else
-        {
-            Random random = new Random();
-            selectedBodyPartIndex = random.Next(1, selections.Count() + 1);
-        }
-
-        selectBodyPart.Select(selectedBodyPartIndex);
-        BodyPartName bodyPart = (BodyPartName)Enum.Parse(typeof(BodyPartName), selections[selectedBodyPartIndex - 1]);
-
-        selections = new List<string> {
-                    $"Weak: {50} damage (90%)",
-                    $"Medium: {(int)(50 * 1.25f)} damage (75%)",
-                    $"Strong: {(int)(50 * 2f)} damage (50%)"
-                };
-
-        commands = new List<ICommand>() {
-                    new AttackCommand(attacker, enemy, bodyPart,  50, 90),
-                    new AttackCommand(attacker, enemy, bodyPart, (int)(50 * 1.25f), 75),
-                    new AttackCommand(attacker, enemy, bodyPart, (int)(50 * 2f), 50)
-                };
-
-        var selectAttack = Menu.Create("Select attack", selections.ToArray(), commands.ToArray());
-
-        if (playerTurn)
-        {
-            selectAttack.Show();
-            selectAttack.Select(selectAttack.GetInput());
-        }
-        else
-        {
-            Random random = new Random();
-            selectAttack.Select(random.Next(1, selections.Count + 1));
-        }
-
-        _turnIndex++;
-        if (_turnIndex >= _turnCycle.Count)
-        {
-            _turnIndex = 0;
-        }
+        Unit enemy = SelectEnemy(defenders, playerTurn);
+        BodyPartName bodyPart = SelectBodyPart(playerTurn);
+        int attackIndex = SelectAttack(attacker, enemy, bodyPart, playerTurn);
     }
 
-    private void Print(int turnIndex, bool playerTurn)
+    private Unit SelectEnemy(List<Unit> defenders, bool playerTurn)
     {
+        List<CommandBinding> bindings = new List<CommandBinding>();
+        foreach (var defender in defenders)
+        {
+            CommandBinding binding = new CommandBinding(defender.Model.Name, new NullCommand());
+            bindings.Add(binding);
+        }
+        int selectedEnemyIndex = GetMenuChoice("Select enemy", bindings, playerTurn);
+        var enemy = defenders[selectedEnemyIndex];
+
+        return enemy;
+    }
+
+    private BodyPartName SelectBodyPart(bool playerTurn)
+    {
+        List<CommandBinding> bindings = new List<CommandBinding>();
+        var bodyPartNames = Enum.GetNames(typeof(BodyPartName));
+        foreach (var bodyPartName in bodyPartNames)
+        {
+            CommandBinding binding = new CommandBinding(bodyPartName, new NullCommand());
+            bindings.Add(binding);
+        }
+        int selectedBodyPartIndex = GetMenuChoice("Select body part", bindings, playerTurn);
+        BodyPartName bodyPart = (BodyPartName)Enum.Parse(typeof(BodyPartName), bodyPartNames[selectedBodyPartIndex]);
+
+        return bodyPart;
+    }
+
+    private int SelectAttack(Unit attacker, Unit enemy, BodyPartName bodyPart, bool playerTurn)
+    {
+        List<CommandBinding> bindings =
+        [
+            new CommandBinding($"Weak: {50} damage (90%)", new AttackCommand(attacker, enemy, bodyPart, 50, 90)),
+            new CommandBinding($"Medium: {(int)(50 * 1.25f)} damage (75%)", new AttackCommand(attacker, enemy, bodyPart, (int)(50 * 1.25f), 75)),
+            new CommandBinding($"Strong: {(int)(50 * 2f)} damage (50%)", new AttackCommand(attacker, enemy, bodyPart, (int)(50 * 2f), 50)),
+        ];
+        int selectedAttackIndex = GetMenuChoice("Select attack", bindings, playerTurn);
+
+        return selectedAttackIndex;
+    }
+
+    private int GetMenuChoice(string menuName, List<CommandBinding> bindings, bool playerTurn)
+    {
+        var menu = new Menu(menuName, bindings.ToArray());
+
+        int selectIndex;
+        if (playerTurn)
+        {
+            menu.Show();
+            selectIndex = menu.GetInput();
+        }
+        else
+        {
+            Random random = new Random();
+            selectIndex = random.Next(1, menu.BindingsCount + 1);
+        }
+        menu.Select(selectIndex);
+
+        return selectIndex - 1;
+    }
+
+    private void Print(Unit turnUnit, bool playerTurn)
+    {
+        bool turnUnitSelected = false;
         ConsoleColor color;
+
+        if (turnUnit == _previousUnit)
+        {
+            _oneUnitTurnIndex++;
+        }
+        else
+        {
+            _oneUnitTurnIndex = 0;
+        }
 
         if (playerTurn)
         {
@@ -127,14 +118,26 @@
             }
 
             string unitName = _turnCycle[i].Model.Name;
-            if (i == turnIndex)
+            if (turnUnit == _turnCycle[i])
             {
-                unitName += " <<<";
+                if (_oneUnitTurnIndex == 0)
+                {
+                    if (!turnUnitSelected)
+                    {
+                        unitName += " <<<";
+                        turnUnitSelected = true;
+                    }
+                }
+                else
+                {
+                    _oneUnitTurnIndex--;
+                }
             }
 
             Printer.Print(unitName, color);
         }
 
+        _previousUnit = turnUnit;
         Console.WriteLine();
     }
 
