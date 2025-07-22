@@ -1,30 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\Stream\\StreamCSharp\\",
+  "WorkspaceRootPath": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\turncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\turncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:turncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\commands\\attackcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:commands\\attackcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\engine\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\engine\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:engine\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\arena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:arena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\damageables\\unit\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:damageables\\unit\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\damageables\\unit\\bodypart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\damageables\\unit\\bodypart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:damageables\\unit\\bodypart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\damageables\\unit\\bodypartname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:damageables\\unit\\bodypartname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\arena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:arena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,89 +30,87 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Arena.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Arena.cs",
-              "RelativeDocumentMoniker": "Arena.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Arena.cs",
-              "RelativeToolTip": "Arena.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAjwCQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-05T16:09:52.984Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Menu.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Engine\\Menu.cs",
-              "RelativeDocumentMoniker": "Engine\\Menu.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Engine\\Menu.cs",
-              "RelativeToolTip": "Engine\\Menu.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAtwCYAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-05T15:51:27.195Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "BodyPart.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Damageables\\Unit\\BodyPart.cs",
-              "RelativeDocumentMoniker": "Damageables\\Unit\\BodyPart.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Damageables\\Unit\\BodyPart.cs",
-              "RelativeToolTip": "Damageables\\Unit\\BodyPart.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAtwB8AAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-05T15:27:04.915Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "TurnController.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\TurnController.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\TurnController.cs",
               "RelativeDocumentMoniker": "TurnController.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\TurnController.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\TurnController.cs",
               "RelativeToolTip": "TurnController.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAIwFMAAABUAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-08T15:54:48.819Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AttackCommand.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Commands\\AttackCommand.cs",
-              "RelativeDocumentMoniker": "Commands\\AttackCommand.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Commands\\AttackCommand.cs",
-              "RelativeToolTip": "Commands\\AttackCommand.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:28:32.134Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Unit.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Damageables\\Unit\\Unit.cs",
-              "RelativeDocumentMoniker": "Damageables\\Unit\\Unit.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Damageables\\Unit\\Unit.cs",
-              "RelativeToolTip": "Damageables\\Unit\\Unit.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAlwEkAAAAmAAAAAAAAAA==",
+              "Title": "Arena.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Arena.cs",
+              "RelativeDocumentMoniker": "Arena.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Arena.cs",
+              "RelativeToolTip": "Arena.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAowCwAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T15:17:53.831Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-05T16:09:52.984Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Menu.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Engine\\Menu.cs",
+              "RelativeDocumentMoniker": "Engine\\Menu.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Engine\\Menu.cs",
+              "RelativeToolTip": "Engine\\Menu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T15:51:27.195Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BodyPart.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Damageables\\Unit\\BodyPart.cs",
+              "RelativeDocumentMoniker": "Damageables\\Unit\\BodyPart.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Damageables\\Unit\\BodyPart.cs",
+              "RelativeToolTip": "Damageables\\Unit\\BodyPart.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T06:45:04.8Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BodyPartName.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Damageables\\Unit\\BodyPartName.cs",
+              "RelativeDocumentMoniker": "Damageables\\Unit\\BodyPartName.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Damageables\\Unit\\BodyPartName.cs",
+              "RelativeToolTip": "Damageables\\Unit\\BodyPartName.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T06:45:01.928Z"
             }
           ]
         }

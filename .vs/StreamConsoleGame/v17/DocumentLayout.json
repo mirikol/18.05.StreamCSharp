@@ -1,18 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\Stream\\StreamCSharp\\",
+  "WorkspaceRootPath": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\engine\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\turncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:turncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\damageables\\unit\\bodypartname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:damageables\\unit\\bodypartname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\damageables\\unit\\bodypart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:damageables\\unit\\bodypart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\engine\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:engine\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\arena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|c:\\users\\\u043A\u0438\u0440\u0438\u043B\\myfork\\18.05.streamcsharp\\arena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:arena.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|e:\\stream\\streamcsharp\\turncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9708D7FF-6AEE-4E55-8079-16A1C03AA70C}|StreamConsoleGame.csproj|solutionrelative:turncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,17 +30,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "TurnController.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\TurnController.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\TurnController.cs",
               "RelativeDocumentMoniker": "TurnController.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\TurnController.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\TurnController.cs",
               "RelativeToolTip": "TurnController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAJQAAAAAAAAAAAAcwKYAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-08T15:54:48.819Z",
               "IsPinned": true,
@@ -40,27 +48,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Arena.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Arena.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Arena.cs",
               "RelativeDocumentMoniker": "Arena.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Arena.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Arena.cs",
               "RelativeToolTip": "Arena.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAjwCwAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAowCwAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-05T16:09:52.984Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Menu.cs",
-              "DocumentMoniker": "E:\\Stream\\StreamCSharp\\Engine\\Menu.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Engine\\Menu.cs",
               "RelativeDocumentMoniker": "Engine\\Menu.cs",
-              "ToolTip": "E:\\Stream\\StreamCSharp\\Engine\\Menu.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Engine\\Menu.cs",
               "RelativeToolTip": "Engine\\Menu.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBMAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-05T15:51:27.195Z",
               "IsPinned": true,
@@ -69,6 +76,44 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BodyPart.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Damageables\\Unit\\BodyPart.cs",
+              "RelativeDocumentMoniker": "Damageables\\Unit\\BodyPart.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Damageables\\Unit\\BodyPart.cs",
+              "RelativeToolTip": "Damageables\\Unit\\BodyPart.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T06:45:04.8Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BodyPartName.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Damageables\\Unit\\BodyPartName.cs",
+              "RelativeDocumentMoniker": "Damageables\\Unit\\BodyPartName.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0438\u0440\u0438\u043B\\MyFork\\18.05.StreamCSharp\\Damageables\\Unit\\BodyPartName.cs",
+              "RelativeToolTip": "Damageables\\Unit\\BodyPartName.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T06:45:01.928Z",
+              "EditorCaption": ""
             }
           ]
         }
