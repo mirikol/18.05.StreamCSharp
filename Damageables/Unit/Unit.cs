@@ -32,6 +32,55 @@
     private Dictionary<BodyPartName, BodyPart> _bodyParts = new Dictionary<BodyPartName, BodyPart>();
     public IReadOnlyDictionary<BodyPartName, BodyPart> BodyParts => _bodyParts;
 
+    public int BaseDamage
+    {
+        get
+        {
+            int baseDamage = 0;
+            var equipment = BodyParts[BodyPartName.RightArm].Equipment;
+            if (equipment.Count > 0 && BodyParts[BodyPartName.RightArm].Health > 0)
+            {
+                baseDamage += equipment.First().BaseDamage;
+            }
+
+            return baseDamage;
+        }
+    }
+
+    public int Attack
+    {
+        get
+        {
+            int attack = Model.Attack;
+            foreach (var bodyPart in BodyParts.Values)
+            {
+                foreach (var equipment in bodyPart.Equipment)
+                {
+                    attack += equipment.Attack;
+                }
+            }
+
+            return attack;
+        }
+    }
+
+    public int Defense
+    {
+        get
+        {
+            int defense = Model.Defense;
+            foreach (var bodyPart in BodyParts.Values)
+            {
+                foreach (var equipment in bodyPart.Equipment)
+                {
+                    defense += equipment.Defense;
+                }
+            }
+
+            return defense;
+        }
+    }
+
     public Unit(UnitModel model)
     {
         _model = model;

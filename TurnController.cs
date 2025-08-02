@@ -1,17 +1,21 @@
-﻿using System;
-
-public class TurnController
+﻿public class TurnController
 {
+    private const ConsoleColor _playerColor = ConsoleColor.Green;
+    private const ConsoleColor _enemyColor = ConsoleColor.DarkCyan;
+
     public Unit[] TurnCycle => _turnCycle.ToArray();
     private List<Unit> _turnCycle = new List<Unit>();
 
     private Unit _previousUnit = null;
     private int _oneUnitTurnIndex = 0;
 
-    public TurnController(Arena arena, List<Unit> playerUnits, List<Unit> enemyUnits)
+    public TurnController(List<Unit> playerUnits, List<Unit> enemyUnits)
     {
-        arena.UnitHasDied += DeleteFromTurnCycle;
         CreateTurnCycle(playerUnits, enemyUnits);
+        foreach (var unit in _turnCycle)
+        {
+            unit.HealthBelowZero += () => DeleteFromTurnCycle(unit);
+        }
     }
 
     public void Turn(Unit attacker, List<Unit> defenders, bool playerTurn)
@@ -52,13 +56,13 @@ public class TurnController
         return bodyPart;
     }
 
-    private int SelectAttack(Unit attacker, Unit enemy, BodyPartName bodyPart, bool playerTurn)
+    private int SelectAttack(Unit attacker, Unit defender, BodyPartName bodyPart, bool playerTurn)
     {
         List<CommandBinding> bindings =
         [
-            new CommandBinding($"Weak: {50} damage (90%)", new AttackCommand(attacker, enemy, bodyPart, 50, 90)),
-            new CommandBinding($"Medium: {(int)(50 * 1.25f)} damage (75%)", new AttackCommand(attacker, enemy, bodyPart, (int)(50 * 1.25f), 75)),
-            new CommandBinding($"Strong: {(int)(50 * 2f)} damage (50%)", new AttackCommand(attacker, enemy, bodyPart, (int)(50 * 2f), 50)),
+            new CommandBinding($"Weak: {UnitUntility.GetFlatDamage(attacker.BaseDamage, attacker, defender)} damage (90%)", new AttackCommand(attacker, defender, bodyPart, UnitUntility.GetFlatDamage(attacker.BaseDamage, attacker, defender), 90)),
+            new CommandBinding($"Medium: {UnitUntility.GetFlatDamage((int)(attacker.BaseDamage * 1.25f), attacker, defender)} damage (75%)", new AttackCommand(attacker, defender, bodyPart, UnitUntility.GetFlatDamage((int)(attacker.BaseDamage * 1.25f), attacker, defender), 75)),
+            new CommandBinding($"Strong: {UnitUntility.GetFlatDamage((int)(attacker.BaseDamage * 2f), attacker, defender)} damage (50%)", new AttackCommand(attacker, defender, bodyPart, UnitUntility.GetFlatDamage((int)(attacker.BaseDamage * 2f), attacker, defender), 50)),
         ];
         int selectedAttackIndex = GetMenuChoice("Select attack", bindings, playerTurn);
 
@@ -87,36 +91,22 @@ public class TurnController
 
     private void Print(Unit turnUnit, bool playerTurn)
     {
+        var color = GetPrintColor(playerTurn);
+
+        CheckUnitRepeat(turnUnit);
+        PrintTurnTitle(playerTurn, color);
+        PrintUnits(turnUnit, color);
+
+        Console.WriteLine();
+    }
+
+    private void PrintUnits(Unit turnUnit, ConsoleColor color)
+    {
+        int index = _oneUnitTurnIndex;
         bool turnUnitSelected = false;
-        ConsoleColor color;
-
-        if (turnUnit == _previousUnit)
-        {
-            _oneUnitTurnIndex++;
-        }
-        else
-        {
-            _oneUnitTurnIndex = 0;
-        }
-
-        if (playerTurn)
-        {
-            color = ConsoleColor.Green;
-            Printer.Print("[YOUR TURN]", color);
-        }
-        else
-        {
-            color = ConsoleColor.DarkCyan;
-            Printer.Print("[ENEMY TURN]", color);
-        }
 
         for (int i = 0; i < _turnCycle.Count; i++)
         {
-            if (!_turnCycle[i].IsAlive)
-            {
-                continue;
-            }
-
             string unitName = _turnCycle[i].Model.Name;
             if (turnUnit == _turnCycle[i])
             {
@@ -138,7 +128,47 @@ public class TurnController
         }
 
         _previousUnit = turnUnit;
-        Console.WriteLine();
+        _oneUnitTurnIndex = index;
+    }
+
+    private ConsoleColor GetPrintColor(bool playerTurn)
+    {
+        if (playerTurn)
+        {
+            return _playerColor;
+        }
+        else
+        {
+            return _enemyColor;
+        }
+
+    }
+
+    private void PrintTurnTitle(bool playerTurn, ConsoleColor color)
+    {
+        if (playerTurn)
+        {
+            Printer.Print("[YOUR TURN]", color);
+        }
+        else
+        {
+            Printer.Print("[ENEMY TURN]", color);
+        }
+    }
+
+    private bool CheckUnitRepeat(Unit checkUnit)
+    {
+        bool unitHasRepeat = checkUnit == _previousUnit;
+        if (unitHasRepeat)
+        {
+            _oneUnitTurnIndex++;
+        }
+        else
+        {
+            _oneUnitTurnIndex = 0;
+        }
+
+        return unitHasRepeat;
     }
 
     private void CreateTurnCycle(List<Unit> playerUnits, List<Unit> enemyUnits)

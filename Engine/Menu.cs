@@ -15,8 +15,8 @@
 
     public int GetInput()
     {
-        string input = Console.ReadLine();
-        if (int.TryParse(input, out int choose) && choose >= 1 && choose <= _bindings.Length)
+        string? input = Console.ReadLine();
+        if (input != null && int.TryParse(input, out int choose) && choose >= 1 && choose <= _bindings.Length)
         {
             Console.WriteLine();
             return choose;

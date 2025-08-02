@@ -1,11 +1,7 @@
 ﻿public class Arena
 {
-    public event Action<Unit> UnitHasDied;
-
     private List<Unit> _playerUnits = new List<Unit>();
     private List<Unit> _enemyUnits = new List<Unit>();
-
-    private List<Unit> _diedUnits = new List<Unit>();
 
     private TurnController _turnController;
 
@@ -16,22 +12,27 @@
 
     public void Start()
     {
-        _playerUnits.Add(new Unit(_models[0]));
+        var player = new Unit(_models[0]);
+        player.BodyParts[BodyPartName.RightArm].Equip([new Sword(0, 0, 100)]);
+        _playerUnits.Add(player);
+
         _enemyUnits.Add(new Unit(_models[1]));
         _enemyUnits.Add(new Unit(_models[2]));
 
-        _turnController = new TurnController(this, _playerUnits, _enemyUnits);
+        _turnController = new TurnController(_playerUnits, _enemyUnits);
 
-        SubscribeToDeleteOnDeath(_playerUnits, _diedUnits);
-        SubscribeToDeleteOnDeath(_enemyUnits, _diedUnits);
+        SubscribeToDeleteOnDeath(_playerUnits);
+        SubscribeToDeleteOnDeath(_enemyUnits);
 
         while (true)
         {
             foreach (var unit in _turnController.TurnCycle)
             {
-                if (!IsBattle())
+                var battleState = GetBattleState();
+
+                if (battleState != BattleState.Battle)
                 {
-                    WinLoseMessage(_playerUnits);
+                    WinLoseMessage(_playerUnits, battleState);
                     return;
                 }
 
@@ -44,55 +45,52 @@
                     _turnController.Turn(unit, _playerUnits, false);
                 }
             }
-
-            UpdateDiedUnits(_playerUnits, _diedUnits);
-            UpdateDiedUnits(_enemyUnits, _diedUnits);
-            _diedUnits.Clear();
         }
     }
 
-    private void WinLoseMessage(List<Unit> playerUnits)
+    private void WinLoseMessage(List<Unit> playerUnits, BattleState battleState)
     {
-        if (TryGetAlive(playerUnits, out Unit alivePlayerUnit))
+        if (battleState == BattleState.PlayerWins)
         {
             Printer.Print("Player win", ConsoleColor.Green);
         }
-        else
+        else if (battleState == BattleState.EnemyWins)
         {
             Printer.Print("Enemy win", ConsoleColor.DarkRed);
         }
     }
 
-    private void UpdateDiedUnits(List<Unit> aliveUnits, List<Unit> diedUnits)
+    private void UpdateDiedUnits(List<Unit> aliveUnits, Unit diedUnit)
     {
-        foreach (var unit in diedUnits)
-        {
-            aliveUnits.Remove(unit);
-            UnitHasDied?.Invoke(unit);
-        }
+        aliveUnits.Remove(diedUnit);
     }
 
-    private void SubscribeToDeleteOnDeath(List<Unit> units, List<Unit> unitsToDelete)
+    private void SubscribeToDeleteOnDeath(List<Unit> units)
     {
         foreach (var unit in units)
             unit.HealthBelowZero += () =>
             {
-                unitsToDelete.Add(unit);
-                UpdateDiedUnits(_playerUnits, _diedUnits);
-                UpdateDiedUnits(_enemyUnits, _diedUnits);
+                UpdateDiedUnits(_playerUnits, unit);
+                UpdateDiedUnits(_enemyUnits, unit);
             };
     }
 
-    private bool TryGetAlive(List<Unit> units, out Unit aliveUnit)
+    private BattleState GetBattleState()
     {
-        aliveUnit = units.Find(unit => unit.IsAlive);
-        return aliveUnit != null;
-    }
-
-    private bool IsBattle()
-    {
-        return
-            TryGetAlive(_playerUnits, out Unit alivePlayerUnit)
-            && TryGetAlive(_enemyUnits, out Unit aliveEnemyUnit);
+        bool hasAlivePlayerUnits = _playerUnits.Count > 0;
+        bool hasAliveEnemyUnits = _enemyUnits.Count > 0;
+        
+        if (hasAlivePlayerUnits && hasAliveEnemyUnits)
+        {
+            return BattleState.Battle;
+        }
+        else if (hasAlivePlayerUnits)
+        {
+            return BattleState.PlayerWins;
+        }
+        else
+        {
+            return BattleState.EnemyWins;
+        }
     }
 }

@@ -12,6 +12,8 @@ public abstract class BodyPart : IDamageable
 
     public BodyPart(int health)
     {
+        _equipment = new List<IEquipment>();
+
         Health = health;
         MaxHealth = health;
     }

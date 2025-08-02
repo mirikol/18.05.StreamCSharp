@@ -1,7 +1,7 @@
-﻿public class AttackCommand : ICommand
-{
-    private const float _attackModifier = 0.6f;
+﻿using static System.Net.Mime.MediaTypeNames;
 
+public class AttackCommand : ICommand
+{
     private Unit _attacker;
     private Unit _defender;
     private BodyPartName _bodyPart;
@@ -13,7 +13,7 @@
         _attacker = attacker;
         _defender = defender;
         _bodyPart = bodyPart;
-        _damage = (int)(damage * (1 + (_attacker.Model.Attack * _attackModifier) / (float)((_attacker.Model.Attack * _attackModifier) + _defender.Model.Defense)));
+        _damage = damage;
         _probability = probability / 100f;
     }
 
