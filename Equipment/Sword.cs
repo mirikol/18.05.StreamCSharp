@@ -1,4 +1,4 @@
-﻿public class Sword : IEquipment
+﻿public class Sword : IWeapon, IArmEquipment
 {
     public int Defense => _defense;
     public int Attack => _attack;

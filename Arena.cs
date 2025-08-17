@@ -12,12 +12,32 @@
 
     public void Start()
     {
-        var player = new Unit(_models[0]);
-        player.BodyParts[BodyPartName.RightArm].Equip([new Sword(0, 0, 100)]);
-        _playerUnits.Add(player);
+        var goldenHelmet = new Helmet(999, 0);
+        var goldenVest = new Vest(999, 0);
+        var goldenGlove = new Glove(999, 0);
+        var goldenGreave = new Greave(999, 0);
 
-        _enemyUnits.Add(new Unit(_models[1]));
-        _enemyUnits.Add(new Unit(_models[2]));
+        var commonSword = new Sword(0, 0, 100);
+        var enemySword = new Sword(0, 0, 100);
+
+        var player = new Unit(_models[0]);
+        UnitUtility.EquipUnit(player, commonSword, BodyPartName.RightArm);
+        //UnitUtility.EquipUnit(player, goldenHelmet, BodyPartName.Head);
+        //UnitUtility.EquipUnit(player, goldenVest, BodyPartName.Body);
+        //UnitUtility.EquipUnit(player, goldenGlove, BodyPartName.RightArm);
+        //UnitUtility.EquipUnit(player, goldenGlove, BodyPartName.LeftArm);
+        //UnitUtility.EquipUnit(player, goldenGreave, BodyPartName.RightLeg);
+        //UnitUtility.EquipUnit(player, goldenGreave, BodyPartName.LeftLeg);
+
+        var gregory = new Unit(_models[1]);
+        UnitUtility.EquipUnit(gregory, enemySword, BodyPartName.RightArm);
+
+        var michael = new Unit(_models[2]);
+        UnitUtility.EquipUnit(michael, enemySword, BodyPartName.RightArm);
+
+        _playerUnits.Add(player);
+        _enemyUnits.Add(gregory);
+        _enemyUnits.Add(michael);
 
         _turnController = new TurnController(_playerUnits, _enemyUnits);
 

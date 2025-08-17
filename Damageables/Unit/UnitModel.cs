@@ -1,8 +1,7 @@
 ﻿public struct UnitModel
 {
     public string Name { get; private set; }
-
-    public int Health { get; set; }
+    public int Health { get; private set; }
     public int Initiative { get; private set; }
     public int Speed { get; private set; }
     public int Attack { get; private set; }

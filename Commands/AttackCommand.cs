@@ -1,6 +1,4 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-
-public class AttackCommand : ICommand
+﻿public class AttackCommand : ICommand
 {
     private Unit _attacker;
     private Unit _defender;
@@ -20,7 +18,7 @@ public class AttackCommand : ICommand
     public void Execute()
     {
         Random random = new Random();
-        Printer.Print($"{_attacker.Model.Name} атаковал {_defender.Model.Name}", ConsoleColor.DarkRed);
+        Printer.Print($"{_attacker.Model.Name} атаковал {_defender.Model.Name} с уроном {_damage}.", ConsoleColor.DarkRed);
 
         if (_probability > random.NextDouble())
             _defender.BodyParts[_bodyPart].TakeDamage(_damage);

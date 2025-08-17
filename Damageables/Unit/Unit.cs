@@ -37,10 +37,17 @@
         get
         {
             int baseDamage = 0;
-            var equipment = BodyParts[BodyPartName.RightArm].Equipment;
-            if (equipment.Count > 0 && BodyParts[BodyPartName.RightArm].Health > 0)
+
+            var leftArm = (Arm)BodyParts[BodyPartName.LeftArm];
+            var rightArm = (Arm)BodyParts[BodyPartName.RightArm];
+
+            if (leftArm.Health > 0 && leftArm.HasWeapon)
             {
-                baseDamage += equipment.First().BaseDamage;
+                baseDamage += leftArm.Weapon.BaseDamage;
+            }
+            if (rightArm.Health > 0 && rightArm.HasWeapon)
+            {
+                baseDamage += rightArm.Weapon.BaseDamage;
             }
 
             return baseDamage;
@@ -54,9 +61,18 @@
             int attack = Model.Attack;
             foreach (var bodyPart in BodyParts.Values)
             {
-                foreach (var equipment in bodyPart.Equipment)
+                if (bodyPart.Health <= 0)
                 {
-                    attack += equipment.Attack;
+                    continue;
+                }
+
+                if (bodyPart.HasArmor)
+                {
+                    attack += bodyPart.Armor.Attack;
+                }
+                if (bodyPart is Arm arm && arm.HasWeapon)
+                {
+                    attack += arm.Weapon.Attack;
                 }
             }
 
@@ -71,9 +87,18 @@
             int defense = Model.Defense;
             foreach (var bodyPart in BodyParts.Values)
             {
-                foreach (var equipment in bodyPart.Equipment)
+                if (bodyPart.Health <= 0)
                 {
-                    defense += equipment.Defense;
+                    continue;
+                }
+
+                if (bodyPart.HasArmor)
+                {
+                    defense += bodyPart.Armor.Defense;
+                }
+                if (bodyPart is Arm arm && arm.HasWeapon)
+                {
+                    defense += arm.Weapon.Defense;
                 }
             }
 
