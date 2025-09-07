@@ -1,0 +1,8 @@
+{
+  "Name": "Тимур",
+  "Health": 1000,
+  "Initiative": 1,
+  "Speed": 40,
+  "Attack": 10,
+  "Defense": 1
+}

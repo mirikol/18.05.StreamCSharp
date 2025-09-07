@@ -1,4 +1,4 @@
-﻿public struct UnitModel
+﻿public class UnitModel
 {
     public string Name { get; private set; }
     public int Health { get; private set; }

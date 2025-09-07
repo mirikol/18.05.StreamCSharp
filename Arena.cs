@@ -5,35 +5,23 @@
 
     private TurnController _turnController;
 
-    private UnitModel[] _models = new UnitModel[3] {new UnitModel("Тимур", 1000, 1, 40, 10, 1),
-        new UnitModel("Григорий", 50, 3, 10, 50, 10),
-        new UnitModel("Михаил :)", 500, 2, 20, 1, 100),
+    private UnitModel[] _models = new UnitModel[3] {SaveLoad<UnitModel>.Load("Timur"),
+        SaveLoad<UnitModel>.Load("Gregory"),
+        SaveLoad<UnitModel>.Load("Michael"),
         };
 
     public void Start()
     {
-        var goldenHelmet = new Helmet(999, 0);
-        var goldenVest = new Vest(999, 0);
-        var goldenGlove = new Glove(999, 0);
-        var goldenGreave = new Greave(999, 0);
-
-        var commonSword = new Sword(0, 0, 100);
-        var enemySword = new Sword(0, 0, 100);
-
         var player = new Unit(_models[0]);
-        UnitUtility.EquipUnit(player, commonSword, BodyPartName.RightArm);
-        //UnitUtility.EquipUnit(player, goldenHelmet, BodyPartName.Head);
-        //UnitUtility.EquipUnit(player, goldenVest, BodyPartName.Body);
-        //UnitUtility.EquipUnit(player, goldenGlove, BodyPartName.RightArm);
-        //UnitUtility.EquipUnit(player, goldenGlove, BodyPartName.LeftArm);
-        //UnitUtility.EquipUnit(player, goldenGreave, BodyPartName.RightLeg);
-        //UnitUtility.EquipUnit(player, goldenGreave, BodyPartName.LeftLeg);
+        UnitUtility.EquipUnit(player, SaveLoad<Sword>.Load("Golden sword"), BodyPartName.RightArm);
+        UnitUtility.EquipUnit(player, SaveLoad<Sword>.Load("Golden sword"), BodyPartName.LeftArm);
+        SaveLoad<Unit>.Save(player, "Player");
 
         var gregory = new Unit(_models[1]);
-        UnitUtility.EquipUnit(gregory, enemySword, BodyPartName.RightArm);
+        UnitUtility.EquipUnit(gregory, SaveLoad<Sword>.Load("Common sword"), BodyPartName.RightArm);
 
         var michael = new Unit(_models[2]);
-        UnitUtility.EquipUnit(michael, enemySword, BodyPartName.RightArm);
+        UnitUtility.EquipUnit(michael, SaveLoad<Sword>.Load("Common sword"), BodyPartName.RightArm);
 
         _playerUnits.Add(player);
         _enemyUnits.Add(gregory);
@@ -99,7 +87,7 @@
     {
         bool hasAlivePlayerUnits = _playerUnits.Count > 0;
         bool hasAliveEnemyUnits = _enemyUnits.Count > 0;
-        
+
         if (hasAlivePlayerUnits && hasAliveEnemyUnits)
         {
             return BattleState.Battle;
