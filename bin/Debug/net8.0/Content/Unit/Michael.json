@@ -1,0 +1,33 @@
+{
+  "Armors": [],
+  "Weapons": [
+    {
+      "Weapon": {
+        "$type": "Sword",
+        "Name": "Common sword",
+        "Defense": 0,
+        "Attack": 5,
+        "BaseDamage": 100
+      },
+      "BodyPart": 2
+    },
+    {
+      "Weapon": {
+        "$type": "Sword",
+        "Name": "Common sword",
+        "Defense": 0,
+        "Attack": 5,
+        "BaseDamage": 100
+      },
+      "BodyPart": 3
+    }
+  ],
+  "UnitModel": {
+    "Name": "Михаил :)",
+    "Health": 500,
+    "Initiative": 2,
+    "Speed": 20,
+    "Attack": 1,
+    "Defense": 100
+  }
+}

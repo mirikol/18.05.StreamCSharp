@@ -1,3 +1,4 @@
-﻿public interface IArmor : IEquipment
+﻿[JsonInterfaceConverter]
+public interface IArmor : IEquipment
 {
 }

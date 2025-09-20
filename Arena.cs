@@ -5,27 +5,11 @@
 
     private TurnController _turnController;
 
-    private UnitModel[] _models = new UnitModel[3] {SaveLoad<UnitModel>.Load("Timur"),
-        SaveLoad<UnitModel>.Load("Gregory"),
-        SaveLoad<UnitModel>.Load("Michael"),
-        };
-
     public void Start()
     {
-        var player = new Unit(_models[0]);
-        UnitUtility.EquipUnit(player, SaveLoad<Sword>.Load("Golden sword"), BodyPartName.RightArm);
-        UnitUtility.EquipUnit(player, SaveLoad<Sword>.Load("Golden sword"), BodyPartName.LeftArm);
-        SaveLoad<Unit>.Save(player, "Player");
-
-        var gregory = new Unit(_models[1]);
-        UnitUtility.EquipUnit(gregory, SaveLoad<Sword>.Load("Common sword"), BodyPartName.RightArm);
-
-        var michael = new Unit(_models[2]);
-        UnitUtility.EquipUnit(michael, SaveLoad<Sword>.Load("Common sword"), BodyPartName.RightArm);
-
-        _playerUnits.Add(player);
-        _enemyUnits.Add(gregory);
-        _enemyUnits.Add(michael);
+        _playerUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Player")));
+        _enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Gregory")));
+        _enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Michael")));
 
         _turnController = new TurnController(_playerUnits, _enemyUnits);
 

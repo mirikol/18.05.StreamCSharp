@@ -1,5 +1,6 @@
 ﻿public interface IEquipment
 {
+    public string Name { get; }
     public int Defense { get; }
     public int Attack { get; }
 }

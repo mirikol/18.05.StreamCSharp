@@ -2,7 +2,8 @@
 {
     private static readonly Dictionary<Type, string> typeToDirectory = new Dictionary<Type, string>()
     {
-        {typeof(UnitModel), Path.Combine("Content", "Units") },
+        {typeof(UnitSave), Path.Combine("Content", "Unit") },
+        {typeof(UnitModel), Path.Combine("Content", "Unit", "Model") },
         {typeof(IArmor), Path.Combine("Content", "Equipment", "Armor") },
         {typeof(IWeapon), Path.Combine("Content", "Equipment", "Weapon") }
     };

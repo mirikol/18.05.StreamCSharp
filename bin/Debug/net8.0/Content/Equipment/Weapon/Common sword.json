@@ -1,5 +1,7 @@
 {
-  "BaseDamage": 100,
+  "$type": "Sword",
+  "Name": "Common sword",
   "Defense": 0,
-  "Attack": 0
+  "Attack": 5,
+  "BaseDamage": 100
 }

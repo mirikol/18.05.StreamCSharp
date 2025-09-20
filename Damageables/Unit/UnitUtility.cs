@@ -3,32 +3,24 @@
     private const float _attackModifier = 0.6f;
     private const float _miniamlBaseDamageModifier = 0.0f;
 
-
     public static int GetFlatDamage(int baseDamage, Unit attacker, Unit defender)
     {
         return (int)(baseDamage * (_miniamlBaseDamageModifier + (attacker.Attack * _attackModifier) / (float)((attacker.Attack * _attackModifier) + defender.Defense)));
     }
 
-    public static void EquipUnit(Unit unit, IEquipment equipment, BodyPartName bodyPartName)
+    public static Unit CreateUnit(UnitSave unitSave)
     {
-        if (equipment is IWeapon weapon)
+        Unit unit = new Unit(unitSave.UnitModel);
+
+        foreach (var weapon in unitSave.Weapons)
         {
-            if (bodyPartName != BodyPartName.LeftArm && bodyPartName != BodyPartName.RightArm)
-            {
-                Logger.LogError("You should equip IWeapon on Arms only");
-            }
-            else
-            {
-                ((Arm)unit.BodyParts[bodyPartName]).EquipWeapon(weapon);
-            }
+            EquipUtility.EquipUnit(unit, weapon.Weapon, weapon.BodyPart);
         }
-        else if (equipment is IArmor armor)
+        foreach (var armor in unitSave.Armors)
         {
-            unit.BodyParts[bodyPartName].EquipArmor(armor);
+            EquipUtility.EquipUnit(unit, armor.Armor, armor.BodyPart);
         }
-        else
-        {
-            Logger.LogError("You should use IWeapon or IArmor");
-        }
+
+        return unit;
     }
 }

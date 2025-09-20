@@ -1,4 +1,5 @@
-﻿public interface IWeapon : IEquipment
+﻿[JsonInterfaceConverter]
+public interface IWeapon : IEquipment
 {
     public int BaseDamage { get; }
 }
