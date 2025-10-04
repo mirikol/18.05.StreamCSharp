@@ -5,21 +5,29 @@
 
     private TurnController _turnController;
 
-    public void Start()
+    public Arena()
     {
         _playerUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Player")));
         _enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Gregory")));
         _enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Michael")));
 
-        _turnController = new TurnController(_playerUnits, _enemyUnits);
+        _turnController = new TurnController(_playerUnits.Concat(_enemyUnits).ToList());
 
         SubscribeToDeleteOnDeath(_playerUnits);
         SubscribeToDeleteOnDeath(_enemyUnits);
+    }
 
+    public void Start()
+    {
         while (true)
         {
             foreach (var unit in _turnController.TurnCycle)
             {
+                if (!_turnController.CanTurn(unit))
+                {
+                    continue;
+                }
+
                 var battleState = GetBattleState();
 
                 if (battleState != BattleState.Battle)
@@ -37,6 +45,8 @@
                     _turnController.Turn(unit, _playerUnits, false);
                 }
             }
+
+            _turnController.Update();
         }
     }
 

@@ -2,5 +2,7 @@
   "$type": "Glove",
   "Name": "Glove",
   "Defense": 10,
-  "Attack": 0
+  "Attack": 0,
+  "Speed": 10,
+  "Initiative": 0
 }

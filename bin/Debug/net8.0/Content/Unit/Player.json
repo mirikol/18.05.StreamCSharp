@@ -5,7 +5,9 @@
         "$type": "Helmet",
         "Name": "Helmet",
         "Defense": 0,
-        "Attack": 10
+        "Attack": 10,
+        "Speed": 0,
+        "Initiative": 20
       },
       "BodyPart": 0
     },
@@ -14,7 +16,9 @@
         "$type": "Vest",
         "Name": "Vest",
         "Defense": 100,
-        "Attack": 0
+        "Attack": 0,
+        "Speed": 0,
+        "Initiative": 5
       },
       "BodyPart": 1
     },
@@ -23,7 +27,9 @@
         "$type": "Glove",
         "Name": "Glove",
         "Defense": 10,
-        "Attack": 0
+        "Attack": 0,
+        "Speed": 10,
+        "Initiative": 0
       },
       "BodyPart": 3
     }
@@ -35,6 +41,8 @@
         "Name": "Golden sword",
         "Defense": 0,
         "Attack": 10,
+        "Speed": 20,
+        "Initiative": 5,
         "BaseDamage": 200
       },
       "BodyPart": 3

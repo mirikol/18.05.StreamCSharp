@@ -2,5 +2,7 @@
   "$type": "Greave",
   "Name": "Greave",
   "Defense": 20,
-  "Attack": 5
+  "Attack": 5,
+  "Speed": 0,
+  "Initiative": 0
 }

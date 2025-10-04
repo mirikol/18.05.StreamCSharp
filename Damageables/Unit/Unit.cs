@@ -106,6 +106,58 @@
         }
     }
 
+    public int Speed
+    {
+        get
+        {
+            int speed = Model.Speed;
+            foreach (var bodyPart in BodyParts.Values)
+            {
+                if (bodyPart.Health <= 0)
+                {
+                    continue;
+                }
+
+                if (bodyPart.HasArmor)
+                {
+                    speed += bodyPart.Armor.Speed;
+                }
+                if (bodyPart is Arm arm && arm.HasWeapon)
+                {
+                    speed += arm.Weapon.Speed;
+                }
+            }
+
+            return speed;
+        }
+    }
+
+    public int Initiative
+    {
+        get
+        {
+            int initiative = Model.Initiative;
+            foreach (var bodyPart in BodyParts.Values)
+            {
+                if (bodyPart.Health <= 0)
+                {
+                    continue;
+                }
+
+                if (bodyPart.HasArmor)
+                {
+                    initiative += bodyPart.Armor.Initiative;
+                }
+                if (bodyPart is Arm arm && arm.HasWeapon)
+                {
+                    initiative += arm.Weapon.Initiative;
+                }
+            }
+
+            return initiative;
+        }
+    }
+
     public Unit(UnitModel model)
     {
         _model = model;

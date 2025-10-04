@@ -3,5 +3,7 @@
   "Name": "Golden sword",
   "Defense": 0,
   "Attack": 10,
+  "Speed": 20,
+  "Initiative": 5,
   "BaseDamage": 200
 }

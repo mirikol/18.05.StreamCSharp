@@ -2,5 +2,7 @@
   "$type": "Vest",
   "Name": "Vest",
   "Defense": 100,
-  "Attack": 0
+  "Attack": 0,
+  "Speed": 0,
+  "Initiative": 5
 }

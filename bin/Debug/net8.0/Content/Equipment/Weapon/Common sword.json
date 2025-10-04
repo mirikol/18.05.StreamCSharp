@@ -3,5 +3,7 @@
   "Name": "Common sword",
   "Defense": 0,
   "Attack": 5,
+  "Speed": 5,
+  "Initiative": 5,
   "BaseDamage": 100
 }

@@ -5,16 +5,51 @@
 
     public Unit[] TurnCycle => _turnCycle.ToArray();
     private List<Unit> _turnCycle = new List<Unit>();
+    private List<Unit> _allUnits = new List<Unit>();
+    private List<Unit> _deadUnits = new List<Unit>();
 
-    private Unit _previousUnit = null;
+    private Unit? _previousUnit = null;
     private int _oneUnitTurnIndex = 0;
 
-    public TurnController(List<Unit> playerUnits, List<Unit> enemyUnits)
+    public TurnController(List<Unit> units)
     {
-        CreateTurnCycle(playerUnits, enemyUnits);
-        foreach (var unit in _turnCycle)
+        _allUnits = new List<Unit>(units);
+        foreach (var unit in _allUnits)
         {
-            unit.HealthBelowZero += () => DeleteFromTurnCycle(unit);
+            unit.HealthBelowZero += () =>
+            {
+                DeleteFromTurnCycle(unit);
+                _deadUnits.Add(unit);
+            };
+        }
+
+        CreateTurnCycle();
+    }
+
+    public bool CanTurn(Unit turningUnit) => !_deadUnits.Contains(turningUnit);
+
+    public void Update()
+    {
+        List<Unit> deadUnits = new List<Unit>();
+        foreach (var unit in _allUnits)
+        {
+            if (!_turnCycle.Contains(unit))
+            {
+                deadUnits.Add(unit);
+            }
+        }
+
+        _turnCycle.Clear();
+        _previousUnit = null;
+        _oneUnitTurnIndex = 0;
+
+        CreateTurnCycle();
+        foreach (var unit in deadUnits)
+        {
+            while (_turnCycle.Contains(unit))
+            {
+                _turnCycle.Remove(unit);
+            }
         }
     }
 
@@ -171,45 +206,41 @@
         return unitHasRepeat;
     }
 
-    private void CreateTurnCycle(List<Unit> playerUnits, List<Unit> enemyUnits)
+    private void CreateTurnCycle()
     {
         List<(Unit, float)> tempResult = new List<(Unit, float)>();
 
         List<Unit> sortedByInitiativeUnits = new List<Unit>();
         List<(Unit, float)> unitsSpeed = new List<(Unit, float)>();
 
-        foreach (Unit unit in playerUnits)
-        {
-            sortedByInitiativeUnits.Add(unit);
-        }
-        foreach (Unit unit in enemyUnits)
+        foreach (Unit unit in _allUnits)
         {
             sortedByInitiativeUnits.Add(unit);
         }
 
-        sortedByInitiativeUnits = sortedByInitiativeUnits.OrderByDescending(unit => unit.Model.Initiative).ToList();
-        float minSpeed = sortedByInitiativeUnits.OrderByDescending(unit => unit.Model.Speed).Last().Model.Speed;
+        sortedByInitiativeUnits = sortedByInitiativeUnits.OrderByDescending(unit => unit.Initiative).ToList();
+        float minSpeed = sortedByInitiativeUnits.OrderByDescending(unit => unit.Speed).Last().Speed;
 
         foreach (Unit unit in sortedByInitiativeUnits)
         {
-            float speed = unit.Model.Speed / minSpeed;
+            float speed = unit.Speed / minSpeed;
 
             while (speed > 0)
             {
                 unitsSpeed.Add((unit, speed));
-                speed -= (float)Math.Cbrt(unit.Model.Speed);
+                speed -= (float)Math.Cbrt(unit.Speed);
             }
         }
 
         unitsSpeed = unitsSpeed.OrderByDescending(x => x.Item2).ToList();
-        List<List<(Unit, float)>> units = new List<List<(Unit, float)>>();
+        List<List<(Unit, float)>> unitsWithSpeed = new List<List<(Unit, float)>>();
 
         foreach (Unit unit in sortedByInitiativeUnits)
         {
             List<(Unit, float)> unitList = new List<(Unit, float)>();
 
-            tempResult.Add((unit, unit.Model.Speed / minSpeed));
-            unitsSpeed.Remove((unit, unit.Model.Speed / minSpeed));
+            tempResult.Add((unit, unit.Speed / minSpeed));
+            unitsSpeed.Remove((unit, unit.Speed / minSpeed));
 
             foreach (var speedUnit in unitsSpeed)
             {
@@ -219,12 +250,12 @@
                 }
             }
 
-            units.Add(unitList);
+            unitsWithSpeed.Add(unitList);
         }
 
-        for (int i = 0; i < units.Count; i++)
+        for (int i = 0; i < unitsWithSpeed.Count; i++)
         {
-            if (units[i].Count == 0)
+            if (unitsWithSpeed[i].Count == 0)
             {
                 continue;
             }
@@ -232,14 +263,14 @@
             int startIndex = 0;
             foreach (var unit in tempResult)
             {
-                if (unit.Item1 == units[i][0].Item1)
+                if (unit.Item1 == unitsWithSpeed[i][0].Item1)
                 {
                     break;
                 }
                 startIndex++;
             }
 
-            foreach (var speedUnit in units[i])
+            foreach (var speedUnit in unitsWithSpeed[i])
             {
                 bool exit = false;
 
