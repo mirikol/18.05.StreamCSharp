@@ -2,218 +2,60 @@
 {
     private const ConsoleColor _playerColor = ConsoleColor.Green;
     private const ConsoleColor _enemyColor = ConsoleColor.DarkCyan;
+    private const ConsoleColor _diedUnitColor = ConsoleColor.Red;
 
-    public Unit[] TurnCycle => _turnCycle.ToArray();
-    private List<Unit> _turnCycle = new List<Unit>();
-    private List<Unit> _allUnits = new List<Unit>();
-    private List<Unit> _deadUnits = new List<Unit>();
+    public IReadOnlyCollection<UnitTurn> TurnCycle => _turnCycle;
+    public bool HasPlayerUnit => _allies.Any(turn => turn.IsAllowed);
+    public bool HasEnemyUnit => _enemies.Any(turn => turn.IsAllowed);
+
+    private UnitTurn[] _turnCycle;
+    private UnitTurn[] _enemies => Array.FindAll(_turnCycle, turn => !turn.IsAlly);
+    private UnitTurn[] _allies => Array.FindAll(_turnCycle, turn => turn.IsAlly);
 
     private Unit? _previousUnit = null;
     private int _oneUnitTurnIndex = 0;
 
-    public TurnController(List<Unit> units)
+    public TurnController(List<Unit> allyUnits, List<Unit> enemyUnits)
     {
-        _allUnits = new List<Unit>(units);
-        foreach (var unit in _allUnits)
-        {
-            unit.HealthBelowZero += () =>
-            {
-                DeleteFromTurnCycle(unit);
-                _deadUnits.Add(unit);
-            };
-        }
-
-        CreateTurnCycle();
+        CreateTurnCycle(allyUnits, enemyUnits);
     }
 
-    public bool CanTurn(Unit turningUnit) => !_deadUnits.Contains(turningUnit);
+    #region TurnCycle
 
-    public void Update()
+    public bool TryGetNextTurn(out UnitTurn turn)
     {
-        List<Unit> deadUnits = new List<Unit>();
-        foreach (var unit in _allUnits)
-        {
-            if (!_turnCycle.Contains(unit))
-            {
-                deadUnits.Add(unit);
-            }
-        }
+        // return false if no UnitTunrn.IsAllowed in _turnCycle
+        // else return true and next UnitTurn
+        throw new NotImplementedException();
+    }
 
-        _turnCycle.Clear();
+    public void UpdateTurnCycle()
+    {
         _previousUnit = null;
         _oneUnitTurnIndex = 0;
 
-        CreateTurnCycle();
-        foreach (var unit in deadUnits)
-        {
-            while (_turnCycle.Contains(unit))
-            {
-                _turnCycle.Remove(unit);
-            }
-        }
+        // create and remember that UnitTurn.IsAllowed
+
+        CreateTurnCycle(_allies, _enemies);
     }
 
-    public void Turn(Unit attacker, List<Unit> defenders, bool playerTurn)
+    private void CreateTurnCycle(UnitTurn[] allyUnits, UnitTurn[] enemyUnits)
     {
-        Print(attacker, playerTurn);
-
-        Unit enemy = SelectEnemy(defenders, playerTurn);
-        BodyPartName bodyPart = SelectBodyPart(playerTurn);
-        int attackIndex = SelectAttack(attacker, enemy, bodyPart, playerTurn);
+        CreateTurnCycle(allyUnits.Select(x => x.Unit).ToList(), enemyUnits.Select(x => x.Unit).ToList());
     }
 
-    private Unit SelectEnemy(List<Unit> defenders, bool playerTurn)
-    {
-        List<CommandBinding> bindings = new List<CommandBinding>();
-        foreach (var defender in defenders)
-        {
-            CommandBinding binding = new CommandBinding(defender.Model.Name, new NullCommand());
-            bindings.Add(binding);
-        }
-        int selectedEnemyIndex = GetMenuChoice("Select enemy", bindings, playerTurn);
-        var enemy = defenders[selectedEnemyIndex];
-
-        return enemy;
-    }
-
-    private BodyPartName SelectBodyPart(bool playerTurn)
-    {
-        List<CommandBinding> bindings = new List<CommandBinding>();
-        var bodyPartNames = Enum.GetNames(typeof(BodyPartName));
-        foreach (var bodyPartName in bodyPartNames)
-        {
-            CommandBinding binding = new CommandBinding(bodyPartName, new NullCommand());
-            bindings.Add(binding);
-        }
-        int selectedBodyPartIndex = GetMenuChoice("Select body part", bindings, playerTurn);
-        BodyPartName bodyPart = (BodyPartName)Enum.Parse(typeof(BodyPartName), bodyPartNames[selectedBodyPartIndex]);
-
-        return bodyPart;
-    }
-
-    private int SelectAttack(Unit attacker, Unit defender, BodyPartName bodyPart, bool playerTurn)
-    {
-        List<CommandBinding> bindings =
-        [
-            new CommandBinding($"Weak: {UnitUtility.GetFlatDamage(attacker.BaseDamage, attacker, defender)} damage (90%)", new AttackCommand(attacker, defender, bodyPart, UnitUtility.GetFlatDamage(attacker.BaseDamage, attacker, defender), 90)),
-            new CommandBinding($"Medium: {UnitUtility.GetFlatDamage((int)(attacker.BaseDamage * 1.25f), attacker, defender)} damage (75%)", new AttackCommand(attacker, defender, bodyPart, UnitUtility.GetFlatDamage((int)(attacker.BaseDamage * 1.25f), attacker, defender), 75)),
-            new CommandBinding($"Strong: {UnitUtility.GetFlatDamage((int)(attacker.BaseDamage * 2f), attacker, defender)} damage (50%)", new AttackCommand(attacker, defender, bodyPart, UnitUtility.GetFlatDamage((int)(attacker.BaseDamage * 2f), attacker, defender), 50)),
-        ];
-        int selectedAttackIndex = GetMenuChoice("Select attack", bindings, playerTurn);
-
-        return selectedAttackIndex;
-    }
-
-    private int GetMenuChoice(string menuName, List<CommandBinding> bindings, bool playerTurn)
-    {
-        var menu = new Menu(menuName, bindings.ToArray());
-
-        int selectIndex;
-        if (playerTurn)
-        {
-            menu.Show();
-            selectIndex = menu.GetInput();
-        }
-        else
-        {
-            Random random = new Random();
-            selectIndex = random.Next(1, menu.BindingsCount + 1);
-        }
-        menu.Select(selectIndex);
-
-        return selectIndex - 1;
-    }
-
-    private void Print(Unit turnUnit, bool playerTurn)
-    {
-        var color = GetPrintColor(playerTurn);
-
-        CheckUnitRepeat(turnUnit);
-        PrintTurnTitle(playerTurn, color);
-        PrintUnits(turnUnit, color);
-
-        Console.WriteLine();
-    }
-
-    private void PrintUnits(Unit turnUnit, ConsoleColor color)
-    {
-        int index = _oneUnitTurnIndex;
-        bool turnUnitSelected = false;
-
-        for (int i = 0; i < _turnCycle.Count; i++)
-        {
-            string unitName = _turnCycle[i].Model.Name;
-            if (turnUnit == _turnCycle[i])
-            {
-                if (_oneUnitTurnIndex == 0)
-                {
-                    if (!turnUnitSelected)
-                    {
-                        unitName += " <<<";
-                        turnUnitSelected = true;
-                    }
-                }
-                else
-                {
-                    _oneUnitTurnIndex--;
-                }
-            }
-
-            Printer.Print(unitName, color);
-        }
-
-        _previousUnit = turnUnit;
-        _oneUnitTurnIndex = index;
-    }
-
-    private ConsoleColor GetPrintColor(bool playerTurn)
-    {
-        if (playerTurn)
-        {
-            return _playerColor;
-        }
-        else
-        {
-            return _enemyColor;
-        }
-
-    }
-
-    private void PrintTurnTitle(bool playerTurn, ConsoleColor color)
-    {
-        if (playerTurn)
-        {
-            Printer.Print("[YOUR TURN]", color);
-        }
-        else
-        {
-            Printer.Print("[ENEMY TURN]", color);
-        }
-    }
-
-    private bool CheckUnitRepeat(Unit checkUnit)
-    {
-        bool unitHasRepeat = checkUnit == _previousUnit;
-        if (unitHasRepeat)
-        {
-            _oneUnitTurnIndex++;
-        }
-        else
-        {
-            _oneUnitTurnIndex = 0;
-        }
-
-        return unitHasRepeat;
-    }
-
-    private void CreateTurnCycle()
+    private void CreateTurnCycle(List<Unit> allyUnits, List<Unit> enemyUnits)
     {
         List<(Unit, float)> tempResult = new List<(Unit, float)>();
 
         List<Unit> sortedByInitiativeUnits = new List<Unit>();
         List<(Unit, float)> unitsSpeed = new List<(Unit, float)>();
 
-        foreach (Unit unit in _allUnits)
+        foreach (Unit unit in allyUnits)
+        {
+            sortedByInitiativeUnits.Add(unit);
+        }
+        foreach (Unit unit in enemyUnits)
         {
             sortedByInitiativeUnits.Add(unit);
         }
@@ -311,14 +153,203 @@
             }
         }
 
-        foreach (var unit in tempResult)
+        _turnCycle = new UnitTurn[tempResult.Count];
+        for (int i = 0; i <  tempResult.Count; i++)
         {
-            _turnCycle.Add(unit.Item1);
+            bool isAlly = allyUnits.Contains(tempResult[i].Item1);
+            bool isEnemy = enemyUnits.Contains(tempResult[i].Item1);
+
+            if (isAlly)
+            {
+                _turnCycle[i] = new UnitTurn(tempResult[i].Item1, true, true);
+            }
+            else if (isEnemy)
+            {
+                _turnCycle[i] = new UnitTurn(tempResult[i].Item1, false, true);
+            }
+            else
+            {
+                throw new Exception("No unit in ally/enemy lists");
+            }
         }
     }
 
-    private void DeleteFromTurnCycle(Unit unit)
+    #endregion
+    #region Turn
+
+    public void Turn(UnitTurn attackerTurn)
     {
-        _turnCycle.Remove(unit);
+        Print(attackerTurn.Unit, attackerTurn.IsAlly);
+
+        Unit enemy;
+        if (attackerTurn.IsAlly)
+        {
+            enemy = SelectEnemy(_enemies, true);
+        }
+        else
+        {
+            enemy = SelectEnemy(_allies, false);
+        }
+
+        BodyPartName bodyPart = SelectBodyPart(attackerTurn.IsAlly);
+        int attackIndex = SelectAttack(attackerTurn.Unit, enemy, bodyPart, attackerTurn.IsAlly);
+
+       // Array.FindIndex(_turnCycle, turn => turn == attackerTurn);
     }
+
+    private Unit SelectEnemy(UnitTurn[] defenders, bool playerTurn)
+    {
+        defenders = Array.FindAll(defenders, defender => defender.Unit.IsAlive);
+
+        List<CommandBinding> bindings = new List<CommandBinding>();
+        foreach (var defender in defenders)
+        {
+            CommandBinding binding = new CommandBinding(defender.Unit.Model.Name, new NullCommand());
+            bindings.Add(binding);
+        }
+        int selectedEnemyIndex = GetMenuChoice("Select enemy", bindings, playerTurn);
+        var enemy = defenders[selectedEnemyIndex];
+
+        return enemy.Unit;
+    }
+
+    private BodyPartName SelectBodyPart(bool playerTurn)
+    {
+        List<CommandBinding> bindings = new List<CommandBinding>();
+        var bodyPartNames = Enum.GetNames(typeof(BodyPartName));
+        foreach (var bodyPartName in bodyPartNames)
+        {
+            CommandBinding binding = new CommandBinding(bodyPartName, new NullCommand());
+            bindings.Add(binding);
+        }
+        int selectedBodyPartIndex = GetMenuChoice("Select body part", bindings, playerTurn);
+        BodyPartName bodyPart = (BodyPartName)Enum.Parse(typeof(BodyPartName), bodyPartNames[selectedBodyPartIndex]);
+
+        return bodyPart;
+    }
+
+    private int SelectAttack(Unit attacker, Unit defender, BodyPartName bodyPart, bool playerTurn)
+    {
+        List<CommandBinding> bindings =
+        [
+            new CommandBinding($"Weak: {UnitUtility.GetFlatDamage(attacker.BaseDamage, attacker, defender)} damage (90%)", new AttackCommand(attacker, defender, bodyPart, UnitUtility.GetFlatDamage(attacker.BaseDamage, attacker, defender), 90)),
+            new CommandBinding($"Medium: {UnitUtility.GetFlatDamage((int)(attacker.BaseDamage * 1.25f), attacker, defender)} damage (75%)", new AttackCommand(attacker, defender, bodyPart, UnitUtility.GetFlatDamage((int)(attacker.BaseDamage * 1.25f), attacker, defender), 75)),
+            new CommandBinding($"Strong: {UnitUtility.GetFlatDamage((int)(attacker.BaseDamage * 2f), attacker, defender)} damage (50%)", new AttackCommand(attacker, defender, bodyPart, UnitUtility.GetFlatDamage((int)(attacker.BaseDamage * 2f), attacker, defender), 50)),
+        ];
+        int selectedAttackIndex = GetMenuChoice("Select attack", bindings, playerTurn);
+
+        return selectedAttackIndex;
+    }
+
+    private int GetMenuChoice(string menuName, List<CommandBinding> bindings, bool playerTurn)
+    {
+        var menu = new Menu(menuName, bindings.ToArray());
+
+        int selectIndex;
+        if (playerTurn)
+        {
+            menu.Show();
+            selectIndex = menu.GetInput();
+        }
+        else
+        {
+            Random random = new Random();
+            selectIndex = random.Next(1, menu.BindingsCount + 1);
+        }
+        menu.Select(selectIndex);
+
+        return selectIndex - 1;
+    }
+
+    #endregion
+    #region Print
+    private void Print(Unit turnUnit, bool playerTurn)
+    {
+        var color = GetPrintColor(playerTurn);
+
+        CheckUnitRepeat(turnUnit);
+        PrintTurnTitle(playerTurn, color);
+        PrintUnits(turnUnit, color);
+
+        Console.WriteLine();
+    }
+
+    private void PrintUnits(Unit turnUnit, ConsoleColor color)
+    {
+        int index = _oneUnitTurnIndex;
+        bool turnUnitSelected = false;
+
+        for (int i = 0; i < _turnCycle.Length; i++)
+        {
+            string unitName = _turnCycle[i].Unit.Model.Name;
+            if (turnUnit == _turnCycle[i].Unit)
+            {
+                if (_oneUnitTurnIndex == 0)
+                {
+                    if (!turnUnitSelected)
+                    {
+                        unitName += " <<<";
+                        turnUnitSelected = true;
+                    }
+                }
+                else
+                {
+                    _oneUnitTurnIndex--;
+                }
+            }
+
+            if (_turnCycle[i].Unit.IsAlive)
+            {
+                Printer.Print(unitName, color);
+            }
+            else
+            {
+                Printer.Print(unitName + " [DEAD]", _diedUnitColor);
+            }
+        }
+
+        _previousUnit = turnUnit;
+        _oneUnitTurnIndex = index;
+    }
+
+    private ConsoleColor GetPrintColor(bool playerTurn)
+    {
+        if (playerTurn)
+        {
+            return _playerColor;
+        }
+        else
+        {
+            return _enemyColor;
+        }
+    }
+
+    private void PrintTurnTitle(bool playerTurn, ConsoleColor color)
+    {
+        if (playerTurn)
+        {
+            Printer.Print("[YOUR TURN]", color);
+        }
+        else
+        {
+            Printer.Print("[ENEMY TURN]", color);
+        }
+    }
+
+    private bool CheckUnitRepeat(Unit checkUnit)
+    {
+        bool unitHasRepeat = checkUnit == _previousUnit;
+        if (unitHasRepeat)
+        {
+            _oneUnitTurnIndex++;
+        }
+        else
+        {
+            _oneUnitTurnIndex = 0;
+        }
+
+        return unitHasRepeat;
+    }
+
+    #endregion
 }

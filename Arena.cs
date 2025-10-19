@@ -1,56 +1,43 @@
 ﻿public class Arena
 {
-    private List<Unit> _playerUnits = new List<Unit>();
-    private List<Unit> _enemyUnits = new List<Unit>();
-
     private TurnController _turnController;
 
     public Arena()
     {
-        _playerUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Player")));
-        _enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Gregory")));
-        _enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Michael")));
+        var playerUnits = new List<Unit>();
+        var enemyUnits = new List<Unit>();
+        playerUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Player")));
+        enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Gregory")));
+        enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Michael")));
 
-        _turnController = new TurnController(_playerUnits.Concat(_enemyUnits).ToList());
-
-        SubscribeToDeleteOnDeath(_playerUnits);
-        SubscribeToDeleteOnDeath(_enemyUnits);
+        _turnController = new TurnController(playerUnits, enemyUnits);
     }
 
     public void Start()
     {
         while (true)
         {
-            foreach (var unit in _turnController.TurnCycle)
+            while (_turnController.TryGetNextTurn(out UnitTurn unitTurn))
             {
-                if (!_turnController.CanTurn(unit))
+                if (!unitTurn.IsAllowed)
                 {
                     continue;
                 }
 
                 var battleState = GetBattleState();
-
                 if (battleState != BattleState.Battle)
                 {
-                    WinLoseMessage(_playerUnits, battleState);
+                    WinLoseMessage(battleState);
                     return;
                 }
 
-                if (_playerUnits.Contains(unit))
-                {
-                    _turnController.Turn(unit, _enemyUnits, true);
-                }
-                else
-                {
-                    _turnController.Turn(unit, _playerUnits, false);
-                }
+                _turnController.Turn(unitTurn);
+                _turnController.UpdateTurnCycle();
             }
-
-            _turnController.Update();
         }
     }
 
-    private void WinLoseMessage(List<Unit> playerUnits, BattleState battleState)
+    private void WinLoseMessage(BattleState battleState)
     {
         if (battleState == BattleState.PlayerWins)
         {
@@ -62,31 +49,13 @@
         }
     }
 
-    private void UpdateDiedUnits(List<Unit> aliveUnits, Unit diedUnit)
-    {
-        aliveUnits.Remove(diedUnit);
-    }
-
-    private void SubscribeToDeleteOnDeath(List<Unit> units)
-    {
-        foreach (var unit in units)
-            unit.HealthBelowZero += () =>
-            {
-                UpdateDiedUnits(_playerUnits, unit);
-                UpdateDiedUnits(_enemyUnits, unit);
-            };
-    }
-
     private BattleState GetBattleState()
     {
-        bool hasAlivePlayerUnits = _playerUnits.Count > 0;
-        bool hasAliveEnemyUnits = _enemyUnits.Count > 0;
-
-        if (hasAlivePlayerUnits && hasAliveEnemyUnits)
+        if (_turnController.HasPlayerUnit && _turnController.HasEnemyUnit)
         {
             return BattleState.Battle;
         }
-        else if (hasAlivePlayerUnits)
+        else if (_turnController.HasPlayerUnit)
         {
             return BattleState.PlayerWins;
         }
