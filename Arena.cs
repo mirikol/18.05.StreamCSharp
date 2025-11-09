@@ -17,23 +17,16 @@
     {
         while (true)
         {
-            while (_turnController.TryGetNextTurn(out UnitTurn unitTurn))
+            var nextTurn = _turnController.GetNextTurn();
+
+            var battleState = GetBattleState();
+            if (battleState != BattleState.Battle)
             {
-                if (!unitTurn.IsAllowed)
-                {
-                    continue;
-                }
-
-                var battleState = GetBattleState();
-                if (battleState != BattleState.Battle)
-                {
-                    WinLoseMessage(battleState);
-                    return;
-                }
-
-                _turnController.Turn(unitTurn);
-                _turnController.UpdateTurnCycle();
+                WinLoseMessage(battleState);
+                return;
             }
+
+            _turnController.Turn(nextTurn);
         }
     }
 
