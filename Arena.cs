@@ -10,7 +10,7 @@
         enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Gregory")));
         enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Michael")));
 
-        _turnController = new TurnController(playerUnits, enemyUnits);
+        _turnController = new TurnController(new TurnPrinter(), playerUnits, enemyUnits);
     }
 
     public void Start()
