@@ -1,5 +1,7 @@
 ﻿public class TurnController
 {
+    private const int initiativeToSpeed = 10000;
+
     public IReadOnlyCollection<UnitTurn> TurnCycle => _turnCycle;
     public bool HasPlayerUnit => _allies.Any(turn => turn.Unit.IsAlive);
     public bool HasEnemyUnit => _enemies.Any(turn => turn.Unit.IsAlive);
@@ -8,12 +10,10 @@
     private UnitTurn[] _allies => Array.FindAll(_turnCycle, turn => turn.IsAlly);
     private UnitTurn[] _enemies => Array.FindAll(_turnCycle, turn => !turn.IsAlly);
 
-    private TurnPrinter _turnPrinter;
     private BattleProcessor _battleProcessor;
 
-    public TurnController(TurnPrinter printer, List<Unit> allyUnits, List<Unit> enemyUnits)
+    public TurnController(TurnPrinter printer, IReadOnlyCollection<Unit> allyUnits, IReadOnlyCollection<Unit> enemyUnits)
     {
-        _turnPrinter = printer;
         _battleProcessor = new BattleProcessor(printer);
 
         CreateTurnCycle(allyUnits, enemyUnits);
@@ -32,9 +32,6 @@
 
         BeginTurnCycle();
         return GetNextTurn();
-
-        // return false if no UnitTurn.IsAllowed in _turnCycle
-        // else return true and next UnitTurn
     }
 
     public void BeginTurnCycle()
@@ -50,7 +47,7 @@
         _battleProcessor.Battle(_turnCycle, _enemies, _allies, attackerTurn, UpdateTurnCycle);
     }
 
-    private void CreateTurnCycle(List<Unit> allyUnits, List<Unit> enemyUnits)
+    private void CreateTurnCycle(IReadOnlyCollection<Unit> allyUnits, IReadOnlyCollection<Unit> enemyUnits)
     {
         var allUnits = allyUnits.Concat(enemyUnits).ToList();
         var turnOrder = CalculateTurnOrder(allUnits);
@@ -85,10 +82,16 @@
         float minSpeed = sortedUnits.Min(unit => unit.Speed);
 
         var speedUnits = new List<(Unit Unit, float Speed)>();
+        foreach (var unit in units)
+        {
+            float speed = unit.Initiative * initiativeToSpeed;
+            speedUnits.Add((unit, speed));
+        }
+
         foreach (var unit in sortedUnits)
         {
             float speed = unit.Speed / minSpeed;
-            while (speed > 0)
+            while (speed > minSpeed)
             {
                 speedUnits.Add((unit, speed));
                 speed -= (float)Math.Cbrt(unit.Speed);

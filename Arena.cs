@@ -1,16 +1,12 @@
 ﻿public class Arena
 {
     private TurnController _turnController;
+    private ArenaModel _model;
 
-    public Arena()
+    public Arena(ArenaModel model)
     {
-        var playerUnits = new List<Unit>();
-        var enemyUnits = new List<Unit>();
-        playerUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Player")));
-        enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Gregory")));
-        enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Michael")));
-
-        _turnController = new TurnController(new TurnPrinter(), playerUnits, enemyUnits);
+        _model = model;
+        _turnController = new TurnController(new TurnPrinter(), _model.PlayerUnits, _model.EnemyUnits);
     }
 
     public void Start()

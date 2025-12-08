@@ -1,0 +1,23 @@
+{
+  "Armors": [
+    {
+      "ArmorName" : "Helmet",
+      "BodyPart": 0
+    },
+    {
+      "ArmorName" : "Vest",
+      "BodyPart": 1
+    },
+    {
+      "ArmorName" : "Glove",
+      "BodyPart": 3
+    }
+  ],
+  "Weapons": [
+    {
+      "WeaponName" : "Golden sword",
+      "BodyPart": 3
+    }
+  ],
+  "UnitModelName": "Тимур"
+}

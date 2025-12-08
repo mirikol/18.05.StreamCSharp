@@ -1,0 +1,14 @@
+{
+  "Armors": [],
+  "Weapons": [
+    {
+      "WeaponName" : "Common sword",
+      "BodyPart": 2
+    },
+    {
+      "WeaponName" : "Common sword",
+      "BodyPart": 3
+    }
+  ],
+  "UnitModelName": "Михаил"
+}

@@ -42,7 +42,18 @@
             //var unitSave3 = new UnitSave(unit3);
             //SaveLoad<UnitSave>.Save(unitSave3, "Michael");
 
-            Arena arena = new Arena();
+            //var playerUnits = new List<Unit>();
+            //var enemyUnits = new List<Unit>();
+            //playerUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Player")));
+            //enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Gregory")));
+            //enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load("Michael")));
+
+            //ArenaModel model = new ArenaModel(playerUnits.Select(x => x.Model.Name).ToList(), enemyUnits.Select(x => x.Model.Name).ToList());
+            //SaveLoad<ArenaModel>.Save(model, "Title");
+
+            //TODO: Сделать интерактив в 5 окон: Log, Окно выбранного врага, Наш персонаж, Окно выбора/взаимодействия, Окно порядка ходов. Log показывается, если Logger включён
+
+            Arena arena = new Arena(SaveLoad<ArenaModel>.Load("Title"));
             arena.Start();
         }
         catch (Exception ex)

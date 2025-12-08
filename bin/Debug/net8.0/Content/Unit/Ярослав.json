@@ -1,0 +1,14 @@
+{
+  "Armors": [],
+  "Weapons": [
+    {
+      "WeaponName" : "Golden sword",
+      "BodyPart": 2
+    },
+    {
+      "WeaponName" : "Golden sword",
+      "BodyPart": 3
+    }
+  ],
+  "UnitModelName": "Ярослав"
+}

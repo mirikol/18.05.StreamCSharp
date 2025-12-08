@@ -5,65 +5,54 @@ public class UnitSave
     public List<ArmorSave> Armors { get; private set; }
     public List<WeaponSave> Weapons { get; private set; }
 
-    public UnitModel UnitModel { get; private set; }
+    public string UnitModelName { get; private set; }
+
+    public UnitModel UnitModel => _unitModel;
+    private UnitModel _unitModel;
 
     [JsonConstructor]
-    public UnitSave(List<ArmorSave> armors, List<WeaponSave> weapons, UnitModel unitModel)
+    public UnitSave(List<ArmorSave> armors, List<WeaponSave> weapons, string unitModelName)
     {
         Armors = new List<ArmorSave>(armors);
         Weapons = new List<WeaponSave>(weapons);
-        UnitModel = unitModel;
-    }
+        UnitModelName = unitModelName;
 
-    public UnitSave(Unit unit)
-    {
-        UnitModel = unit.Model;
-
-        Armors = new List<ArmorSave>();
-        Weapons = new List<WeaponSave>();
-
-        foreach (var bodyPart in unit.BodyParts)
-        {
-            if (bodyPart.Value.Armor != null)
-            {
-                var armorSave = new ArmorSave(bodyPart.Value.Armor, bodyPart.Key);
-                Armors.Add(armorSave);
-            }
-
-            if (bodyPart.Value is Arm arm)
-            {
-                if (arm.Weapon != null)
-                {
-                    var weaponSave = new WeaponSave(arm.Weapon, bodyPart.Key);
-                    Weapons.Add(weaponSave);
-                }
-            }
-        }
+        _unitModel = SaveLoad<UnitModel>.Load(UnitModelName);
     }
 }
 
 public struct ArmorSave
 {
-    public IArmor Armor { get; private set; }
+    public string ArmorName { get; private set; }
     public BodyPartName BodyPart { get; private set; }
 
+    private IArmor _armor;
+    public IArmor Armor => _armor;
+
     [JsonConstructor]
-    public ArmorSave(IArmor armor, BodyPartName bodyPart)
+    public ArmorSave(string armorName, BodyPartName bodyPart)
     {
-        Armor = armor;
+        ArmorName = armorName;
         BodyPart = bodyPart;
+
+        _armor = SaveLoad<IArmor>.Load(armorName);
     }
 }
 
 public struct WeaponSave
 {
-    public IWeapon Weapon { get; private set; }
+    public string WeaponName { get; private set; }
     public BodyPartName BodyPart { get; private set; }
 
+    private IWeapon _weapon;
+    public IWeapon Weapon => _weapon;
+
     [JsonConstructor]
-    public WeaponSave(IWeapon weapon, BodyPartName bodyPart)
+    public WeaponSave(string weaponName, BodyPartName bodyPart)
     {
-        Weapon = weapon;
+        WeaponName = weaponName;
         BodyPart = bodyPart;
+
+        _weapon = SaveLoad<IWeapon>.Load(weaponName);
     }
 }
