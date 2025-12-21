@@ -1,9 +1,13 @@
-﻿internal class Program
+﻿using Spectre.Console;
+using System.Runtime.InteropServices;
+
+internal class Program
 {
-    private static void Main()
+    private static async Task Main()
     {
         try
         {
+            WindowSettings.Initialize();
             Logger.enabled = true;
 
             //var goldenSword = new Sword("Golden sword", 0, 10, 200);
@@ -51,10 +55,29 @@
             //ArenaModel model = new ArenaModel(playerUnits.Select(x => x.Model.Name).ToList(), enemyUnits.Select(x => x.Model.Name).ToList());
             //SaveLoad<ArenaModel>.Save(model, "Title");
 
-            //TODO: Сделать интерактив в 5 окон: Log, Окно выбранного врага, Наш персонаж, Окно выбора/взаимодействия, Окно порядка ходов. Log показывается, если Logger включён
+            //Arena arena = new Arena(SaveLoad<ArenaModel>.Load("Title"));
+            //arena.Start();
 
-            Arena arena = new Arena(SaveLoad<ArenaModel>.Load("Title"));
-            arena.Start();
+            IConsoleRenderer renderer = new BufferedConsoleRenderer();
+            renderer.SetSize(56, 18);
+            DrawUtils draw = new DrawUtils(renderer.Buffer);
+            draw.ResetColor();
+
+            int frame = 0;
+
+            while (true)
+            {
+                frame++;
+
+                renderer.Buffer.Set(0 + frame % 15, 0, 'B', 15, 0);
+                renderer.Buffer.Set(1 + frame % 15, 0, 'o', 15, 0);
+                renderer.Buffer.Set(2 + frame % 15, 0, 'o', 15, 0);
+                renderer.Buffer.Set(3 + frame % 15, 0, 'b', 15, 0);
+                renderer.Buffer.Set(4 + frame % 15, 0, 's', 15, 0);
+
+                renderer.Render();
+                await Task.Delay(500);
+            }
         }
         catch (Exception ex)
         {
@@ -62,4 +85,59 @@
             return;
         }
     }
+
+    //private const int NumberOfRows = 10;
+
+    //private static readonly Random _random = new();
+    //private static readonly string[] _exchanges = new string[]
+    //{
+    //        "SGD", "SEK", "PLN",
+    //        "MYR", "EUR", "USD",
+    //        "AUD", "JPY", "CNH",
+    //        "HKD", "CAD", "INR",
+    //        "DKK", "GBP", "RUB",
+    //        "NZD", "MXN", "IDR",
+    //        "TWD", "THB", "VND",
+    //};
+
+    //public static async Task Main(string[] args)
+    //{
+    //    DisableScrolling();
+
+    //    // Write a markup line to the console
+    //    AnsiConsole.MarkupLine("[yellow]Hello[/], [blue]World[/]!");
+
+    //    // Write text to the console
+    //    AnsiConsole.WriteLine("Hello, World!");
+
+    //    // Write a table to the console
+    //    AnsiConsole.Write(new Table()
+    //        .RoundedBorder()
+    //        .AddColumns("[red]Greeting[/]", "[red]Subject[/]")
+    //        .AddRow("[yellow]Hello[/]", "World")
+    //        .AddRow("[green]Oh hi[/]", "[blue u]Mark[/]"));
+    //}
+
+    //private static void AddExchangeRateRow(Table table)
+    //{
+    //    var (source, destination, rate) = GetExchangeRate();
+    //    table.AddRow(
+    //        source, destination,
+    //        _random.NextDouble() > 0.35D ? $"[green]{rate}[/]" : $"[red]{rate}[/]");
+    //}
+
+    //private static (string Source, string Destination, double Rate) GetExchangeRate()
+    //{
+    //    var source = _exchanges[_random.Next(0, _exchanges.Length)];
+    //    var dest = _exchanges[_random.Next(0, _exchanges.Length)];
+    //    var rate = 200 / ((_random.NextDouble() * 320) + 1);
+
+    //    while (source == dest)
+    //    {
+    //        dest = _exchanges[_random.Next(0, _exchanges.Length)];
+    //    }
+
+    //    return (source, dest, rate);
+    //}
+
 }
