@@ -1,8 +1,12 @@
-﻿using Spectre.Console;
+﻿using ANSIConsole;
+using Spectre.Console;
 using System.Runtime.InteropServices;
 
 public static class WindowSettings
 {
+    private const int windowWidth = 200;
+    private const int windowHeight = 50;
+
     private const int MF_BYCOMMAND = 0x00000000;
     private const int SC_CLOSE = 0xF060;
     private const int SC_MINIMIZE = 0xF020;
@@ -12,6 +16,8 @@ public static class WindowSettings
 
     public static void Initialize()
     {
+        if (!ANSIInitializer.Init(false)) ANSIInitializer.Enabled = false;
+        Console.SetWindowSize(windowWidth, windowHeight);
         AnsiConsole.Cursor.Hide();
 
         ForbidChangeSize();

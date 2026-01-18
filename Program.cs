@@ -1,8 +1,74 @@
-﻿using Spectre.Console;
-using System.Runtime.InteropServices;
+﻿using ANSIConsole;
+using Spectre.Console;
+
+public class GameRender
+{
+    private Layout _layout;
+
+    private Table _outputTable;
+    private Panel _outputPanel;
+    private int rows = 0;
+
+    public GameRender()
+    {
+        InitializeLayout();
+        StartRender();
+    }
+
+    private void InitializeLayout()
+    {
+        _layout = new Layout("Root")
+           .SplitColumns(
+               new Layout("Battle").Ratio(4)
+                   .SplitRows(
+                       new Layout("Turn").Ratio(2)
+                           .SplitColumns(
+                               new Layout("Units").Ratio(1),
+                               new Layout("Skill").Ratio(1),
+                               new Layout("Misc").Ratio(2)
+                           ),
+                       new Layout("Output").Ratio(2)
+                   ),
+               new Layout("Info").Ratio(2)
+                   .SplitRows(
+                       new Layout("Equipment").Ratio(3),
+                       new Layout("Stats").Ratio(1)
+                   )
+           );
+        _layout["Battle"]["Turn"]["Misc"].Update(new Panel("").Expand().BorderColor(Color.Black));
+        _outputTable = new Table().AddColumn("Text").AddColumn("Time").Border(TableBorder.None);
+        _outputPanel = new Panel(_outputTable).Header("Printer").BorderColor(Color.White).Expand();
+        _layout["Battle"]["Output"].Update(_outputTable);
+    }
+
+    private void StartRender()
+    {
+        AnsiConsole.Live(_layout)
+            .Start(ctx =>
+            {
+                ctx.Refresh();
+                Printer.HasPrinted += (PrinterContext context) =>
+                {
+                    rows++;
+                    if (rows > 22)
+                    {
+                        _outputTable.RemoveRow(0);
+                    }
+
+                    _outputTable.AddRow(context.Text, DateTime.Now.ToString());
+
+                    _layout["Battle"]["Output"].Update(_outputPanel);
+                    ctx.Refresh();
+                };
+                while (true) Thread.Sleep(1000);
+            });
+    }
+}
 
 internal class Program
 {
+    public static Action<string> WindowHasChanged;
+
     private static async Task Main()
     {
         try
@@ -58,26 +124,100 @@ internal class Program
             //Arena arena = new Arena(SaveLoad<ArenaModel>.Load("Title"));
             //arena.Start();
 
-            IConsoleRenderer renderer = new BufferedConsoleRenderer();
-            renderer.SetSize(56, 18);
-            DrawUtils draw = new DrawUtils(renderer.Buffer);
-            draw.ResetColor();
+            //IConsoleRenderer renderer = new BufferedConsoleRenderer();
+            //renderer.SetSize(160, 100);
+            //DrawUtils draw = new DrawUtils(renderer.Buffer);
+            //draw.ResetColor();
 
             int frame = 0;
 
-            while (true)
+            Task.Run(() =>
             {
-                frame++;
+                while (true)
+                {
+                    frame++;
+                    WindowHasChanged?.Invoke(frame.ToString());
+                    Thread.Sleep(100);
+                    Printer.Print("Hello", ConsoleColor.White);
+                    Printer.Print("Hel346346lo", ConsoleColor.White);
+                    Printer.Print("He235235llo", ConsoleColor.White);
+                    Printer.Print("He7457457llo", ConsoleColor.White);
+                    Printer.Print("He7457457llo", ConsoleColor.White);
+                    Printer.Print("He7457457llo", ConsoleColor.White);
+                    Printer.Print("He7457457llo", ConsoleColor.White);
+                    Printer.Print("Hel3426346lo", ConsoleColor.White);
+                    Printer.Print("Hel4578548lo", ConsoleColor.White);
+                    Printer.Print("Hel346346lo", ConsoleColor.White);
+                    Printer.Print("Hel346346lo", ConsoleColor.White);
+                    Printer.Print("Hel346346lo", ConsoleColor.White);
+                    Printer.Print("Hel346346lo", ConsoleColor.White);
+                    Printer.Print("Hel346346lo", ConsoleColor.White);
+                    Printer.Print("Hel346346lo", ConsoleColor.White);
+                    Printer.Print("Hel346346lo", ConsoleColor.White);
+                    Printer.Print("He235235llo", ConsoleColor.White);
+                    Printer.Print("He7457457llo", ConsoleColor.White);
+                    Printer.Print("Hel3426346lo", ConsoleColor.White);
+                    Printer.Print("Hel4578548lo", ConsoleColor.White);
+                    Printer.Print("He235235llo", ConsoleColor.White);
+                    Printer.Print("He7457457llo", ConsoleColor.White);
+                    Printer.Print("Hel3426346lo", ConsoleColor.White);
+                    Printer.Print("Hel4578548lo", ConsoleColor.White);
+                    Printer.Print("Hel346346lo", ConsoleColor.White);
 
-                renderer.Buffer.Set(0 + frame % 15, 0, 'B', 15, 0);
-                renderer.Buffer.Set(1 + frame % 15, 0, 'o', 15, 0);
-                renderer.Buffer.Set(2 + frame % 15, 0, 'o', 15, 0);
-                renderer.Buffer.Set(3 + frame % 15, 0, 'b', 15, 0);
-                renderer.Buffer.Set(4 + frame % 15, 0, 's', 15, 0);
+                }
+            });
 
-                renderer.Render();
-                await Task.Delay(500);
-            }
+            GameRender render = new GameRender();
+
+            //var table = new Table().RoundedBorder();
+
+            //table.AddColumn("ID");
+            //table.AddColumn("Status");
+            //table.AddColumn("Progress");
+
+            //// Add initial rows
+            //table.AddRow("Task 1", "[yellow]Pending[/]", "0%");
+            //table.AddRow("Task 2", "[yellow]Pending[/]", "0%");
+            //table.AddRow("Task 3", "[yellow]Pending[/]", "0%");
+
+            //// Update cells dynamically
+            //table.UpdateCell(0, 1, new Markup("[green]Complete[/]"));
+            //table.UpdateCell(0, 2, new Markup("[green]100%[/]"));
+
+            //table.UpdateCell(1, 1, new Markup("[blue]In Progress[/]"));
+            //table.UpdateCell(1, 2, new Markup("[blue]0%[/]"));
+
+            //// Insert a new row
+            //table.InsertRow(3, new Markup("Task 4"), new Markup("[yellow]Pending[/]"), new Markup("0%"));
+
+            //var table2 = new Table()
+            //    .AddColumn("Server")
+            //    .AddColumn("Status")
+            //    .AddColumn("Uptime");
+
+            //int frame = 0;
+            //AnsiConsole.Live(table)
+            //    .Start(ctx =>
+            //    {
+            //        while (true)
+            //        {
+            //            table.UpdateCell(1, 2, new Markup($"[blue]{frame}%[/]"));
+            //            frame++;
+
+            //            if (frame == 100)
+            //            {
+            //                table.UpdateCell(1, 1, new Markup("[green]Complete[/]"));
+            //                table.UpdateCell(1, 2, new Markup("[green]100%[/]"));
+
+            //                ctx.UpdateTarget(table2);
+            //                return;
+            //            }
+            //            Thread.Sleep(100);
+            //            ctx.Refresh();
+            //        }
+            //    });
+
+
         }
         catch (Exception ex)
         {

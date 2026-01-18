@@ -8,8 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ANSI.Console" Version="2.5.0" />
     <PackageReference Include="Spectre.Console" Version="0.54.0" />
     <PackageReference Include="Spectre.Console.ImageSharp" Version="0.54.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Engine\Render\" />
   </ItemGroup>
 
 </Project>
