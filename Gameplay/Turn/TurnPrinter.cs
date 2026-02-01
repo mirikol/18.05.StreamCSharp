@@ -4,6 +4,13 @@
     private const ConsoleColor _enemyColor = ConsoleColor.DarkCyan;
     private const ConsoleColor _diedUnitColor = ConsoleColor.Red;
 
+    private GameplayLogPrinter _printer;
+
+    public TurnPrinter(GameplayLogPrinter printer)
+    {
+        _printer = printer;
+    }
+
     public void Print(UnitTurn[] units, UnitTurn unitTurn)
     {
         var color = GetPrintColor(unitTurn);
@@ -27,11 +34,11 @@
 
             if (units[i].Unit.IsAlive)
             {
-                Printer.Print(unitName, color);
+                _printer.Print(new PrinterContext(unitName, color));
             }
             else
             {
-                Printer.Print(unitName + " [DEAD]", _diedUnitColor);
+                _printer.Print(new PrinterContext(unitName + " [DEAD]", _diedUnitColor));
             }
         }
     }
@@ -52,11 +59,11 @@
     {
         if (unitTurn.IsAlly)
         {
-            Printer.Print("[YOUR TURN]", color);
+            _printer.Print(new PrinterContext("[YOUR TURN]", color));
         }
         else
         {
-            Printer.Print("[ENEMY TURN]", color);
+            _printer.Print(new PrinterContext("[ENEMY TURN]", color));
         }
     }
 }

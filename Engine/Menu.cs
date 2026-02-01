@@ -22,7 +22,7 @@
             return choose;
         }
 
-        Printer.Print("Некорректный выбор.", ConsoleColor.White);
+        //Printer.Print("Некорректный выбор.", ConsoleColor.White);
         return GetInput();
     }
 
@@ -33,10 +33,10 @@
 
     public void Show()
     {
-        Printer.Print($"====={_name}=====", ConsoleColor.White);
-        for (int i = 0; i < _bindings.Length; i++)
-        {
-            Printer.Print($"{i+1}) {_bindings[i].Label}", ConsoleColor.White);
-        }
+        //Printer.Print($"====={_name}=====", ConsoleColor.White);
+        //for (int i = 0; i < _bindings.Length; i++)
+        //{
+        //    Printer.Print($"{i+1}) {_bindings[i].Label}", ConsoleColor.White);
+        //}
     }
 }

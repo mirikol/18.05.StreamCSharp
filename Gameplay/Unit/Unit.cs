@@ -188,7 +188,7 @@
 
     private void UpdateDamagedStatus(BodyPartName bodyPart)
     {
-        Printer.Print($"{_model.Name} {bodyPart.ToString()} health = {_bodyParts[bodyPart].Health}", ConsoleColor.Yellow);
+        //Printer.Print($"{_model.Name} {bodyPart.ToString()} health = {_bodyParts[bodyPart].Health}", ConsoleColor.Yellow);
         Render();
     }
 
@@ -196,7 +196,7 @@
     {
         if (!IsAlive)
         {
-            Printer.Print($"{_model.Name} died", ConsoleColor.DarkRed);
+            //Printer.Print($"{_model.Name} died", ConsoleColor.DarkRed);
             HealthBelowZero?.Invoke();
         }
 

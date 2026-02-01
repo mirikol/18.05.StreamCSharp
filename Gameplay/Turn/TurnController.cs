@@ -12,9 +12,9 @@
 
     private BattleProcessor _battleProcessor;
 
-    public TurnController(TurnPrinter printer, IReadOnlyCollection<Unit> allyUnits, IReadOnlyCollection<Unit> enemyUnits)
+    public TurnController(GameplayLogPrinter gameplayLogPrinter, TurnPrinter printer, IReadOnlyCollection<Unit> allyUnits, IReadOnlyCollection<Unit> enemyUnits)
     {
-        _battleProcessor = new BattleProcessor(printer);
+        _battleProcessor = new BattleProcessor(gameplayLogPrinter, printer);
 
         CreateTurnCycle(allyUnits, enemyUnits);
     }

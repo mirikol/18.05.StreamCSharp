@@ -23,7 +23,7 @@
 
         if (Health <= 0)
         {
-            Printer.Print($"{GetType().Name} disabled", ConsoleColor.DarkRed);
+            //Printer.Print($"{GetType().Name} disabled", ConsoleColor.DarkRed);
             HealthBelowZero?.Invoke();
             Health = 0;
         }
