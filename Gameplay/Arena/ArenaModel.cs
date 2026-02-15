@@ -8,19 +8,22 @@ public class ArenaModel
     private List<Unit> _playerUnits = new List<Unit>();
     private List<Unit> _enemyUnits = new List<Unit>();
 
+    public int[][] PlayerUnitsPlacements { get; private set; }
+    public int[][] EnemyUnitsPlacements { get; private set; }
+
     public IReadOnlyCollection<Unit> PlayerUnits => _playerUnits;
     public IReadOnlyCollection<Unit> EnemyUnits => _enemyUnits;
 
     [JsonConstructor]
-    public ArenaModel(List<string> playerUnitsName, List<string> enemyUnitsName)
+    public ArenaModel(List<string> playerUnitsName, List<string> enemyUnitsName, int[][] playerUnitsPlacements, int[][] enemyUnitsPlacements)
     {
-        foreach (var unitName in playerUnitsName)
+        for (int i = 0; i < playerUnitsName.Count; i++)
         {
-            _playerUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load(unitName)));
+            _playerUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load(playerUnitsName[i]), playerUnitsPlacements[i]));
         }
-        foreach (var unitName in enemyUnitsName)
+        for (int i = 0; i < enemyUnitsName.Count; i++)
         {
-            _enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load(unitName)));
+            _enemyUnits.Add(UnitUtility.CreateUnit(SaveLoad<UnitSave>.Load(enemyUnitsName[i]), enemyUnitsPlacements[i]));
         }
     }
 }

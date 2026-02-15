@@ -4,11 +4,13 @@
     private const ConsoleColor _enemyColor = ConsoleColor.DarkCyan;
     private const ConsoleColor _diedUnitColor = ConsoleColor.Red;
 
-    private GameplayLogPrinter _printer;
+    private GameplayLogPrinter _logPrinter;
+    private UnitsPrinter _unitsPrinter;
 
-    public TurnPrinter(GameplayLogPrinter printer)
+    public TurnPrinter(GameplayLogPrinter logPrinter, UnitsPrinter unitsPrinter)
     {
-        _printer = printer;
+        _logPrinter = logPrinter;
+        _unitsPrinter = unitsPrinter;
     }
 
     public void Print(UnitTurn[] units, UnitTurn unitTurn)
@@ -23,24 +25,25 @@
 
     private void PrintUnits(UnitTurn[] units, UnitTurn unitTurn, ConsoleColor color)
     {
-        for (int i = 0; i < units.Length; i++)
-        {
-            string unitName = units[i].Unit.Model.Name;
+        _unitsPrinter.Print(new UnitsContext(units, units.Select(x => x.Unit.Placement).ToArray(), unitTurn));
+        //for (int i = 0; i < units.Length; i++)
+        //{
+        //    string unitName = units[i].Unit.Model.Name;
 
-            if (i == unitTurn.Order)
-            {
-                unitName += " <<<";
-            }
+        //    if (i == unitTurn.Order)
+        //    {
+        //        unitName += " <<<";
+        //    }
 
-            if (units[i].Unit.IsAlive)
-            {
-                _printer.Print(new PrinterContext(unitName, color));
-            }
-            else
-            {
-                _printer.Print(new PrinterContext(unitName + " [DEAD]", _diedUnitColor));
-            }
-        }
+        //    if (units[i].Unit.IsAlive)
+        //    {
+        //        _printer.Print(new LogContext(unitName, color));
+        //    }
+        //    else
+        //    {
+        //        _printer.Print(new LogContext(unitName + " [DEAD]", _diedUnitColor));
+        //    }
+        //}
     }
 
     private ConsoleColor GetPrintColor(UnitTurn unitTurn)
@@ -59,11 +62,11 @@
     {
         if (unitTurn.IsAlly)
         {
-            _printer.Print(new PrinterContext("[YOUR TURN]", color));
+            _logPrinter.Print(new LogContext("[YOUR TURN]", color));
         }
         else
         {
-            _printer.Print(new PrinterContext("[ENEMY TURN]", color));
+            _logPrinter.Print(new LogContext("[ENEMY TURN]", color));
         }
     }
 }

@@ -1,16 +1,18 @@
 ﻿public class Arena
 {
     private GameplayLogPrinter _gameplayLogPrinter;
+    private UnitsPrinter _unitsPrinter;
 
     private TurnController _turnController;
     private ArenaModel _model;
 
-    public Arena(GameplayLogPrinter gameplayLogPrinter, ArenaModel model)
+    public Arena(GameplayLogPrinter gameplayLogPrinter, UnitsPrinter unitsPrinter, ArenaModel model)
     {
         _gameplayLogPrinter = gameplayLogPrinter;
+        _unitsPrinter = unitsPrinter;
 
         _model = model;
-        _turnController = new TurnController(_gameplayLogPrinter, new TurnPrinter(_gameplayLogPrinter), _model.PlayerUnits, _model.EnemyUnits);
+        _turnController = new TurnController(_gameplayLogPrinter, new TurnPrinter(_gameplayLogPrinter, _unitsPrinter), _model.PlayerUnits, _model.EnemyUnits);
     }
 
     public void Start()
@@ -34,11 +36,11 @@
     {
         if (battleState == BattleState.PlayerWins)
         {
-            _gameplayLogPrinter.Print(new PrinterContext("Player win", ConsoleColor.Green));
+            _gameplayLogPrinter.Print(new LogContext("Player win", ConsoleColor.Green));
         }
         else if (battleState == BattleState.EnemyWins)
         {
-            _gameplayLogPrinter.Print(new PrinterContext("Enemy win", ConsoleColor.DarkRed));
+            _gameplayLogPrinter.Print(new LogContext("Enemy win", ConsoleColor.DarkRed));
         }
     }
 

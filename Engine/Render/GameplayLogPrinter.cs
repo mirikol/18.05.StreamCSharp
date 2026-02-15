@@ -8,16 +8,18 @@ public class GameplayLogPrinter : IPrinter
     private Table _outputTable;
     private int _rows;
 
-    public void Initialize(LiveDisplayContext context, Layout layout, Panel outputPanel, Table outputTable)
+    public void Initialize(LiveDisplayContext context, Layout layout)
     {
         _displayContext = context;
         _layout = layout;
-        _outputPanel = outputPanel;
-        _outputTable = outputTable;
         _rows = 0;
+
+        _outputTable = new Table().AddColumn("Text").AddColumn("Time").Border(TableBorder.None);
+        _outputPanel = new Panel(_outputTable).Header("Printer").BorderColor(Color.White).Expand();
+        _layout["Battle"]["Output"].Update(_outputPanel);
     }
 
-    public void Print(PrinterContext context)
+    public void Print(LogContext context)
     {
         context.Text = context.Text.Replace("[", "[[").Replace("]", "]]");
 
@@ -31,13 +33,5 @@ public class GameplayLogPrinter : IPrinter
 
         _layout["Battle"]["Output"].Update(_outputPanel);
         _displayContext.Refresh();
-    }
-}
-
-public class UnitsPrinter : IPrinter
-{
-    public void Print(PrinterContext context)
-    {
-        throw new NotImplementedException();
     }
 }

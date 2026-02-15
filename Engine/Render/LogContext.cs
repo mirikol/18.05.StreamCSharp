@@ -1,17 +1,17 @@
-﻿public struct PrinterContext
+﻿public struct LogContext
 {
     public string Text;
     public ConsoleColor ForegroundColor;
     public ConsoleColor BackgroundColor;
 
-    public PrinterContext(string text, ConsoleColor foregroundColor, ConsoleColor backgroundColor)
+    public LogContext(string text, ConsoleColor foregroundColor, ConsoleColor backgroundColor)
     {
         Text = text;
         ForegroundColor = foregroundColor;
         BackgroundColor = backgroundColor;
     }
 
-    public PrinterContext(string text, ConsoleColor foregroundColor)
+    public LogContext(string text, ConsoleColor foregroundColor)
     {
         Text = text;
         ForegroundColor = foregroundColor;

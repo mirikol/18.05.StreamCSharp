@@ -20,7 +20,7 @@
     public void Execute()
     {
         Random random = new Random();
-        PrinterContext context = new PrinterContext($"{_attacker.Model.Name} атаковал {_defender.Model.Name} с уроном {_damage}.", ConsoleColor.DarkRed);
+        LogContext context = new LogContext($"{_attacker.Model.Name} атаковал {_defender.Model.Name} с уроном {_damage}.", ConsoleColor.DarkRed);
         _printer.Print(context);
 
         if (_probability > random.NextDouble())

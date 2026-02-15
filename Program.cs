@@ -61,15 +61,16 @@
             //draw.ResetColor();
 
             GameplayLogPrinter gameplayLogPrinter = new GameplayLogPrinter();
+            UnitsPrinter unitsPrinter = new UnitsPrinter();
 
             Task.Run(() =>
             {
-                Thread.Sleep(500);
-                Arena arena = new Arena(gameplayLogPrinter, SaveLoad<ArenaModel>.Load("Title"));
+                Thread.Sleep(1500);
+                Arena arena = new Arena(gameplayLogPrinter, unitsPrinter, SaveLoad<ArenaModel>.Load("Title"));
                 arena.Start();
             });
 
-            GameRender render = new GameRender(gameplayLogPrinter);
+            GameRender render = new GameRender(gameplayLogPrinter, unitsPrinter);
 
             //var table = new Table().RoundedBorder();
 

@@ -32,6 +32,9 @@
     private Dictionary<BodyPartName, BodyPart> _bodyParts = new Dictionary<BodyPartName, BodyPart>();
     public IReadOnlyDictionary<BodyPartName, BodyPart> BodyParts => _bodyParts;
 
+    private int[] _placement;
+    public int[] Placement => _placement;
+
     public int BaseDamage
     {
         get
@@ -158,8 +161,11 @@
         }
     }
 
-    public Unit(UnitModel model)
+    public Unit(UnitModel model, int[] placement)
     {
+        _placement = new int[placement.Length];
+        placement.CopyTo(_placement, 0);
+
         _model = model;
 
         BodyPart head = new Head((int)(_headHealthModifier * _model.Health));

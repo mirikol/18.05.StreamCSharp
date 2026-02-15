@@ -8,9 +8,9 @@
         return (int)(baseDamage * (_miniamlBaseDamageModifier + (attacker.Attack * _attackModifier) / (float)((attacker.Attack * _attackModifier) + defender.Defense)));
     }
 
-    public static Unit CreateUnit(UnitSave unitSave)
+    public static Unit CreateUnit(UnitSave unitSave, int[] placement)
     {
-        Unit unit = new Unit(unitSave.UnitModel);
+        Unit unit = new Unit(unitSave.UnitModel, placement);
 
         foreach (var weapon in unitSave.Weapons)
         {
