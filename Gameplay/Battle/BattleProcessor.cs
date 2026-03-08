@@ -1,10 +1,12 @@
 ﻿public class BattleProcessor
 {
+    private UnitsPrinter _unitsPrinter;
     private GameplayLogPrinter _gameplayLogPrinter;
     private TurnPrinter _printer;
 
-    public BattleProcessor(GameplayLogPrinter gameplayLogPrinter, TurnPrinter printer)
+    public BattleProcessor(UnitsPrinter unitsPrinter, GameplayLogPrinter gameplayLogPrinter, TurnPrinter printer)
     {
+        _unitsPrinter = unitsPrinter;
         _gameplayLogPrinter = gameplayLogPrinter;
         _printer = printer;
     }
@@ -13,27 +15,57 @@
     {
         _printer.Print(turnCycle, attackerTurn);
 
-        Unit enemy;
         if (attackerTurn.IsAlly)
         {
-            enemy = SelectEnemy(enemies, true);
-        }
-        else
-        {
-            enemy = SelectEnemy(allies, false);
-        }
+            ConsoleKeyInfo keyInfo;
+            _unitsPrinter.Select(0);
 
-        BodyPartName bodyPart = SelectBodyPart(attackerTurn.IsAlly);
-        int attackIndex = SelectAttack(attackerTurn.Unit, enemy, bodyPart, attackerTurn.IsAlly);
-
-        for (int i = 0; i < turnCycle.Length; i++)
-        {
-            if (turnCycle[i].Order == attackerTurn.Order)
+            do
             {
-                turnCycle[i] = new UnitTurn(attackerTurn.Unit, attackerTurn.IsAlly, false, i);
-                break;
-            }
+                keyInfo = Console.ReadKey(true);
+
+                if (keyInfo.Key == ConsoleKey.D)
+                {
+                    _unitsPrinter.Select(2);
+                }
+                if (keyInfo.Key == ConsoleKey.A)
+                {
+                    _unitsPrinter.Select(-2);
+                }
+                if (keyInfo.Key == ConsoleKey.W)
+                {
+                    _unitsPrinter.Select(-1);
+                }
+                if (keyInfo.Key == ConsoleKey.S)
+                {
+                    _unitsPrinter.Select(1);
+                }
+
+            } while (keyInfo.Key != ConsoleKey.Enter);
         }
+
+
+        //Unit enemy;
+        //if (attackerTurn.IsAlly)
+        //{
+        //    enemy = SelectEnemy(enemies, true);
+        //}
+        //else
+        //{
+        //    enemy = SelectEnemy(allies, false);
+        //}
+
+        //BodyPartName bodyPart = SelectBodyPart(attackerTurn.IsAlly);
+        //int attackIndex = SelectAttack(attackerTurn.Unit, enemy, bodyPart, attackerTurn.IsAlly);
+
+        //for (int i = 0; i < turnCycle.Length; i++)
+        //{
+        //    if (turnCycle[i].Order == attackerTurn.Order)
+        //    {
+        //        turnCycle[i] = new UnitTurn(attackerTurn.Unit, attackerTurn.IsAlly, false, i);
+        //        break;
+        //    }
+        //}
 
         onComplete();
     }

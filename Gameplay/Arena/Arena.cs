@@ -12,7 +12,7 @@
         _unitsPrinter = unitsPrinter;
 
         _model = model;
-        _turnController = new TurnController(_gameplayLogPrinter, new TurnPrinter(_gameplayLogPrinter, _unitsPrinter), _model.PlayerUnits, _model.EnemyUnits);
+        _turnController = new TurnController(_gameplayLogPrinter, _unitsPrinter, new TurnPrinter(_gameplayLogPrinter, _unitsPrinter), _model.PlayerUnits, _model.EnemyUnits);
     }
 
     public void Start()

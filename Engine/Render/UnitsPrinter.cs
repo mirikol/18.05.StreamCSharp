@@ -7,14 +7,26 @@ public class UnitsPrinter : IPrinter
     private Layout _layout;
     private Grid _grid;
 
+    private List<Panel> _panels = new List<Panel>();
+    private int _selectIndex = 0;
+
     public void Initialize(LiveDisplayContext context, Layout layout)
     {
         _displayContext = context;
         _layout = layout;
     }
 
+    public void Select(int offset)
+    {
+        _panels[_selectIndex].BorderColor(Color.White);
+        _selectIndex = Math.Clamp(_selectIndex + offset, 0, _panels.Count - 1);
+        _panels[_selectIndex].BorderColor(Color.Green);
+        _displayContext.Refresh();
+    }
+
     public void Print(UnitsContext context)
     {
+        _panels.Clear();
         _grid = new Grid();
 
         for (int i = 0; i < 3; i++)
@@ -47,8 +59,15 @@ public class UnitsPrinter : IPrinter
             {
                 panels[i] = new Grid();
                 panels[i].AddColumn();
-                panels[i].AddRow(new Panel("") { Height = 6 }.NoBorder());
-                panels[i].AddRow(new Panel("") { Height = 6 }.NoBorder());
+
+                var panel1 = new Panel("") { Height = 6 }.NoBorder();
+                var panel2 = new Panel("") { Height = 6 }.NoBorder();
+
+                panels[i].AddRow(panel1);
+                panels[i].AddRow(panel2);
+
+                _panels.Add(panel1);
+                _panels.Add(panel2);
             }
             else
             {
@@ -61,29 +80,55 @@ public class UnitsPrinter : IPrinter
                     {
                         if (indeciesToName[i][0] == indeciesToName[i][1])
                         {
-                            panels[i].AddRow(new Panel(indeciesToName[i][0]) { Height = 6, Width = 25 }.BorderColor(Color.White));
+                            var panel3 = new Panel(indeciesToName[i][0]) { Height = 6, Width = 25 }.BorderColor(Color.White);
+                            panels[i].AddRow(panel3);
+                            _panels.Add(panel3);
                         }
                         else
                         {
-                            panels[i].AddRow(new Panel(indeciesToName[i][0]) { Height = 3, Width = 25 }.BorderColor(Color.White));
-                            panels[i].AddRow(new Panel(indeciesToName[i][1]) { Height = 3, Width = 25 }.BorderColor(Color.White));
+                            var panel4 = new Panel(indeciesToName[i][0]) { Height = 3, Width = 25 }.BorderColor(Color.White);
+                            var panel5 = new Panel(indeciesToName[i][1]) { Height = 3, Width = 25 }.BorderColor(Color.White);
+
+                            panels[i].AddRow(panel4);
+                            panels[i].AddRow(panel5);
+
+                            _panels.Add(panel4);
+                            _panels.Add(panel5);
                         }
                     }
                     else if (!indeciesToName[i].ContainsKey(1))
                     {
-                        panels[i].AddRow(new Panel(indeciesToName[i][0]) { Height = 3, Width = 25 }.BorderColor(Color.White));
-                        panels[i].AddRow(new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White));
+                        var panel6 = new Panel(indeciesToName[i][0]) { Height = 3, Width = 25 }.BorderColor(Color.White);
+                        var panel7 = new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White);
+
+                        panels[i].AddRow(panel6);
+                        panels[i].AddRow(panel7);
+
+                        _panels.Add(panel6);
+                        _panels.Add(panel7);
                     }
                     else
                     {
-                        panels[i].AddRow(new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White));
-                        panels[i].AddRow(new Panel(indeciesToName[i][1]) { Height = 3, Width = 25 }.BorderColor(Color.White));
+                        var panel8 = new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White);
+                        var panel9 = new Panel(indeciesToName[i][1]) { Height = 3, Width = 25 }.BorderColor(Color.White);
+
+                        panels[i].AddRow(panel8);
+                        panels[i].AddRow(panel9);
+
+                        _panels.Add(panel8);
+                        _panels.Add(panel9);
                     }
                 }
                 else
                 {
-                    panels[i].AddRow(new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White));
-                    panels[i].AddRow(new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White));
+                    var panel10 = new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White);
+                    var panel11 = new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White);
+
+                    panels[i].AddRow(panel10);
+                    panels[i].AddRow(panel11);
+
+                    _panels.Add(panel10);
+                    _panels.Add(panel11);
                 }
             }
         }

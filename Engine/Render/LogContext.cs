@@ -17,4 +17,11 @@
         ForegroundColor = foregroundColor;
         BackgroundColor = ConsoleColor.Black;
     }
+
+    public LogContext(string text)
+    {
+        Text = text;
+        ForegroundColor = ConsoleColor.White;
+        BackgroundColor = ConsoleColor.Black;
+    }
 }
