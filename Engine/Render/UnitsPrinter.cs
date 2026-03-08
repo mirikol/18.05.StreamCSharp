@@ -22,77 +22,133 @@ public class UnitsPrinter : IPrinter
             _grid.AddColumn();
         }
 
-        Panel[] panels = new Panel[15];
-        for (int i = 0; i < 15; i++)
+        Grid[] panels = new Grid[9];
+
+        Dictionary<int, Dictionary<int, string>> indeciesToName = new Dictionary<int, Dictionary<int, string>>();
+        for (int i = 0; i < context.UnitsPlacement.Length; i++)
         {
-            if (i >= 6 && i <= 8)
+            foreach (var globalIndex in context.UnitsPlacement[i])
             {
-                panels[i] = new Panel("") { Height = 10 }.BorderColor(Color.Black);
+                int gridIndex = GetGridIndex(globalIndex, context.Units[i].IsAlly);
+                int panelIndex = GetPanelIndex(globalIndex, context.Units[i].IsAlly);
+
+                if (!indeciesToName.ContainsKey(gridIndex))
+                {
+                    indeciesToName[gridIndex] = new Dictionary<int, string>();
+                }
+
+                indeciesToName[gridIndex].Add(panelIndex, context.Units[i].Unit.Model.Name);
+            }
+        }
+
+        for (int i = 0; i < 9; i++)
+        {
+            if (i >= 3 && i <= 5)
+            {
+                panels[i] = new Grid();
+                panels[i].AddColumn();
+                panels[i].AddRow(new Panel("") { Height = 6 }.NoBorder());
+                panels[i].AddRow(new Panel("") { Height = 6 }.NoBorder());
             }
             else
             {
-                panels[i] = new Panel("Empty") { Width = 25 }.BorderColor(Color.White);
+                panels[i] = new Grid();
+                panels[i].AddColumn();
+
+                if (indeciesToName.ContainsKey(i))
+                {
+                    if (indeciesToName[i].ContainsKey(0) && indeciesToName[i].ContainsKey(1))
+                    {
+                        if (indeciesToName[i][0] == indeciesToName[i][1])
+                        {
+                            panels[i].AddRow(new Panel(indeciesToName[i][0]) { Height = 6, Width = 25 }.BorderColor(Color.White));
+                        }
+                        else
+                        {
+                            panels[i].AddRow(new Panel(indeciesToName[i][0]) { Height = 3, Width = 25 }.BorderColor(Color.White));
+                            panels[i].AddRow(new Panel(indeciesToName[i][1]) { Height = 3, Width = 25 }.BorderColor(Color.White));
+                        }
+                    }
+                    else if (!indeciesToName[i].ContainsKey(1))
+                    {
+                        panels[i].AddRow(new Panel(indeciesToName[i][0]) { Height = 3, Width = 25 }.BorderColor(Color.White));
+                        panels[i].AddRow(new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White));
+                    }
+                    else
+                    {
+                        panels[i].AddRow(new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White));
+                        panels[i].AddRow(new Panel(indeciesToName[i][1]) { Height = 3, Width = 25 }.BorderColor(Color.White));
+                    }
+                }
+                else
+                {
+                    panels[i].AddRow(new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White));
+                    panels[i].AddRow(new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White));
+                }
             }
         }
 
-        for (int i = 0; i < context.UnitsPlacement.Length; i++)
-        {
-            foreach (var index in context.UnitsPlacement[i])
-            {
-                panels[GetIndex(index, context.Units[i].IsAlly)] = new Panel(context.Units[i].Unit.Model.Name) { Width = 25 }.BorderColor(Color.White);
-            }
-        }
-
-        for (int i = 0; i < context.UnitsPlacement.Length; i++)
-        {
-            if (context.UnitsPlacement[i].Length > 1)
-            {
-                panels[GetIndex(context.UnitsPlacement[i][0], context.Units[i].IsAlly)] = new Panel("") { Height = 2, Width = 25 }.NoBorder();
-                panels[GetIndex(context.UnitsPlacement[i][1], context.Units[i].IsAlly)] = new Panel(context.Units[i].Unit.Model.Name) { Height = 6, Width = 25 };
-            }
-        }
-
-        for (int i = 0; i <= 12; i += 3)
+        for (int i = 0; i <= 8; i += 3)
         {
             _grid.AddRow(panels[i], panels[i + 1], panels[i + 2]);
         }
-
-        //for (int j = 1; j <= 7; j++)
-        //{
-        //    if (j >= 3 && j <= 5)
-        //    {
-        //        _grid.AddRow(new Panel("").BorderColor(Color.Black), new Panel("").BorderColor(Color.Black), new Panel("").BorderColor(Color.Black));
-        //    }
-        //    else
-        //    {
-        //        _grid.AddRow(new Panel("222").BorderColor(Color.White), new Panel("222").BorderColor(Color.White), new Panel("222").BorderColor(Color.White));
-        //    }
-        //}
 
         var panel = new Panel(_grid).Header("Units").Expand();
         _layout["Battle"]["Turn"]["Units"].Update(panel);
         _displayContext.Refresh();
     }
 
-    private int GetIndex(int index, bool isAlly)
+    private int GetGridIndex(int index, bool isAlly)
     {
         if (isAlly)
         {
-            return index + 9;
-        }
-        else
-        {
-            int realIndex = index;
-            if (realIndex >= 3)
+            if (index >= 3)
             {
-                realIndex -= 3;
+                return index + 3;
             }
             else
             {
-                realIndex += 3;
+                return index + 6;
             }
+        }
 
-            return realIndex;
+        else
+        {
+            if (index >= 3)
+            {
+                return index - 3;
+            }
+            else
+            {
+                return index;
+            }
+        }
+    }
+
+    private int GetPanelIndex(int index, bool isAlly)
+    {
+        if (isAlly)
+        {
+            if (index >= 3)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        else
+        {
+            if (index >= 3)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
         }
     }
 }
