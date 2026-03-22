@@ -18,7 +18,7 @@
         if (attackerTurn.IsAlly)
         {
             ConsoleKeyInfo keyInfo;
-            _unitsPrinter.Select(0);
+            _unitsPrinter.ResetSelect();
 
             do
             {
@@ -26,19 +26,19 @@
 
                 if (keyInfo.Key == ConsoleKey.D)
                 {
-                    _unitsPrinter.Select(2);
+                    _unitsPrinter.SelectRight();
                 }
                 if (keyInfo.Key == ConsoleKey.A)
                 {
-                    _unitsPrinter.Select(-2);
+                    _unitsPrinter.SelectLeft();
                 }
                 if (keyInfo.Key == ConsoleKey.W)
                 {
-                    _unitsPrinter.Select(-1);
+                    _unitsPrinter.SelectUp();
                 }
                 if (keyInfo.Key == ConsoleKey.S)
                 {
-                    _unitsPrinter.Select(1);
+                    _unitsPrinter.SelectDown();
                 }
 
             } while (keyInfo.Key != ConsoleKey.Enter);

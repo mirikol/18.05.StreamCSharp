@@ -3,6 +3,12 @@ using System;
 
 public class UnitsPrinter : IPrinter
 {
+    private const int gridColumns = 3;
+    private const int gridsCount = 9;
+    private const int bigPanelHeight = 6;
+    private const int normalPanelHeight = 3;
+    private const int panelWidth = 25;
+
     private LiveDisplayContext _displayContext;
     private Layout _layout;
     private Grid _grid;
@@ -16,10 +22,169 @@ public class UnitsPrinter : IPrinter
         _layout = layout;
     }
 
-    public void Select(int offset)
+    public void ResetSelect()
     {
-        _panels[_selectIndex].BorderColor(Color.White);
-        _selectIndex = Math.Clamp(_selectIndex + offset, 0, _panels.Count - 1);
+        Select(0);
+    }
+
+    public void SelectUp()
+    {
+        int index = _selectIndex - 1;
+
+        if (!IsIndexValid(index))
+        {
+            return;
+        }
+
+        if (CheckNoUnitCell(index))
+        {
+            Select(-100);
+        }
+        else
+        {
+            Select(index);
+        }
+    }
+
+    public void SelectDown()
+    {
+        int index = _selectIndex + 1;
+
+        if (!IsIndexValid(index))
+        {
+            return;
+        }
+
+        if (CheckNoUnitCell(index))
+        {
+            Select(100);
+        }
+        else
+        {
+            Select(index);
+        }
+    }
+
+    public void SelectLeft()
+    {
+        int index = _selectIndex - 2;
+
+        if (!IsIndexValid(index))
+        {
+            if (IsIndexValid(index + 1) && CheckBigUnitCell(index + 1))
+            {
+                Select(index + 1);
+            }
+            return;
+        }
+
+        if (CheckNoUnitCell(index) && CheckNoUnitCell(index + 1))
+        {
+            SelectClosestUnit(_selectIndex - 1, -1);
+        }
+        else if (CheckNoUnitCell(index) || CheckNoUnitCell(index + 1))
+        {
+            if (CheckBigUnitCell(index + 1))
+            {
+                Select(index + 1);
+            }
+            return;
+        }
+        else
+        {
+            if (CheckBigUnitCell(index + 1))
+            {
+                Select(index + 1);
+            }
+            else
+            {
+                Select(index);
+            }
+        }
+    }
+
+    public void SelectRight()
+    {
+        int index = _selectIndex + 2;
+
+        if (!IsIndexValid(index))
+        {
+            if (IsIndexValid(index - 1) && CheckBigUnitCell(index - 1))
+            {
+                Select(index - 1);
+            }
+            return;
+        }
+
+        if (CheckNoUnitCell(index) && CheckNoUnitCell(index - 1))
+        {
+            SelectClosestUnit(_selectIndex + 1, 1);
+        }
+        else if (CheckNoUnitCell(index) || CheckNoUnitCell(index - 1))
+        {
+            if (CheckBigUnitCell(index - 1))
+            {
+                Select(index - 1);
+            }
+            return;
+        }
+        else
+        {
+            if (CheckBigUnitCell(index - 1) || CheckBigUnitCell(_selectIndex))
+            {
+                Select(index - 1);
+            }
+            else
+            {
+                Select(index);
+            }
+        }
+    }
+
+    private void SelectClosestUnit(int index, int direction)
+    {
+        while (IsIndexValid(index))
+        {
+            if (_panels[index].Header == null)
+            {
+                Select(index);
+                return;
+            }
+
+            index += direction;
+        }
+    }
+
+    private bool IsIndexValid(int index)
+    {
+        return index >= 0 && index <= _panels.Count - 1;
+    }
+
+    private bool CheckBigUnitCell(int index)
+    {
+        return _panels[index].Height == bigPanelHeight;
+    }
+
+    private bool CheckNoUnitCell(int index)
+    {
+        return _panels[index].Header?.Text == "Field";
+    }
+    private bool CheckEmptyCell(int index)
+    {
+        return _panels[index].Header?.Text == "";
+    }
+
+    private void Select(int index)
+    {
+        if (CheckEmptyCell(_selectIndex))
+        {
+            _panels[_selectIndex].BorderColor(Color.Gray);
+        }
+        else
+        {
+            _panels[_selectIndex].BorderColor(Color.White);
+        }
+        _selectIndex = Math.Clamp(index, 0, _panels.Count - 1);
         _panels[_selectIndex].BorderColor(Color.Green);
         _displayContext.Refresh();
     }
@@ -29,12 +194,12 @@ public class UnitsPrinter : IPrinter
         _panels.Clear();
         _grid = new Grid();
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < gridColumns; i++)
         {
             _grid.AddColumn();
         }
 
-        Grid[] panels = new Grid[9];
+        Grid[] panels = new Grid[gridsCount];
 
         Dictionary<int, Dictionary<int, string>> indeciesToName = new Dictionary<int, Dictionary<int, string>>();
         for (int i = 0; i < context.UnitsPlacement.Length; i++)
@@ -53,15 +218,15 @@ public class UnitsPrinter : IPrinter
             }
         }
 
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < gridsCount; i++)
         {
             if (i >= 3 && i <= 5)
             {
                 panels[i] = new Grid();
                 panels[i].AddColumn();
 
-                var panel1 = new Panel("") { Height = 6 }.NoBorder();
-                var panel2 = new Panel("") { Height = 6 }.NoBorder();
+                var panel1 = new Panel("") { Height = bigPanelHeight }.NoBorder().Header("Field");
+                var panel2 = new Panel("") { Height = bigPanelHeight }.NoBorder().Header("Field");
 
                 panels[i].AddRow(panel1);
                 panels[i].AddRow(panel2);
@@ -80,14 +245,14 @@ public class UnitsPrinter : IPrinter
                     {
                         if (indeciesToName[i][0] == indeciesToName[i][1])
                         {
-                            var panel3 = new Panel(indeciesToName[i][0]) { Height = 6, Width = 25 }.BorderColor(Color.White);
+                            var panel3 = new Panel(indeciesToName[i][0]) { Height = bigPanelHeight, Width = panelWidth }.BorderColor(Color.White);
                             panels[i].AddRow(panel3);
                             _panels.Add(panel3);
                         }
                         else
                         {
-                            var panel4 = new Panel(indeciesToName[i][0]) { Height = 3, Width = 25 }.BorderColor(Color.White);
-                            var panel5 = new Panel(indeciesToName[i][1]) { Height = 3, Width = 25 }.BorderColor(Color.White);
+                            var panel4 = new Panel(indeciesToName[i][0]) { Height = normalPanelHeight, Width = panelWidth }.BorderColor(Color.White);
+                            var panel5 = new Panel(indeciesToName[i][1]) { Height = normalPanelHeight, Width = panelWidth }.BorderColor(Color.White);
 
                             panels[i].AddRow(panel4);
                             panels[i].AddRow(panel5);
@@ -98,8 +263,8 @@ public class UnitsPrinter : IPrinter
                     }
                     else if (!indeciesToName[i].ContainsKey(1))
                     {
-                        var panel6 = new Panel(indeciesToName[i][0]) { Height = 3, Width = 25 }.BorderColor(Color.White);
-                        var panel7 = new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White);
+                        var panel6 = new Panel(indeciesToName[i][0]) { Height = normalPanelHeight, Width = panelWidth }.BorderColor(Color.White);
+                        var panel7 = new Panel("Empty") { Height = normalPanelHeight, Width = panelWidth }.BorderColor(Color.Gray).Header("");
 
                         panels[i].AddRow(panel6);
                         panels[i].AddRow(panel7);
@@ -109,8 +274,8 @@ public class UnitsPrinter : IPrinter
                     }
                     else
                     {
-                        var panel8 = new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White);
-                        var panel9 = new Panel(indeciesToName[i][1]) { Height = 3, Width = 25 }.BorderColor(Color.White);
+                        var panel8 = new Panel("Empty") { Height = normalPanelHeight, Width = panelWidth }.BorderColor(Color.Gray).Header("");
+                        var panel9 = new Panel(indeciesToName[i][1]) { Height = normalPanelHeight, Width = panelWidth }.BorderColor(Color.White);
 
                         panels[i].AddRow(panel8);
                         panels[i].AddRow(panel9);
@@ -121,8 +286,8 @@ public class UnitsPrinter : IPrinter
                 }
                 else
                 {
-                    var panel10 = new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White);
-                    var panel11 = new Panel("Empty") { Height = 3, Width = 25 }.BorderColor(Color.White);
+                    var panel10 = new Panel("Empty") { Height = normalPanelHeight, Width = panelWidth }.BorderColor(Color.Gray).Header("");
+                    var panel11 = new Panel("Empty") { Height = normalPanelHeight, Width = panelWidth }.BorderColor(Color.Gray).Header("");
 
                     panels[i].AddRow(panel10);
                     panels[i].AddRow(panel11);
@@ -133,7 +298,7 @@ public class UnitsPrinter : IPrinter
             }
         }
 
-        for (int i = 0; i <= 8; i += 3)
+        for (int i = 0; i <= gridsCount - 1; i += 3)
         {
             _grid.AddRow(panels[i], panels[i + 1], panels[i + 2]);
         }
