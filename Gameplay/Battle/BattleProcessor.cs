@@ -13,6 +13,8 @@
 
     public void Battle(UnitTurn[] turnCycle, UnitTurn[] enemies, UnitTurn[] allies, UnitTurn attackerTurn, Action onComplete)
     {
+        // Bold Yellow turn
+
         _printer.Print(turnCycle, attackerTurn);
 
         if (attackerTurn.IsAlly)
@@ -27,21 +29,27 @@
                 if (keyInfo.Key == ConsoleKey.D)
                 {
                     _unitsPrinter.SelectRight();
+                    // update stats and equip info
                 }
                 if (keyInfo.Key == ConsoleKey.A)
                 {
                     _unitsPrinter.SelectLeft();
+                    // update stats and equip info
                 }
                 if (keyInfo.Key == ConsoleKey.W)
                 {
                     _unitsPrinter.SelectUp();
+                    // update stats and equip info
                 }
                 if (keyInfo.Key == ConsoleKey.S)
                 {
                     _unitsPrinter.SelectDown();
+                    // update stats and equip info
                 }
 
             } while (keyInfo.Key != ConsoleKey.Enter);
+
+            // Get Select Index and select unit
         }
 
 

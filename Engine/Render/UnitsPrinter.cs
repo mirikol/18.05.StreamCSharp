@@ -185,7 +185,14 @@ public class UnitsPrinter : IPrinter
             _panels[_selectIndex].BorderColor(Color.White);
         }
         _selectIndex = Math.Clamp(index, 0, _panels.Count - 1);
-        _panels[_selectIndex].BorderColor(Color.Green);
+        if (CheckEmptyCell(_selectIndex))
+        {
+            _panels[_selectIndex].BorderColor(Color.Red);
+        }
+        else
+        {
+            _panels[_selectIndex].BorderColor(Color.Green);
+        }
         _displayContext.Refresh();
     }
 
