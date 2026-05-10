@@ -1,0 +1,5 @@
+{
+  "$type": "AttackSkill",
+  "Name": "[red]Attack[/]",
+  "Description": "Common attack"
+}

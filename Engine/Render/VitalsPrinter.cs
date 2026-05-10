@@ -118,25 +118,6 @@ public class VitalsPrinter : IPrinter
             }
         }
 
-        //table.AddRow("[darkorange]Меч благодати[/]", "Атака: 9999, Защита: 9999");
-        //table.AddEmptyRow();
-        //table.AddRow($"[cyan]Щит безумия[/]", "Атака: 5000, Защита: -700");
-        //table.AddEmptyRow();
-        //table.AddRow($"[gray]Перчатки[/]", "Атака: 1, Защита: 1");
-        //table.AddEmptyRow();
-        //table.AddRow($"4", "345346346346");
-        //table.AddEmptyRow();
-        //table.AddRow($"5", "345346346346");
-        //table.AddEmptyRow();
-        //table.AddRow($"6", "345346346346");
-        //table.AddEmptyRow();
-        //table.AddRow($"7", "345346346346");
-        //table.AddEmptyRow();
-        //table.AddRow($"8", "345346346346");
-        //table.AddEmptyRow();
-
-        // 23 +-
-
         _layout["Info"]["Vitals"].Update(panel);
         _displayContext.Refresh();
     }

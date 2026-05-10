@@ -4,6 +4,7 @@ public class UnitSave
 {
     public List<ArmorSave> Armors { get; private set; }
     public List<WeaponSave> Weapons { get; private set; }
+    public List<SkillSave> Skills { get; private set; }
 
     public string UnitModelName { get; private set; }
 
@@ -11,12 +12,13 @@ public class UnitSave
     private UnitModel _unitModel;
 
     [JsonConstructor]
-    public UnitSave(List<ArmorSave> armors, List<WeaponSave> weapons, string unitModelName)
+    public UnitSave(List<ArmorSave> armors, List<WeaponSave> weapons, List<SkillSave> skills, string unitModelName)
     {
         Armors = new List<ArmorSave>(armors);
         Weapons = new List<WeaponSave>(weapons);
-        UnitModelName = unitModelName;
+        Skills = new List<SkillSave>(skills);
 
+        UnitModelName = unitModelName;
         _unitModel = SaveLoad<UnitModel>.Load(UnitModelName);
     }
 }
@@ -54,5 +56,20 @@ public struct WeaponSave
         BodyPart = bodyPart;
 
         _weapon = SaveLoad<IWeapon>.Load(weaponName);
+    }
+}
+
+public struct SkillSave
+{
+    public string SkillName { get; private set; }
+
+    private ISkill _skill;
+    public ISkill Skill => _skill;
+
+    [JsonConstructor]
+    public SkillSave(string skillName)
+    {
+        SkillName = skillName;
+        _skill = SaveLoad<ISkill>.Load(skillName);
     }
 }

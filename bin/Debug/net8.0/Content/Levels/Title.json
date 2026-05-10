@@ -7,8 +7,8 @@
     "Григорий",
     "Михаил"
   ],
-  "PlayerUnitsPlacements" : [[0], [1]],
-  "EnemyUnitsPlacements" : [[0], [1, 4]],
+  "PlayerUnitsPlacements" : [[2, 5], [1, 4]],
+  "EnemyUnitsPlacements" : [[0, 3], [1]],
   "PlayerUnits": [],
   "EnemyUnits": []
 }

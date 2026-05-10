@@ -6,7 +6,8 @@
         {typeof(UnitModel), Path.Combine("Content", "Unit", "Model") },
         {typeof(IArmor), Path.Combine("Content", "Equipment", "Armor") },
         {typeof(IWeapon), Path.Combine("Content", "Equipment", "Weapon") },
-        {typeof(ArenaModel), Path.Combine("Content", "Levels") }
+        {typeof(ArenaModel), Path.Combine("Content", "Levels") },
+        {typeof(ISkill), Path.Combine("Content", "Skills") }
     };
 
     public static T Load(string name)

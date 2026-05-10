@@ -10,5 +10,10 @@
       "BodyPart": 3
     }
   ],
-  "UnitModelName": "Михаил"
+  "UnitModelName": "Михаил",
+  "Skills" : [
+    {
+      "SkillName" : "Attack"
+    }
+  ]
 }

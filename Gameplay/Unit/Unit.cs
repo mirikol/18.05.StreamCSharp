@@ -35,6 +35,9 @@
     private int[] _placement;
     public int[] Placement => _placement;
 
+    private List<ISkill> _skills;
+    public ISkill[] Skills => _skills.ToArray();
+
     public int BaseDamage
     {
         get
@@ -161,10 +164,12 @@
         }
     }
 
-    public Unit(UnitModel model, int[] placement)
+    public Unit(UnitModel model, int[] placement, List<ISkill> skills)
     {
         _placement = new int[placement.Length];
         placement.CopyTo(_placement, 0);
+
+        _skills = new List<ISkill>(skills);
 
         _model = model;
 
@@ -211,34 +216,34 @@
 
     public void Render()
     {
-        foreach (var bodyPart in _bodyParts)
-        {
-            string status = bodyPart.Value.Health <= 0 ? _destroyedBodyPartStatus :
-                          bodyPart.Value.Health < bodyPart.Value.MaxHealth * 0.6 ? bodyPart.Value.Health < bodyPart.Value.MaxHealth * 0.3 ? _criticalBodyPartStatus : _hurtBodyPartStatus : _normalBodyPartStatus;
+        //foreach (var bodyPart in _bodyParts)
+        //{
+        //    string status = bodyPart.Value.Health <= 0 ? _destroyedBodyPartStatus :
+        //                  bodyPart.Value.Health < bodyPart.Value.MaxHealth * 0.6 ? bodyPart.Value.Health < bodyPart.Value.MaxHealth * 0.3 ? _criticalBodyPartStatus : _hurtBodyPartStatus : _normalBodyPartStatus;
 
-            Console.ForegroundColor = GetStatusColor(status);
-            Console.WriteLine($"{bodyPart.Key,-12}: [{bodyPart.Value.Health,2}/{bodyPart.Value.MaxHealth,2}] {GetHealthBar(bodyPart.Value)} {status}");
-            Console.ResetColor();
-        }
+        //    Console.ForegroundColor = GetStatusColor(status);
+        //    Console.WriteLine($"{bodyPart.Key,-12}: [{bodyPart.Value.Health,2}/{bodyPart.Value.MaxHealth,2}] {GetHealthBar(bodyPart.Value)} {status}");
+        //    Console.ResetColor();
+        //}
 
-        string GetHealthBar(BodyPart bodyPart)
-        {
-            int barLength = 10;
-            int filled = (int)Math.Round((double)bodyPart.Health / bodyPart.MaxHealth * barLength);
-            filled = Math.Max(0, Math.Min(filled, barLength));
+        //string GetHealthBar(BodyPart bodyPart)
+        //{
+        //    int barLength = 10;
+        //    int filled = (int)Math.Round((double)bodyPart.Health / bodyPart.MaxHealth * barLength);
+        //    filled = Math.Max(0, Math.Min(filled, barLength));
 
-            return new string(_healthBarFillChar, filled) + new string('_', barLength - filled);
-        }
+        //    return new string(_healthBarFillChar, filled) + new string('_', barLength - filled);
+        //}
 
-        ConsoleColor GetStatusColor(string status)
-        {
-            return status switch
-            {
-                _destroyedBodyPartStatus => ConsoleColor.DarkRed,
-                _criticalBodyPartStatus => ConsoleColor.Red,
-                _hurtBodyPartStatus => ConsoleColor.Yellow,
-                _ => ConsoleColor.Green
-            };
-        }
+        //ConsoleColor GetStatusColor(string status)
+        //{
+        //    return status switch
+        //    {
+        //        _destroyedBodyPartStatus => ConsoleColor.DarkRed,
+        //        _criticalBodyPartStatus => ConsoleColor.Red,
+        //        _hurtBodyPartStatus => ConsoleColor.Yellow,
+        //        _ => ConsoleColor.Green
+        //    };
+        //}
     }
 }

@@ -19,5 +19,13 @@
       "BodyPart": 3
     }
   ],
-  "UnitModelName": "Тимур"
+  "UnitModelName": "Тимур",
+  "Skills" : [
+    {
+      "SkillName" : "Attack"
+    },
+    {
+      "SkillName" : "Null"
+    }
+  ]
 }

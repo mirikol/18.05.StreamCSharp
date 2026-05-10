@@ -5,14 +5,16 @@
     private TurnPrinter _turnPrinter;
     private StatsPrinter _statsPrinter;
     private VitalsPrinter _vitalsPrinter;
+    private SkillsPrinter _skillsPrinter;
 
-    public BattleProcessor(UnitsPrinter unitsPrinter, GameplayLogPrinter gameplayLogPrinter, TurnPrinter turnPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter)
+    public BattleProcessor(UnitsPrinter unitsPrinter, GameplayLogPrinter gameplayLogPrinter, TurnPrinter turnPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, SkillsPrinter skillsPrinter)
     {
         _unitsPrinter = unitsPrinter;
         _gameplayLogPrinter = gameplayLogPrinter;
         _turnPrinter = turnPrinter;
         _statsPrinter = statsPrinter;
         _vitalsPrinter = vitalsPrinter;
+        _skillsPrinter = skillsPrinter;
     }
 
     public void Battle(UnitTurn[] turnCycle, UnitTurn[] enemies, UnitTurn[] allies, UnitTurn attackerTurn, Action onComplete)
@@ -38,41 +40,8 @@
                 {
                     keyInfo = Console.ReadKey(true);
 
-                    if (keyInfo.Key == ConsoleKey.D)
-                    {
-                        _unitsPrinter.SelectRight();
-                        // update stats and equip info
-                    }
-                    if (keyInfo.Key == ConsoleKey.A)
-                    {
-                        _unitsPrinter.SelectLeft();
-                        // update stats and equip info
-                    }
-                    if (keyInfo.Key == ConsoleKey.W)
-                    {
-                        _unitsPrinter.SelectUp();
-                        // update stats and equip info
-                    }
-                    if (keyInfo.Key == ConsoleKey.S)
-                    {
-                        _unitsPrinter.SelectDown();
-                        // update stats and equip info
-                    }
-                    if (keyInfo.Key == ConsoleKey.RightArrow)
-                    {
-                        _vitalsPrinter.SwiitchPrintMode();
-                    }
-
-                    if (FindUnitByName(turnCycle, _unitsPrinter.GetSelectedUnitName(), out Unit unit))
-                    {
-                        _statsPrinter.Print(new StatsContext(unit));
-                        _vitalsPrinter.Print(new VitalsContext(unit));
-                    }
-                    else
-                    {
-                        _statsPrinter.Reset();
-                        _vitalsPrinter.Reset();
-                    }
+                    ProcessKey(keyInfo);
+                    UpdatePlayerInfo(turnCycle);
 
                 } while (keyInfo.Key != ConsoleKey.Enter);
 
@@ -84,7 +53,7 @@
                     }
                     else
                     {
-                        new AttackCommand(_gameplayLogPrinter, attackerTurn.Unit, selectedUnit, BodyPartName.Head, UnitUtility.GetFlatDamage(attackerTurn.Unit.BaseDamage, attackerTurn.Unit, selectedUnit), 0).Execute();
+                        Turn(attackerTurn.Unit, selectedUnit);
                         successfulSelect = true;
                     }
                 }
@@ -125,6 +94,72 @@
         }
 
         onComplete();
+    }
+
+    private void Turn(Unit attackerUnit, Unit selectedUnit)
+    {
+        ConsoleKeyInfo keyInfo;
+        _skillsPrinter.Print(new SkillsContext(attackerUnit.Skills));
+
+        do
+        {
+            keyInfo = Console.ReadKey(true);
+
+            if (keyInfo.Key == ConsoleKey.W)
+            {
+                _skillsPrinter.SelectUp();
+            }
+            if (keyInfo.Key == ConsoleKey.S)
+            {
+                _skillsPrinter.SelectDown();
+            }
+
+        } while (keyInfo.Key != ConsoleKey.Enter);
+
+        ISkill skill = _skillsPrinter.GetSkillFromSelected();
+        skill.Initialize(attackerUnit, new List<Unit>() { selectedUnit });
+        skill.Execute(_gameplayLogPrinter);
+
+        _skillsPrinter.Clear();
+        //new AttackCommand(_gameplayLogPrinter, attackerUnit, selectedUnit, BodyPartName.Head, UnitUtility.GetFlatDamage(attackerUnit.BaseDamage, attackerUnit, selectedUnit), 100).Execute();
+    }
+
+    private void ProcessKey(ConsoleKeyInfo keyInfo)
+    {
+        if (keyInfo.Key == ConsoleKey.D)
+        {
+            _unitsPrinter.SelectRight();
+        }
+        if (keyInfo.Key == ConsoleKey.A)
+        {
+            _unitsPrinter.SelectLeft();
+        }
+        if (keyInfo.Key == ConsoleKey.W)
+        {
+            _unitsPrinter.SelectUp();
+        }
+        if (keyInfo.Key == ConsoleKey.S)
+        {
+            _unitsPrinter.SelectDown();
+        }
+        if (keyInfo.Key == ConsoleKey.RightArrow)
+        {
+            _vitalsPrinter.SwiitchPrintMode();
+        }
+    }
+
+    private void UpdatePlayerInfo(UnitTurn[] turnCycle)
+    {
+        if (FindUnitByName(turnCycle, _unitsPrinter.GetSelectedUnitName(), out Unit unit))
+        {
+            _statsPrinter.Print(new StatsContext(unit));
+            _vitalsPrinter.Print(new VitalsContext(unit));
+        }
+        else
+        {
+            _statsPrinter.Reset();
+            _vitalsPrinter.Reset();
+        }
     }
 
     private bool FindUnitByName(UnitTurn[] unitTurns, string name, out Unit unit)

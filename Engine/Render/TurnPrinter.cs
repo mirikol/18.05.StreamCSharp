@@ -1,4 +1,4 @@
-﻿public class TurnPrinter
+﻿public class TurnPrinter : IPrinter
 {
     private const ConsoleColor _playerColor = ConsoleColor.Green;
     private const ConsoleColor _enemyColor = ConsoleColor.DarkCyan;

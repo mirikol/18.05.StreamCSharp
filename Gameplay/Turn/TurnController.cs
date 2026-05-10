@@ -12,9 +12,9 @@
 
     private BattleProcessor _battleProcessor;
 
-    public TurnController(GameplayLogPrinter gameplayLogPrinter, UnitsPrinter unitsPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, TurnPrinter printer, IReadOnlyCollection<Unit> allyUnits, IReadOnlyCollection<Unit> enemyUnits)
+    public TurnController(GameplayLogPrinter gameplayLogPrinter, UnitsPrinter unitsPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, SkillsPrinter skillsPrinter, TurnPrinter printer, IReadOnlyCollection<Unit> allyUnits, IReadOnlyCollection<Unit> enemyUnits)
     {
-        _battleProcessor = new BattleProcessor(unitsPrinter, gameplayLogPrinter, printer, statsPrinter, vitalsPrinter);
+        _battleProcessor = new BattleProcessor(unitsPrinter, gameplayLogPrinter, printer, statsPrinter, vitalsPrinter, skillsPrinter);
 
         CreateTurnCycle(allyUnits, enemyUnits);
         _enemies[1].Unit.BodyParts[BodyPartName.Body].TakeDamage(50);

@@ -7,15 +7,17 @@ public class GameRender
     private UnitsPrinter _unitsPrinter;
     private StatsPrinter _statsPrinter;
     private VitalsPrinter _vitalsPrinter;
+    private SkillsPrinter _skillsPrinter;
 
     private Layout _layout;
 
-    public GameRender(GameplayLogPrinter gameplayLogPrinter, UnitsPrinter unitsPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter)
+    public GameRender(GameplayLogPrinter gameplayLogPrinter, UnitsPrinter unitsPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, SkillsPrinter skillsPrinter)
     {
         _gameplayLogPrinter = gameplayLogPrinter;
         _unitsPrinter = unitsPrinter;
         _statsPrinter = statsPrinter;
         _vitalsPrinter = vitalsPrinter;
+        _skillsPrinter = skillsPrinter;
 
         InitializeLayout();
         StartRender();
@@ -41,7 +43,7 @@ public class GameRender
                        new Layout("Stats").Ratio(1)
                    )
            );
-        _layout["Battle"]["Turn"]["Misc"].Update(new Panel("").Expand().BorderColor(Color.Black));
+        _layout["Battle"]["Turn"]["Misc"].Update(new Panel("Turn order").Expand());
     }
 
     private void StartRender()
@@ -54,6 +56,7 @@ public class GameRender
                 _unitsPrinter.Initialize(ctx, _layout);
                 _statsPrinter.Initialize(ctx, _layout);
                 _vitalsPrinter.Initialize(ctx, _layout);
+                _skillsPrinter.Initialize(ctx, _layout);
                 while (true) Thread.Sleep(1000);
             });
     }

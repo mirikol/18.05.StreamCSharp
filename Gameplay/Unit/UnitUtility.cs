@@ -10,7 +10,7 @@
 
     public static Unit CreateUnit(UnitSave unitSave, int[] placement)
     {
-        Unit unit = new Unit(unitSave.UnitModel, placement);
+        Unit unit = new Unit(unitSave.UnitModel, placement, unitSave.Skills.Select(skillSave => skillSave.Skill).ToList());
 
         foreach (var weapon in unitSave.Weapons)
         {
