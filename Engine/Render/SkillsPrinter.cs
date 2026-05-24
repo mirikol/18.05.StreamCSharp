@@ -11,10 +11,10 @@ public class SkillsPrinter : IPrinter
     {
         _displayContext = context;
         _layout = layout;
-        Clear();
+        Reset();
     }
 
-    public void Clear()
+    public void Reset()
     {
         _selectedSkillIndex = 0;
         Text text = new Text("Select the unit.", Color.Gray);

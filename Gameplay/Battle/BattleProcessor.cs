@@ -53,8 +53,14 @@
                     }
                     else
                     {
-                        Turn(attackerTurn.Unit, selectedUnit);
-                        successfulSelect = true;
+                        if (TryTurn(attackerTurn.Unit, selectedUnit))
+                        {
+                            successfulSelect = true;
+                        }
+                        else
+                        {
+                            _skillsPrinter.Reset();
+                        }
                     }
                 }
                 else
@@ -96,7 +102,7 @@
         onComplete();
     }
 
-    private void Turn(Unit attackerUnit, Unit selectedUnit)
+    private bool TryTurn(Unit attackerUnit, Unit selectedUnit)
     {
         ConsoleKeyInfo keyInfo;
         _skillsPrinter.Print(new SkillsContext(attackerUnit.Skills));
@@ -113,6 +119,11 @@
             {
                 _skillsPrinter.SelectDown();
             }
+            if (keyInfo.Key == ConsoleKey.Escape)
+            {
+                _gameplayLogPrinter.Print(new LogContext($"Ход от юнита {attackerUnit.Model.Name} к юниту {selectedUnit.Model.Name} был прерван"));
+                return false;
+            }
 
         } while (keyInfo.Key != ConsoleKey.Enter);
 
@@ -120,7 +131,8 @@
         skill.Initialize(attackerUnit, new List<Unit>() { selectedUnit });
         skill.Execute(_gameplayLogPrinter);
 
-        _skillsPrinter.Clear();
+        _skillsPrinter.Reset();
+        return true;
         //new AttackCommand(_gameplayLogPrinter, attackerUnit, selectedUnit, BodyPartName.Head, UnitUtility.GetFlatDamage(attackerUnit.BaseDamage, attackerUnit, selectedUnit), 100).Execute();
     }
 

@@ -1,5 +1,6 @@
 ﻿internal class Program
 {
+    public static Action<BattleState> LevelHasFinished;
     private static async Task Main()
     {
         try
@@ -71,9 +72,13 @@
                 Thread.Sleep(1500);
                 Arena arena = new Arena(gameplayLogPrinter, unitsPrinter, statsPrinter, vitalsPrinter, skillsPrinter, SaveLoad<ArenaModel>.Load("Title"));
                 arena.Start();
+
+                LevelHasFinished?.Invoke(arena.State);
             });
 
             GameRender render = new GameRender(gameplayLogPrinter, unitsPrinter, statsPrinter, vitalsPrinter, skillsPrinter);
+
+            Console.WriteLine("Loading...");
         }
         catch (Exception ex)
         {

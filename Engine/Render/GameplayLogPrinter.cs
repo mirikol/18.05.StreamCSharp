@@ -4,7 +4,8 @@ public class GameplayLogPrinter : IPrinter
 {
     private static readonly Dictionary<ConsoleColor, string> consoleColorsToSpectre = new Dictionary<ConsoleColor, string>
     {
-        {ConsoleColor.Red, "[red]"}
+        {ConsoleColor.Red, "[red]"},
+        {ConsoleColor.Green, "[green]"}
     };
 
     private LiveDisplayContext _displayContext;
@@ -24,14 +25,27 @@ public class GameplayLogPrinter : IPrinter
         _layout["Battle"]["Output"].Update(_outputPanel);
     }
 
+    public void PrintWinMessage(BattleState state)
+    {
+        if (state == BattleState.PlayerWins)
+        {
+            Print(new LogContext("Player win", ConsoleColor.Green));
+        }
+        else if (state == BattleState.EnemyWins)
+        {
+            Print(new LogContext("Enemy win", ConsoleColor.Red));
+        }
+    }
+
     public void Print(LogContext context)
     {
         context.Text = context.Text.Replace("[", "[[").Replace("]", "]]");
 
         _rows++;
-        if (_rows > 22)
+        if (_rows == 20)
         {
             _outputTable.RemoveRow(0);
+            _rows--;
         }
 
         if (consoleColorsToSpectre.ContainsKey(context.ForegroundColor))

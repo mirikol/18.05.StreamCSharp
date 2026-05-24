@@ -48,6 +48,22 @@
         _battleProcessor.Battle(_turnCycle, _enemies, _allies, attackerTurn, UpdateTurnCycle);
     }
 
+    public BattleState GetBattleState()
+    {
+        if (HasPlayerUnit && HasEnemyUnit)
+        {
+            return BattleState.Battle;
+        }
+        else if (HasPlayerUnit)
+        {
+            return BattleState.PlayerWins;
+        }
+        else
+        {
+            return BattleState.EnemyWins;
+        }
+    }
+
     private void CreateTurnCycle(IReadOnlyCollection<Unit> allyUnits, IReadOnlyCollection<Unit> enemyUnits)
     {
         var allUnits = allyUnits.Concat(enemyUnits).ToList();
