@@ -1,6 +1,7 @@
 ﻿
-public class NullSkill : ISkill
+public class NullSkill : ISkill, ISelfSkill
 {
+    public SkillMenu Menu => _menu;
     public string Name => _name;
     public string Description => _description;
 
@@ -8,6 +9,7 @@ public class NullSkill : ISkill
 
     public IReadOnlyList<Unit> Targets => throw new NotImplementedException();
 
+    private SkillMenu _menu;
     private string _name;
     private string _description;
 
@@ -17,13 +19,20 @@ public class NullSkill : ISkill
         _description = description;
     }
 
-    public void Initialize(Unit origin, IEnumerable<Unit> targets)
+    public void Initialize(SkillMenu menu, Unit origin, IEnumerable<Unit> targets)
     {
-        
+        _menu = menu;
     }
 
-    public void Execute(GameplayLogPrinter printer)
+    public bool TryExecute(GameplayLogPrinter printer)
     {
-        printer.Print(new LogContext("Nothing to do"));
+        _menu.Update("Skip", new string[] {"Хотите пропустить ход?"});
+        if (!_menu.TryGetChoice(out int selectedIndex))
+        {
+            return false;
+        }
+
+        printer.Print(new LogContext("Пропускаем ход"));
+        return true;
     }
 }

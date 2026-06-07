@@ -45,6 +45,11 @@ public class SkillsPrinter : IPrinter
             }
         }
 
+        if (context.Skills.Length == 0)
+        {
+            table.AddRow("Нет доступных скиллов.", "");
+        }
+
         Panel panel = new Panel(table).Header("Skills").Expand();
         _layout["Battle"]["Turn"]["Skill"].Update(panel);
         _displayContext.Refresh();

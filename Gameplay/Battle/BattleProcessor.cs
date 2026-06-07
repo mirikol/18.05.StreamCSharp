@@ -1,4 +1,6 @@
-﻿public class BattleProcessor
+﻿using Spectre.Console;
+
+public class BattleProcessor
 {
     private UnitsPrinter _unitsPrinter;
     private GameplayLogPrinter _gameplayLogPrinter;
@@ -6,8 +8,9 @@
     private StatsPrinter _statsPrinter;
     private VitalsPrinter _vitalsPrinter;
     private SkillsPrinter _skillsPrinter;
+    private SkillMenu _skillMenu;
 
-    public BattleProcessor(UnitsPrinter unitsPrinter, GameplayLogPrinter gameplayLogPrinter, TurnPrinter turnPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, SkillsPrinter skillsPrinter)
+    public BattleProcessor(UnitsPrinter unitsPrinter, GameplayLogPrinter gameplayLogPrinter, TurnPrinter turnPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, SkillsPrinter skillsPrinter, SkillMenu skillMenu)
     {
         _unitsPrinter = unitsPrinter;
         _gameplayLogPrinter = gameplayLogPrinter;
@@ -15,6 +18,7 @@
         _statsPrinter = statsPrinter;
         _vitalsPrinter = vitalsPrinter;
         _skillsPrinter = skillsPrinter;
+        _skillMenu = skillMenu;
     }
 
     public void Battle(UnitTurn[] turnCycle, UnitTurn[] enemies, UnitTurn[] allies, UnitTurn attackerTurn, Action onComplete)
@@ -49,19 +53,18 @@
                 {
                     if (selectedUnit == attackerTurn.Unit)
                     {
-                        _gameplayLogPrinter.Print(new LogContext("Пока что юнит не может выбирать сам себя :(", ConsoleColor.Red));
+                        SkillsFilter.Include(attackerTurn.Unit.Skills, new Type[] { typeof(ISelfSkill) });
+                    }
+
+                    if (TryTurn(attackerTurn.Unit, selectedUnit))
+                    {
+                        successfulSelect = true;
                     }
                     else
                     {
-                        if (TryTurn(attackerTurn.Unit, selectedUnit))
-                        {
-                            successfulSelect = true;
-                        }
-                        else
-                        {
-                            _skillsPrinter.Reset();
-                        }
+                        _skillsPrinter.Reset();
                     }
+
                 }
                 else
                 {
@@ -104,32 +107,40 @@
 
     private bool TryTurn(Unit attackerUnit, Unit selectedUnit)
     {
-        ConsoleKeyInfo keyInfo;
-        _skillsPrinter.Print(new SkillsContext(attackerUnit.Skills));
-
+        bool skillHasCompleted = false;
         do
         {
-            keyInfo = Console.ReadKey(true);
+            ConsoleKeyInfo keyInfo;
+            _skillsPrinter.Print(new SkillsContext(attackerUnit.Skills));
 
-            if (keyInfo.Key == ConsoleKey.W)
+            do
             {
-                _skillsPrinter.SelectUp();
-            }
-            if (keyInfo.Key == ConsoleKey.S)
-            {
-                _skillsPrinter.SelectDown();
-            }
-            if (keyInfo.Key == ConsoleKey.Escape)
-            {
-                _gameplayLogPrinter.Print(new LogContext($"Ход от юнита {attackerUnit.Model.Name} к юниту {selectedUnit.Model.Name} был прерван"));
-                return false;
-            }
+                keyInfo = Console.ReadKey(true);
 
-        } while (keyInfo.Key != ConsoleKey.Enter);
+                if (keyInfo.Key == ConsoleKey.W)
+                {
+                    _skillsPrinter.SelectUp();
+                }
+                if (keyInfo.Key == ConsoleKey.S)
+                {
+                    _skillsPrinter.SelectDown();
+                }
+                if (keyInfo.Key == ConsoleKey.Escape)
+                {
+                    _gameplayLogPrinter.Print(new LogContext($"Ход от юнита {attackerUnit.Model.Name} к юниту {selectedUnit.Model.Name} был прерван"));
+                    return false;
+                }
 
-        ISkill skill = _skillsPrinter.GetSkillFromSelected();
-        skill.Initialize(attackerUnit, new List<Unit>() { selectedUnit });
-        skill.Execute(_gameplayLogPrinter);
+            } while (keyInfo.Key != ConsoleKey.Enter);
+
+            ISkill skill = new NullSkill("Skip", "");
+            if (attackerUnit.Skills.Length > 0)
+            {
+                skill = _skillsPrinter.GetSkillFromSelected();
+            }
+            skill.Initialize(_skillMenu, attackerUnit, new List<Unit>() { selectedUnit });
+            skillHasCompleted = skill.TryExecute(_gameplayLogPrinter);
+        } while (!skillHasCompleted);
 
         _skillsPrinter.Reset();
         return true;

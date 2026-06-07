@@ -9,13 +9,13 @@
     private BattleState _state;
     public BattleState State => _state;
 
-    public Arena(GameplayLogPrinter gameplayLogPrinter, UnitsPrinter unitsPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, SkillsPrinter skillsPrinter, ArenaModel model)
+    public Arena(GameplayLogPrinter gameplayLogPrinter, UnitsPrinter unitsPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, SkillsPrinter skillsPrinter, ArenaModel model, SkillMenu skillMenu)
     {
         _gameplayLogPrinter = gameplayLogPrinter;
         _unitsPrinter = unitsPrinter;
 
         _model = model;
-        _turnController = new TurnController(_gameplayLogPrinter, _unitsPrinter, statsPrinter, vitalsPrinter, skillsPrinter, new TurnPrinter(_gameplayLogPrinter, _unitsPrinter), _model.PlayerUnits, _model.EnemyUnits);
+        _turnController = new TurnController(_gameplayLogPrinter, _unitsPrinter, statsPrinter, vitalsPrinter, skillsPrinter, new TurnPrinter(_gameplayLogPrinter, _unitsPrinter), _model.PlayerUnits, _model.EnemyUnits, skillMenu);
     }
 
     public void Start()

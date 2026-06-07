@@ -66,17 +66,18 @@
             StatsPrinter statsPrinter = new StatsPrinter();
             VitalsPrinter vitalsPrinter = new VitalsPrinter();
             SkillsPrinter skillsPrinter = new SkillsPrinter();
+            SkillMenu skillMenu = new SkillMenu();
 
             Task.Run(() =>
             {
                 Thread.Sleep(1500);
-                Arena arena = new Arena(gameplayLogPrinter, unitsPrinter, statsPrinter, vitalsPrinter, skillsPrinter, SaveLoad<ArenaModel>.Load("Title"));
+                Arena arena = new Arena(gameplayLogPrinter, unitsPrinter, statsPrinter, vitalsPrinter, skillsPrinter, SaveLoad<ArenaModel>.Load("Title"), skillMenu);
                 arena.Start();
 
                 LevelHasFinished?.Invoke(arena.State);
             });
 
-            GameRender render = new GameRender(gameplayLogPrinter, unitsPrinter, statsPrinter, vitalsPrinter, skillsPrinter);
+            GameRender render = new GameRender(gameplayLogPrinter, unitsPrinter, statsPrinter, vitalsPrinter, skillsPrinter, skillMenu);
 
             Console.WriteLine("Loading...");
         }

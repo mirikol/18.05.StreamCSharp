@@ -7,17 +7,19 @@ public class GameRender
     private StatsPrinter _statsPrinter;
     private VitalsPrinter _vitalsPrinter;
     private SkillsPrinter _skillsPrinter;
+    private SkillMenu _skillMenu;
 
     private Layout _layout;
     private bool _destroy = false;
 
-    public GameRender(GameplayLogPrinter gameplayLogPrinter, UnitsPrinter unitsPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, SkillsPrinter skillsPrinter)
+    public GameRender(GameplayLogPrinter gameplayLogPrinter, UnitsPrinter unitsPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, SkillsPrinter skillsPrinter, SkillMenu skillMenu)
     {
         _gameplayLogPrinter = gameplayLogPrinter;
         _unitsPrinter = unitsPrinter;
         _statsPrinter = statsPrinter;
         _vitalsPrinter = vitalsPrinter;
         _skillsPrinter = skillsPrinter;
+        _skillMenu = skillMenu;
 
         Program.LevelHasFinished += StopRender;
 
@@ -70,6 +72,7 @@ public class GameRender
                 _statsPrinter.Initialize(ctx, _layout);
                 _vitalsPrinter.Initialize(ctx, _layout);
                 _skillsPrinter.Initialize(ctx, _layout);
+                _skillMenu.Initialize(ctx, _layout);
                 while (!_destroy) Thread.Sleep(1000);
             });
     }
