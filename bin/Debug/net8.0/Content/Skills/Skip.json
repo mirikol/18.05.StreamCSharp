@@ -1,0 +1,5 @@
+{
+  "$type": "SkipSkill",
+  "Name": "[gray]Skip[/]",
+  "Description": "Skip turn"
+}

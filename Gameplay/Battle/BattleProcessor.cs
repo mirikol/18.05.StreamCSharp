@@ -31,10 +31,10 @@ public class BattleProcessor
         {
             ConsoleKeyInfo keyInfo;
             _unitsPrinter.ResetSelect();
-            if (FindUnitByName(turnCycle, _unitsPrinter.GetSelectedUnitName(), out Unit firstTurnUnit))
+            if (FindUnitByName(turnCycle, _unitsPrinter.GetSelectedUnitName(), out UnitTurn firstTurnUnit))
             {
-                _statsPrinter.Print(new StatsContext(firstTurnUnit));
-                _vitalsPrinter.Print(new VitalsContext(firstTurnUnit));
+                _statsPrinter.Print(new StatsContext(firstTurnUnit.Unit));
+                _vitalsPrinter.Print(new VitalsContext(firstTurnUnit.Unit));
             }
 
             bool successfulSelect = false;
@@ -49,14 +49,24 @@ public class BattleProcessor
 
                 } while (keyInfo.Key != ConsoleKey.Enter);
 
-                if (FindUnitByName(turnCycle, _unitsPrinter.GetSelectedUnitName(), out Unit selectedUnit))
+                if (FindUnitByName(turnCycle, _unitsPrinter.GetSelectedUnitName(), out UnitTurn selectedUnit))
                 {
-                    if (selectedUnit == attackerTurn.Unit)
+                    ISkill[] skills = attackerTurn.Unit.Skills;
+
+                    if (selectedUnit.Unit == attackerTurn.Unit)
                     {
-                        SkillsFilter.Include(attackerTurn.Unit.Skills, new Type[] { typeof(ISelfSkill) });
+                        skills = SkillsFilter.Include(attackerTurn.Unit.Skills, new Type[] { typeof(ISelfSkill) });
+                    }
+                    else if (attackerTurn.IsAlly && selectedUnit.IsAlly)
+                    {
+                        skills = SkillsFilter.Include(attackerTurn.Unit.Skills, new Type[] { typeof(IAllySkill) });
+                    }
+                    else
+                    {
+                        skills = SkillsFilter.Exclude(attackerTurn.Unit.Skills, new Type[] { typeof(ISelfSkill) });
                     }
 
-                    if (TryTurn(attackerTurn.Unit, selectedUnit))
+                    if (TryTurn(skills, attackerTurn.Unit, selectedUnit.Unit))
                     {
                         successfulSelect = true;
                     }
@@ -105,13 +115,13 @@ public class BattleProcessor
         onComplete();
     }
 
-    private bool TryTurn(Unit attackerUnit, Unit selectedUnit)
+    private bool TryTurn(ISkill[] skills, Unit attackerUnit, Unit selectedUnit)
     {
         bool skillHasCompleted = false;
         do
         {
             ConsoleKeyInfo keyInfo;
-            _skillsPrinter.Print(new SkillsContext(attackerUnit.Skills));
+            _skillsPrinter.Print(new SkillsContext(skills));
 
             do
             {
@@ -131,20 +141,16 @@ public class BattleProcessor
                     return false;
                 }
 
-            } while (keyInfo.Key != ConsoleKey.Enter);
+            } while (keyInfo.Key != ConsoleKey.Enter || skills.Length == 0);
 
-            ISkill skill = new NullSkill("Skip", "");
-            if (attackerUnit.Skills.Length > 0)
-            {
-                skill = _skillsPrinter.GetSkillFromSelected();
-            }
+            ISkill skill = _skillsPrinter.GetSkillFromSelected();
             skill.Initialize(_skillMenu, attackerUnit, new List<Unit>() { selectedUnit });
             skillHasCompleted = skill.TryExecute(_gameplayLogPrinter);
+
         } while (!skillHasCompleted);
 
         _skillsPrinter.Reset();
         return true;
-        //new AttackCommand(_gameplayLogPrinter, attackerUnit, selectedUnit, BodyPartName.Head, UnitUtility.GetFlatDamage(attackerUnit.BaseDamage, attackerUnit, selectedUnit), 100).Execute();
     }
 
     private void ProcessKey(ConsoleKeyInfo keyInfo)
@@ -173,10 +179,10 @@ public class BattleProcessor
 
     private void UpdatePlayerInfo(UnitTurn[] turnCycle)
     {
-        if (FindUnitByName(turnCycle, _unitsPrinter.GetSelectedUnitName(), out Unit unit))
+        if (FindUnitByName(turnCycle, _unitsPrinter.GetSelectedUnitName(), out UnitTurn foundUnitTurn))
         {
-            _statsPrinter.Print(new StatsContext(unit));
-            _vitalsPrinter.Print(new VitalsContext(unit));
+            _statsPrinter.Print(new StatsContext(foundUnitTurn.Unit));
+            _vitalsPrinter.Print(new VitalsContext(foundUnitTurn.Unit));
         }
         else
         {
@@ -185,11 +191,11 @@ public class BattleProcessor
         }
     }
 
-    private bool FindUnitByName(UnitTurn[] unitTurns, string name, out Unit unit)
+    private bool FindUnitByName(UnitTurn[] unitTurns, string name, out UnitTurn foundUnitTurn)
     {
         if (string.IsNullOrEmpty(name))
         {
-            unit = null;
+            foundUnitTurn = UnitTurn.NULL;
             return false;
         }
 
@@ -197,12 +203,12 @@ public class BattleProcessor
         {
             if (unitTurn.Unit.Model.Name == name)
             {
-                unit = unitTurn.Unit;
+                foundUnitTurn = unitTurn;
                 return true;
             }
         }
 
-        unit = null;
+        foundUnitTurn = UnitTurn.NULL;
         return false;
     }
 

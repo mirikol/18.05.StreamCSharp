@@ -1,5 +1,8 @@
 ﻿public struct UnitTurn
 {
+    public static UnitTurn NULL => _null;
+    private static readonly UnitTurn _null = new UnitTurn();
+
     public UnitTurn(Unit unit, bool isAlly, bool canTurn, int order)
     {
         _unit = unit;

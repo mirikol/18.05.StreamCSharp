@@ -37,138 +37,78 @@ public class UnitsPrinter : IPrinter
     {
         int index = _selectIndex - 1;
 
-        if (!IsIndexValid(index))
+        if ((_selectIndex + CountBigUnitCellsBetween(0, _selectIndex, false)) % 2 == 0 && _selectIndex > 6)
         {
-            return;
+            index = _selectIndex - 12 + CountBigUnitCellsBetween(_selectIndex - 12, _selectIndex, true);
         }
 
-        if (CheckNoUnitCell(index))
-        {
-            Select(-100);
-        }
-        else
-        {
-            Select(index);
-        }
+        Select(index);
     }
 
     public void SelectDown()
     {
         int index = _selectIndex + 1;
 
-        if (!IsIndexValid(index))
+        if ((_selectIndex + CountBigUnitCellsBetween(0, _selectIndex, true)) % 2 == 1 && _selectIndex < 6)
         {
-            return;
+            index = _selectIndex + 12 - CountBigUnitCellsBetween(_selectIndex, _selectIndex + 12, false);
         }
 
-        if (CheckNoUnitCell(index))
-        {
-            Select(100);
-        }
-        else
-        {
-            Select(index);
-        }
+        Select(index);
     }
 
     public void SelectLeft()
     {
         int index = _selectIndex - 2;
 
-        if (!IsIndexValid(index))
+        if (CheckBigUnitCell(_selectIndex - 1))
         {
-            if (IsIndexValid(index + 1) && CheckBigUnitCell(index + 1))
-            {
-                Select(index + 1);
-            }
-            return;
+            index = _selectIndex - 1;
         }
 
-        if (CheckNoUnitCell(index) && CheckNoUnitCell(index + 1))
-        {
-            SelectClosestUnit(_selectIndex - 1, -1);
-        }
-        else if (CheckNoUnitCell(index) || CheckNoUnitCell(index + 1))
-        {
-            if (CheckBigUnitCell(index + 1))
-            {
-                Select(index + 1);
-            }
-            return;
-        }
-        else
-        {
-            if (CheckBigUnitCell(index + 1))
-            {
-                Select(index + 1);
-            }
-            else
-            {
-                Select(index);
-            }
-        }
+        Select(index);
     }
 
     public void SelectRight()
     {
         int index = _selectIndex + 2;
 
-        if (!IsIndexValid(index))
+        if (CheckBigUnitCell(_selectIndex + 1))
         {
-            if (IsIndexValid(index - 1) && CheckBigUnitCell(index - 1))
-            {
-                Select(index - 1);
-            }
-            return;
+            index = _selectIndex + 1;
         }
 
-        if (CheckNoUnitCell(index) && CheckNoUnitCell(index - 1))
-        {
-            SelectClosestUnit(_selectIndex + 1, 1);
-        }
-        else if (CheckNoUnitCell(index) || CheckNoUnitCell(index - 1))
-        {
-            if (CheckBigUnitCell(index - 1))
-            {
-                Select(index - 1);
-            }
-            return;
-        }
-        else
-        {
-            if (CheckBigUnitCell(index - 1) || CheckBigUnitCell(_selectIndex))
-            {
-                Select(index - 1);
-            }
-            else
-            {
-                Select(index);
-            }
-        }
-    }
-
-    private void SelectClosestUnit(int index, int direction)
-    {
-        while (IsIndexValid(index))
-        {
-            if (_panels[index].Header == null)
-            {
-                Select(index);
-                return;
-            }
-
-            index += direction;
-        }
+        Select(index);
     }
 
     private bool IsIndexValid(int index)
     {
-        return index >= 0 && index <= _panels.Count - 1;
+        return index >= 0 && index <= _panels.Count - 1 && !CheckNoUnitCell(index);
+    }
+    
+    private int CountBigUnitCellsBetween(int startIndex, int endIndex, bool includeSelf)
+    {
+        int count = 0;
+
+        if (includeSelf)
+        {
+            endIndex++;
+        }
+
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            if (IsIndexValid(i) && CheckBigUnitCell(i) && !CheckNoUnitCell(i))
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     private bool CheckBigUnitCell(int index)
     {
-        return _panels[index].Height == bigPanelHeight;
+        return IsIndexValid(index) && _panels[index].Height == bigPanelHeight;
     }
 
     private bool CheckNoUnitCell(int index)
@@ -182,6 +122,11 @@ public class UnitsPrinter : IPrinter
 
     private void Select(int index)
     {
+        if (!IsIndexValid(index))
+        {
+            return;
+        }
+
         if (CheckEmptyCell(_selectIndex))
         {
             _panels[_selectIndex].BorderColor(Color.Gray);

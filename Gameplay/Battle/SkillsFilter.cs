@@ -1,6 +1,6 @@
 ﻿public static class SkillsFilter
 {
-    public static void Exclude(ISkill[] skills, Type[] types)
+    public static ISkill[] Exclude(ISkill[] skills, Type[] types)
     {
         List<ISkill> result = new List<ISkill>();
         foreach (ISkill skill in skills)
@@ -21,10 +21,10 @@
             }
         }
 
-        skills = result.ToArray();
+        return result.ToArray();
     }
 
-    public static void Include(ISkill[] skills, Type[] types)
+    public static ISkill[] Include(ISkill[] skills, Type[] types)
     {
         List<ISkill> result = new List<ISkill>();
         foreach (ISkill skill in skills)
@@ -45,6 +45,6 @@
             }
         }
 
-        skills = result.ToArray();
+        return result.ToArray();
     }
 }

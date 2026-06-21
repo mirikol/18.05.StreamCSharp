@@ -1,5 +1,5 @@
 ﻿
-public class NullSkill : ISkill, ISelfSkill
+public class SkipSkill : ISkill, ISelfSkill
 {
     public SkillMenu Menu => _menu;
     public string Name => _name;
@@ -13,7 +13,7 @@ public class NullSkill : ISkill, ISelfSkill
     private string _name;
     private string _description;
 
-    public NullSkill(string name, string description)
+    public SkipSkill(string name, string description)
     {
         _name = name;
         _description = description;

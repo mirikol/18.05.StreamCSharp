@@ -17,3 +17,7 @@ public interface ISelfSkill
 public interface IAttackSkill
 {
 }
+
+public interface IAllySkill
+{
+}
