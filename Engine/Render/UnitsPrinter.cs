@@ -85,7 +85,7 @@ public class UnitsPrinter : IPrinter
     {
         return index >= 0 && index <= _panels.Count - 1 && !CheckNoUnitCell(index);
     }
-    
+
     private int CountBigUnitCellsBetween(int startIndex, int endIndex, bool includeSelf)
     {
         int count = 0;
@@ -182,7 +182,10 @@ public class UnitsPrinter : IPrinter
                     unitTurnName = context.UnitTurn.Unit.Model.Name;
                 }
 
-                indeciesToName[gridIndex].Add(panelIndex, context.Units[i].Unit.Model.Name);
+                if (!indeciesToName[gridIndex].ContainsKey(panelIndex))
+                {
+                    indeciesToName[gridIndex].Add(panelIndex, context.Units[i].Unit.Model.Name);
+                }
             }
         }
 

@@ -20,7 +20,7 @@ public class GameplayLogPrinter : IPrinter
         _layout = layout;
         _rows = 0;
 
-        _outputTable = new Table().AddColumn("Text").AddColumn("Time").Border(TableBorder.None);
+        _outputTable = new Table().AddColumn("").AddColumn("").Border(TableBorder.None);
         _outputPanel = new Panel(_outputTable).Header("Printer").BorderColor(Color.White).Expand();
         _layout["Battle"]["Output"].Update(_outputPanel);
     }

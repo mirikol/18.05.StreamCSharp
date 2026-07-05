@@ -34,7 +34,6 @@
     private List<ISkill> _filteredSkills;
     public ISkill[] FilteredSkills => _filteredSkills.ToArray();
 
-
     public int BaseDamage
     {
         get

@@ -7,18 +7,20 @@ public class GameRender
     private StatsPrinter _statsPrinter;
     private VitalsPrinter _vitalsPrinter;
     private SkillsPrinter _skillsPrinter;
+    private TurnPrinter _turnPrinter;
     private SkillMenu _skillMenu;
 
     private Layout _layout;
     private bool _destroy = false;
 
-    public GameRender(GameplayLogPrinter gameplayLogPrinter, UnitsPrinter unitsPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, SkillsPrinter skillsPrinter, SkillMenu skillMenu)
+    public GameRender(GameplayLogPrinter gameplayLogPrinter, UnitsPrinter unitsPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, SkillsPrinter skillsPrinter, TurnPrinter turnPrinter, SkillMenu skillMenu)
     {
         _gameplayLogPrinter = gameplayLogPrinter;
         _unitsPrinter = unitsPrinter;
         _statsPrinter = statsPrinter;
         _vitalsPrinter = vitalsPrinter;
         _skillsPrinter = skillsPrinter;
+        _turnPrinter = turnPrinter;
         _skillMenu = skillMenu;
 
         Program.LevelHasFinished += StopRender;
@@ -47,7 +49,6 @@ public class GameRender
                        new Layout("Stats").Ratio(1)
                    )
            );
-        _layout["Battle"]["Turn"]["Misc"].Update(new Panel("Turn order").Expand());
     }
 
     private void StopRender(BattleState state)
@@ -56,6 +57,7 @@ public class GameRender
         _unitsPrinter.ResetSelect();
         _statsPrinter.Reset();
         _vitalsPrinter.Reset();
+        _turnPrinter.Reset();
         _skillsPrinter.Reset();
 
         _destroy = true;
@@ -72,6 +74,7 @@ public class GameRender
                 _statsPrinter.Initialize(ctx, _layout);
                 _vitalsPrinter.Initialize(ctx, _layout);
                 _skillsPrinter.Initialize(ctx, _layout);
+                _turnPrinter.Initialize(ctx, _layout);
                 _skillMenu.Initialize(ctx, _layout);
                 while (!_destroy) Thread.Sleep(1000);
             });

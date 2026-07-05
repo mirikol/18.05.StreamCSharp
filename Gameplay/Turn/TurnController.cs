@@ -11,13 +11,14 @@
     private UnitTurn[] _enemies => Array.FindAll(_turnCycle, turn => !turn.IsAlly);
 
     private BattleProcessor _battleProcessor;
+    private TurnPrinter _turnPrinter;
 
-    public TurnController(GameplayLogPrinter gameplayLogPrinter, UnitsPrinter unitsPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, SkillsPrinter skillsPrinter, TurnPrinter printer, IReadOnlyCollection<Unit> allyUnits, IReadOnlyCollection<Unit> enemyUnits, SkillMenu skillMenu)
+    public TurnController(GameplayLogPrinter gameplayLogPrinter, UnitsPrinter unitsPrinter, StatsPrinter statsPrinter, VitalsPrinter vitalsPrinter, TurnPrinter turnPrinter, SkillsPrinter skillsPrinter, IReadOnlyCollection<Unit> allyUnits, IReadOnlyCollection<Unit> enemyUnits, SkillMenu skillMenu)
     {
-        _battleProcessor = new BattleProcessor(unitsPrinter, gameplayLogPrinter, printer, statsPrinter, vitalsPrinter, skillsPrinter, skillMenu);
+        _battleProcessor = new BattleProcessor(unitsPrinter, gameplayLogPrinter, statsPrinter, vitalsPrinter, skillsPrinter, skillMenu);
+        _turnPrinter = turnPrinter;
 
         CreateTurnCycle(allyUnits, enemyUnits);
-        _enemies[1].Unit.BodyParts[BodyPartName.Body].TakeDamage(50);
     }
 
     public UnitTurn GetNextTurn()
@@ -45,6 +46,7 @@
 
     public void Turn(UnitTurn attackerTurn)
     {
+        _turnPrinter.Print(new UnitsContext(_turnCycle, attackerTurn));
         _battleProcessor.Battle(_turnCycle, _enemies, _allies, attackerTurn, UpdateTurnCycle);
     }
 

@@ -10,4 +10,10 @@
         UnitsPlacement = unitsPlacement;
         UnitTurn = unitTurn;
     }
+
+    public UnitsContext(UnitTurn[] units, UnitTurn unitTurn)
+    {
+        Units = units;
+        UnitTurn = unitTurn;
+    }
 }

@@ -1,6 +1,6 @@
 {
   "$type": "Sword",
-  "Name": "Golden sword",
+  "Name": "[yellow]Golden sword[/]",
   "Defense": 0,
   "Attack": 10,
   "Speed": 20,

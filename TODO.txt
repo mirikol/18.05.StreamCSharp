@@ -1,0 +1,5 @@
+1) JSON editor (remove/add/edit)
+2) Arena loads only enemies, allies load separately, from save.
+3) Save system.
+4) Lobby/menu.
+5) Startup logo.

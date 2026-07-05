@@ -1,72 +1,65 @@
-﻿public class TurnPrinter : IPrinter
+﻿using Spectre.Console;
+
+public class TurnPrinter : IPrinter
 {
-    private const ConsoleColor _playerColor = ConsoleColor.Green;
-    private const ConsoleColor _enemyColor = ConsoleColor.Red;
-    private const ConsoleColor _diedUnitColor = ConsoleColor.Red;
+    private LiveDisplayContext _displayContext;
+    private Layout _layout;
 
-    private GameplayLogPrinter _logPrinter;
-    private UnitsPrinter _unitsPrinter;
-
-    public TurnPrinter(GameplayLogPrinter logPrinter, UnitsPrinter unitsPrinter)
+    public void Initialize(LiveDisplayContext context, Layout layout)
     {
-        _logPrinter = logPrinter;
-        _unitsPrinter = unitsPrinter;
+        _displayContext = context;
+        _layout = layout;
+        Reset();
     }
 
-    public void Print(UnitTurn[] units, UnitTurn unitTurn)
+    public void Reset()
     {
-        var color = GetPrintColor(unitTurn);
-
-        PrintTurnTitle(unitTurn, color);
-        PrintUnits(units, unitTurn, color);
-
-        Console.WriteLine();
+        var panel = new Panel("").Header("Turn order").BorderColor(Color.White).Expand();
+        _layout["Battle"]["Turn"]["Misc"].Update(panel);
+        _displayContext.Refresh();
     }
 
-    private void PrintUnits(UnitTurn[] units, UnitTurn unitTurn, ConsoleColor color)
+    public void Print(UnitsContext context)
     {
-        _unitsPrinter.Print(new UnitsContext(units, units.Select(x => x.Unit.Placement).ToArray(), unitTurn));
-        //for (int i = 0; i < units.Length; i++)
-        //{
-        //    string unitName = units[i].Unit.Model.Name;
+        var table = new Table().AddColumn("").Border(TableBorder.None);
+        var panel = new Panel(table).Header("Turn order").BorderColor(Color.White).Expand();
 
-        //    if (i == unitTurn.Order)
-        //    {
-        //        unitName += " <<<";
-        //    }
+        foreach (var unitTurn in context.Units)
+        {
+            string unitName = unitTurn.Unit.Model.Name;
 
-        //    if (units[i].Unit.IsAlive)
-        //    {
-        //        _printer.Print(new LogContext(unitName, color));
-        //    }
-        //    else
-        //    {
-        //        _printer.Print(new LogContext(unitName + " [DEAD]", _diedUnitColor));
-        //    }
-        //}
-    }
+            if (unitTurn.Order == context.UnitTurn.Order)
+            {
+                unitName = $"{unitName} <<<";
+            }
 
-    private ConsoleColor GetPrintColor(UnitTurn unitTurn)
-    {
-        if (unitTurn.IsAlly)
-        {
-            return _playerColor;
-        }
-        else
-        {
-            return _enemyColor;
-        }
-    }
+            if (unitTurn.IsAlly)
+            {
+                if (unitTurn.Unit.IsAlive)
+                {
+                    unitName = $"[green]{unitName}[/]";
+                }
+                else
+                {
+                    unitName = $"[darkgreen]{unitName}[/]";
+                }
+            }
+            else
+            {
+                if (unitTurn.Unit.IsAlive)
+                {
+                    unitName = $"[red]{unitName}[/]";
+                }
+                else
+                {
+                    unitName = $"[darkred]{unitName}[/]";
+                }
+            }
 
-    private void PrintTurnTitle(UnitTurn unitTurn, ConsoleColor color)
-    {
-        if (unitTurn.IsAlly)
-        {
-            _logPrinter.Print(new LogContext("[YOUR TURN]", color));
+            table.AddRow(unitName);
         }
-        else
-        {
-            _logPrinter.Print(new LogContext("[ENEMY TURN]", color));
-        }
+
+        _layout["Battle"]["Turn"]["Misc"].Update(panel);
+        _displayContext.Refresh();
     }
 }
